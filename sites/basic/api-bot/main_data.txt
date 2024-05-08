@@ -1,0 +1,66 @@
+Array
+(
+    [update_id] => 529253715
+    [message] => Array
+        (
+            [message_id] => 4638
+            [from] => Array
+                (
+                    [id] => 815668656
+                    [is_bot] => 
+                    [first_name] => Gangrena
+                    [language_code] => ru
+                )
+
+            [chat] => Array
+                (
+                    [id] => 815668656
+                    [first_name] => Gangrena
+                    [type] => private
+                )
+
+            [date] => 1696782386
+            [media_group_id] => 13574259093627346
+            [photo] => Array
+                (
+                    [0] => Array
+                        (
+                            [file_id] => AgACAgIAAxkBAAISHmUi2DJz-mPBaDk-9Zwo3l2TzwJMAAIT1DEbGN4ZSeXyVuVpCAPaAQADAgADcwADMAQ
+                            [file_unique_id] => AQADE9QxGxjeGUl4
+                            [file_size] => 1068
+                            [width] => 90
+                            [height] => 40
+                        )
+
+                    [1] => Array
+                        (
+                            [file_id] => AgACAgIAAxkBAAISHmUi2DJz-mPBaDk-9Zwo3l2TzwJMAAIT1DEbGN4ZSeXyVuVpCAPaAQADAgADbQADMAQ
+                            [file_unique_id] => AQADE9QxGxjeGUly
+                            [file_size] => 15511
+                            [width] => 320
+                            [height] => 144
+                        )
+
+                    [2] => Array
+                        (
+                            [file_id] => AgACAgIAAxkBAAISHmUi2DJz-mPBaDk-9Zwo3l2TzwJMAAIT1DEbGN4ZSeXyVuVpCAPaAQADAgADeAADMAQ
+                            [file_unique_id] => AQADE9QxGxjeGUl9
+                            [file_size] => 76382
+                            [width] => 800
+                            [height] => 360
+                        )
+
+                    [3] => Array
+                        (
+                            [file_id] => AgACAgIAAxkBAAISHmUi2DJz-mPBaDk-9Zwo3l2TzwJMAAIT1DEbGN4ZSeXyVuVpCAPaAQADAgADeQADMAQ
+                            [file_unique_id] => AQADE9QxGxjeGUl-
+                            [file_size] => 136215
+                            [width] => 1280
+                            [height] => 576
+                        )
+
+                )
+
+        )
+
+)

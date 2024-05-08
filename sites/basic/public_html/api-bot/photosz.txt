@@ -1,0 +1,27 @@
+Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [name] => возврат товара.jpg
+            [path] => upload/photos/возврат товара.jpg
+            [object_id] => 2
+        )
+
+    [1] => Array
+        (
+            [id] => 2
+            [name] => дольщики.jpg
+            [path] => upload/photos/дольщики.jpg
+            [object_id] => 2
+        )
+
+    [2] => Array
+        (
+            [id] => 3
+            [name] => непродтовар.jpg
+            [path] => upload/photos/непродтовар.jpg
+            [object_id] => 2
+        )
+
+)

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Простой WebSocket клиент</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="socket.js" type="text/javascript"></script>
+</head>
+<body>
+    <div>
+        <span>Сервер</span>
+        <input id="server" type="text" value="" />
+    </div>
+    <div>
+        <input id="connect" type="button" value="Установить соединение" />
+        <input id="disconnect" type="button" value="Разорвать соединение" />
+    </div>
+    <div>
+        <span>Сообщение</span>
+        <input id="message" type="text" value="" />
+        <input id="send-msg" type="button" value="Отправить сообщение" />
+    </div>
+    <div>
+        <span>Информация</span>
+        <div id="socket-info"></div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    window.addEventListener('DOMContentLoaded', function () {
+
+    var socket;
+
+    // показать сообщение в #socket-info
+    function showMessage(message) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(message));
+        document.getElementById('socket-info').appendChild(div);
+    }
+
+    /*
+     * Установить соединение с сервером и назначить обработчики событий
+     */
+    document.getElementById('connect').onclick = function () {
+        // новое соединение открываем, если старое соединение закрыто
+        if (socket === undefined || socket.readyState !== 1) {
+            socket = new WebSocket(document.getElementById('server').value);
+        } else {
+            showMessage('Надо закрыть уже имеющееся соединение');
+        }
+
+        /*
+         * четыре функции обратного вызова: одна при получении данных и три – при изменениях в состоянии соединения
+         */
+        socket.onmessage = function (event) { // при получении данных от сервера
+            showMessage('Получено сообщение от сервера: ' + event.data);
+        }
+        socket.onopen = function () { // при установке соединения с сервером
+            showMessage('Соединение с сервером установлено');
+        }
+        socket.onerror = function(error) { // если произошла какая-то ошибка
+            showMessage('Произошла ошибка: ' + error.message);
+        };
+        socket.onclose = function(event) { // при закрытии соединения с сервером
+            showMessage('Соединение с сервером закрыто');
+            if (event.wasClean) {
+                showMessage('Соединение закрыто чисто');
+            } else {
+                showMessage('Обрыв соединения'); // например, «убит» процесс сервера
+            }
+            showMessage('Код: ' + event.code + ', причина: ' + event.reason);
+        };
+    };
+
+    /*
+     * Отправка сообщения серверу
+     */
+    document.getElementById('send-msg').onclick = function () {
+        if (socket !== undefined && socket.readyState === 1) {
+            var message = document.getElementById('message').value;
+            socket.send(message);
+            showMessage('Отправлено сообщение серверу: ' + message);
+        } else {
+            showMessage('Невозможно отправить сообщение, нет соединения');
+        }
+    };
+
+    /*
+     * Закрыть соединение с сервером
+     */
+    document.getElementById('disconnect').onclick = function () {
+        if (socket !== undefined && socket.readyState === 1) {
+            socket.close();
+        } else {
+            showMessage('Соединение с сервером уже было закрыто');
+        }
+    };
+
+});
+    
+</script>
+
+<style type="text/css">
+    
+    body > div {
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+span {
+    display: block;
+    margin-bottom: 2px;
+}
+input {
+    padding: 5px;
+    box-sizing: border-box;
+}
+input[type="text"] {
+    width: 100%;
+}
+input[type="button"] {
+    width: 25%;
+    float: left;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+div#socket-info {
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+</style>
+</html>
+

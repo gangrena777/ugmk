@@ -1,0 +1,8 @@
+Array
+(
+    [file_id] => AgACAgIAAxkBAAIOF2UG2LvmwLvpma4UF9FttbqXZtb0AAI_0TEbQv4wSMfAP3u8Q7STAQADAgADeQADMAQ
+    [file_unique_id] => AQADP9ExG0L-MEh-
+    [file_size] => 116567
+    [width] => 591
+    [height] => 1280
+)

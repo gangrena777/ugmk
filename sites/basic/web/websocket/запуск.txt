@@ -1,0 +1,7 @@
+
+\\запускаем в конселе
+php  -f websocket\index.php
+
+///открывает консоль в другом окне и запускаем telnet
+telnet
+open 127.0.0.1 7777    // ip  port

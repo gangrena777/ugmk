@@ -1,0 +1,19 @@
+Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [doc_name] => subscribe-mailchimp.php
+            [doc_path] => upload/documents/subscribe-mailchimp.php
+            [doc_object_id] => 2
+        )
+
+    [1] => Array
+        (
+            [id] => 2
+            [doc_name] => bot_1812.pdf
+            [doc_path] => upload/documents/1812.pdf
+            [doc_object_id] => 2
+        )
+
+)

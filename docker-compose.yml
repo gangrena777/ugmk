@@ -1,0 +1,93 @@
+﻿# Файл docker-compose должен начинаться с указания версии.
+version: '3'
+
+# Сети
+networks:
+    internal:
+
+# Ниже список наших сервисов (контейнеров). NGINX, PHP, MySQL, phpMyAdmin
+services:
+
+
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        container_name: rabbitmq
+        # volumes:
+        #     - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+        #     - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+        #     - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        networks:
+            - internal
+    nginx:
+        # Какую версию образа nginx из официального хранилища DockerHub используем
+        image: nginx:stable-alpine
+        container_name: nginx
+        # Ниже прокидываем порты. NGINX в контейнере работает на дефолтном 80, а мы возьмем 8000
+        ports:
+          - "80:80"
+       
+        # Монтируем директории, слева директории на основной системе, справа - куда они монтируются в контейнере
+        volumes:
+          - ./sites:/var/www
+          #- ./sites:/var/www/html
+          - ./config/nginx:/etc/nginx/conf.d
+          - ./data/logs:/var/log/nginx/
+          - ./config/nginx/etc/hosts:/etc/hosts
+        depends_on:
+          - php
+          - mysql
+        networks:
+          - internal
+    php:
+        build:
+          context: ./config/php
+          dockerfile: Dockerfile
+        container_name: php
+        volumes:
+          - ./sites:/var/www
+          #- ./sites:/var/www/html
+          - ./config/php/php.ini:/usr/local/etc/php/php.ini
+        ports:
+          - "9000:9000"
+        networks:
+          - internal
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        #restart: unless-stopped
+        restart: always
+        command: 
+            --default-authentication-plugin=mysql_native_password
+            --innodb_use_native_aio=0
+        ports:
+          - "3306:3306"
+        volumes:
+          - ./data/mysql:/var/lib/mysql
+        # Задаем пароль для root пользователя
+        environment:
+          MYSQL_ROOT_PASSWORD: secret
+        networks:
+         - internal
+
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        #environment:
+        # - PMA_ARBITRARY=1
+        restart: always
+        ports:
+         - 8081:80
+        links:
+          - mysql:mysql
+        environment:
+          PMA_HOST: mysql
+          MYSQL_USERNAME: root
+          MYSQL_ROOT_PASSWORD: secret
+        networks:
+         - internal
+
+ 

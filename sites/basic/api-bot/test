@@ -1,0 +1,16 @@
+	                  //    file_put_contents(__DIR__ . '/object_byID.txt', print_r($obj, true));
+
+	                        // $info = "ОБЪЕКТ : ".PHP_EOL;
+					 		// $info .= "НАЗВАНИЕ :".$data_obj['name'].PHP_EOL;
+					 		// $info .= "Адресс :".$data_obj['addres'].PHP_EOL;
+					 		// $info .= "Контакты :".$data_obj['communications'].PHP_EOL;
+					 		// $info .= "Описание :".$data_obj['description'].PHP_EOL;
+					 		// $info .= "Данные :".$data_obj['info'].PHP_EOL;
+	                 
+
+					 	//	$buttons_action = [];
+
+	                      //  $buttons_action[] = [['text'=>"Изменить",'callback_data'=>"objects/update/".$data_obj["id"] ]];
+					 	  //  $buttons_action[] = [['text'=>"Удалить",'callback_data'=>"objects/delete/".$data_obj["id"] ]];
+					 	  ///  $buttons_action[] = [['text'=>"Добавить информацию",'callback_data'=>"objects/addinfo/".$data_obj["id"] ]];
+					 	   // $buttons_action[] = [[ "text" => "my location","request_location" => true]];

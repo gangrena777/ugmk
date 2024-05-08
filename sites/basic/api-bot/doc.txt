@@ -1,0 +1,26 @@
+Array
+(
+    [file_name] => Паспорт БК-A418.pdf
+    [mime_type] => application/pdf
+    [thumbnail] => Array
+        (
+            [file_id] => AAMCAgADGQEAAgtjZPN3oU4V37vSIiH3zfcKPmb0pKUAAsQwAAJvE4lLtn3YmAn3gjsBAAdtAAMwBA
+            [file_unique_id] => AQADxDAAAm8TiUty
+            [file_size] => 17993
+            [width] => 226
+            [height] => 320
+        )
+
+    [thumb] => Array
+        (
+            [file_id] => AAMCAgADGQEAAgtjZPN3oU4V37vSIiH3zfcKPmb0pKUAAsQwAAJvE4lLtn3YmAn3gjsBAAdtAAMwBA
+            [file_unique_id] => AQADxDAAAm8TiUty
+            [file_size] => 17993
+            [width] => 226
+            [height] => 320
+        )
+
+    [file_id] => BQACAgIAAxkBAAILY2Tzd6FOFd-70iIh9833Cj5m9KSlAALEMAACbxOJS7Z92JgJ94I7MAQ
+    [file_unique_id] => AgADxDAAAm8TiUs
+    [file_size] => 1963205
+)

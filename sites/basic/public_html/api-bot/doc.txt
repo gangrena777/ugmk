@@ -1,0 +1,26 @@
+Array
+(
+    [file_name] => Festival_Kik-layt.pdf
+    [mime_type] => application/pdf
+    [thumbnail] => Array
+        (
+            [file_id] => AAMCAgADGQEAAg9ZZQwIFvoCvfaukypq_Ezsn-brjtQAAk01AAKtWWFIks8ypgS5ipsBAAdtAAMwBA
+            [file_unique_id] => AQADTTUAAq1ZYUhy
+            [file_size] => 6393
+            [width] => 226
+            [height] => 320
+        )
+
+    [thumb] => Array
+        (
+            [file_id] => AAMCAgADGQEAAg9ZZQwIFvoCvfaukypq_Ezsn-brjtQAAk01AAKtWWFIks8ypgS5ipsBAAdtAAMwBA
+            [file_unique_id] => AQADTTUAAq1ZYUhy
+            [file_size] => 6393
+            [width] => 226
+            [height] => 320
+        )
+
+    [file_id] => BQACAgIAAxkBAAIPWWUMCBb6Ar32rpMqavxM7J_m647UAAJNNQACrVlhSJLPMqYEuYqbMAQ
+    [file_unique_id] => AgADTTUAAq1ZYUg
+    [file_size] => 724904
+)

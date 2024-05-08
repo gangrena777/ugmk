@@ -1,0 +1,89 @@
+Array
+(
+    [update_id] => 529253303
+    [callback_query] => Array
+        (
+            [id] => 3503270206005630127
+            [from] => Array
+                (
+                    [id] => 815668656
+                    [is_bot] => 
+                    [first_name] => Gangrena
+                    [language_code] => ru
+                )
+
+            [message] => Array
+                (
+                    [message_id] => 3250
+                    [from] => Array
+                        (
+                            [id] => 5609259129
+                            [is_bot] => 1
+                            [first_name] => Assb_bot1
+                            [username] => Assb_apibot
+                        )
+
+                    [chat] => Array
+                        (
+                            [id] => 815668656
+                            [first_name] => Gangrena
+                            [type] => private
+                        )
+
+                    [date] => 1694584434
+                    [text] => Действующие объекты
+                    [reply_markup] => Array
+                        (
+                            [inline_keyboard] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [text] => Мередиан
+                                                    [callback_data] => objects/get/7
+                                                )
+
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [text] => Даниловский 2
+                                                    [callback_data] => objects/get/4
+                                                )
+
+                                        )
+
+                                    [2] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [text] => Березовский Гагарина 17
+                                                    [callback_data] => objects/get/2
+                                                )
+
+                                        )
+
+                                    [3] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [text] => qwerttttttty
+                                                    [callback_data] => objects/get/5
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [chat_instance] => 650339716335390485
+            [data] => objects/get/7
+        )
+
+)

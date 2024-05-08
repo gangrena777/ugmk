@@ -1,0 +1,9 @@
+    Options +FollowSymlinks
+
+IndexIgnore */*
+
+    # Enable mod_rewrite
+    RewriteEngine On
+
+   
+
