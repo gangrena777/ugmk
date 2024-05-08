@@ -463,10 +463,11 @@ class SiteController extends Controller
                          $arr['Индефикатор сервиса'] = intval($line2[15]);
                          $arr['Трудозатраты(мин)'] = isset($line2[11]) ? $line2[11] : 0 ;
                          $arr['Трудозатраты(часы)'] = isset($line2[11]) ? date( "G:i", mktime( 0, intval($line2[11]))) :  0 ;
-                         $arr['ЧЧ'] = isset($line2[11]) ? round(floatval($line2[11])/60 , 2) : 0 ;;
+                         $arr['ЧЧ'] = isset($line2[11]) ? round(floatval($line2[11])/60 , 2) : 0 ;
+                         $arr['Статус'] = $line2[23];
 
                          $array[] = $arr;
-                         //$array[] = $line2;
+                        // $array[] = $line2;
                         
 
                       }
@@ -477,6 +478,10 @@ class SiteController extends Controller
                     array_shift($array);
                     $NewArr =[];
                     foreach ($array as $key => $val) {
+
+                        if($val['Статус'] == '28'){
+                          //28 - close
+                          //29 - done
 
                          if($val['Индефикатор сервиса'] > 0 ){
                               if(array_key_exists($val['Индефикатор сервиса'], $services )){
@@ -498,9 +503,9 @@ class SiteController extends Controller
                                 $val['Участок'] = '_';
                           }
 
-
+                        
                           $NewArr[] = $val;
-                    
+                        }
                     }
 
                     $NewArr2 = $this->Group_by('Исполнитель', $NewArr);
@@ -557,7 +562,7 @@ class SiteController extends Controller
 
                     return $this->render('report',[
                        'array' => $NewArr3,
-                     //'array' => $array,
+                    // 'array' => $NewArr,
                       // 'services' => $services,
                       'data_str' => $data_str
                     ]);
