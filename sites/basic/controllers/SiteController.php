@@ -553,7 +553,7 @@ class SiteController extends Controller
                               // Yii::$app->mailer->compose()
                               //   ->setFrom(Yii::$app->params['senderEmail'])
                               //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
-                              //   ->setTo('gaa1@ugmk-telecom.ru')
+                              //   ->setTo('golopolosovartem@yandex.ru')
                               //   ->setSubject('Заполнена форма обратной связи')
                               //   ->setTextBody('TEST')
                               //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
