@@ -54,6 +54,9 @@ AppAsset::register($this);
             ['label' => 'Сервисы', 'url' => ['/service/index']],
 
              ['label' => 'Отчеты', 'url' => ['/site/report']],
+
+             ['label' => 'загрузить заявки', 'url' => ['/site/maketask']],
+
            
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]

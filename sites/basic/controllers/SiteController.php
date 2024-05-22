@@ -15,15 +15,27 @@ use app\models\Region;
 use app\models\Dogovor;
 use app\models\Services;
 
+use app\models\Tasks;
+
 
 
 use yii\data\Pagination;
 
+use Shuchkin\SimpleXLSX;
+use yii\web\UploadedFile;
 
 
-use mikemadisonweb\rabbitmq\components\ConsumerInterface;
-use mikemadisonweb\rabbitmq\components\Producer;
-use mikemadisonweb\rabbitmq\Configuration;
+// use mikemadisonweb\rabbitmq\components\ConsumerInterface;
+// use mikemadisonweb\rabbitmq\components\Producer;
+// use mikemadisonweb\rabbitmq\Configuration;
+
+
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Promise;
+use Psr\Http\Message\ResponseInterface;
 
 
 class SiteController extends Controller
@@ -180,135 +192,7 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    // public function actionRabbit()
-    // {
-    // 	$model = new Country();
-
-    //       $model2 = new ContactForm();
-
-    //       $countries = Country::find()->orderBy('name')->all();
-
-
-
-    // 	if($model->load(Yii::$app->request->post()) && $model->validate() ){
-
-    //         // if( $model->save() ) {
-    //         //     return $this->refresh();
-    		 	
-    //         // }
-
-          
-
-    //         $producer = \Yii::$app->rabbitmq->getProducer('producer-name2');
-    //         $msg = json_encode(['name'=>$model->name, 'code'=>$model->code, 'population'=>$model->population]);
-    //         $producer->publish($msg, 'exchange-name','second_key');
-           
-    //         // exit;
-    //          return $this->refresh();
-    // 	}
-    // 	return $this->render('rabbit',['model' => $model,
-
-    //            'dataProvider' => $countries,
-    //            'model2' => $model2,
-    //           ]);
-    // }
-
-
-    // public function actionPjaxCountry()
-    // {
-          
-    //         // получаем все строки из таблицы "country" и сортируем их по "name"
-    //         $countries = Country::find()->orderBy('name')->all();
-
-    //          /* @var $dataProvider yii\data\ActiveDataProvider */
-       
-    //         $model2 = new ContactForm();
-    //           $model = new Country();
-
-
-    //          return $this->render('rabbit', [ 
-
-    //          'dataProvider' => $countries,
-    //           'model' => $model,
-    //            'model2' => $model2,
-    //            'countries' => $countries,
-
-    //        ]);
-    // }
-    //    public function actionPjax()
-    // {
-             
-
-    //          $security = new \yii\base\Security();
-
-    //          $req = Yii::$app->request;
-    //          $action = $req->get('action');
-       
-
-    //          if ($action == "string") {
-    //               return $this->render('pjax', [
-    //                   'string' => $security->generateRandomString(),
-              
-    //              ]);
-
-    //           }
-    //           else  if ($action == "time") {
-    //               return $this->render('pjax', [
-    //                   'time' => date('H:i:s')
-              
-    //                ]);
-
-    //           }
-
-    
-    
-    //           else {
-
-    //               $countries = Country::find()->orderBy('name')->all();
-
-
-    //               $searchModel = [
-    //                   'code' => mb_strtoupper(Yii::$app->request->getQueryParam('filtercode', '')),
-    //               ];
-
-    //               $filteredData = array_filter($countries, function($item) use ($searchModel) {
-    //                   if (!empty($searchModel['code'])) {
-    //                       if ($item['code'] == $searchModel['code']) {
-    //                           return true;
-    //                       } else {
-    //                           return false;
-    //                       }
-    //                   } else {
-    //                       return true;
-    //                   }
-    //               });
-
-    //               //use yii\data\ActiveDataProvider;
-    //               $dataProvider = new \yii\data\ArrayDataProvider([
-    //                   'key' => 'id',
-    //                   'allModels' =>$filteredData,
-    //                   'sort' => [
-    //                       'attributes' => ['name'],
-    //                   ],
-    //                   'pagination' => [
-    //                       'pageSize' => 3,
-    //                   ],
-    //               ]);
-
-                
-
-    //                   return $this->render('pjax', [
-
-    //                       'key' => $security->generateRandomKey(),
-    //                       'dataProvider' => $dataProvider,
-    //                       'searchModel' => $searchModel
-
-    //                    ]);
-    //            }
-
-
-    // }
-
+  
     protected function findRegions(){
 
       $regions  = Region::find()->all();
@@ -364,13 +248,10 @@ class SiteController extends Controller
           return $result;
     }
 
+      /////////////////////////////
 
-
-
-        /////////////////////////////
-
-      protected function ArrayGroupBy(array $array, $key)
-      {
+    protected function ArrayGroupBy(array $array, $key)
+    {
         if (!is_string($key) && !is_int($key) && !is_float($key) && !is_callable($key) ) {
           trigger_error('array_group_by(): The key should be a string, an integer, or a callback', E_USER_ERROR);
           return null;
@@ -413,25 +294,14 @@ class SiteController extends Controller
         }
 
         return $grouped;
-      }
-
-
-
-        /////////////////////////
+    }
+      /////////////////////////
 
 
     public function actionReport()
     {
-
-          
-
-          
-
-           $req = Yii::$app->request;
-    
-      
-
-            if(  $req->get('date_from')  && $req->get('date_to') ){
+          $req = Yii::$app->request;
+          if(  $req->get('date_from')  && $req->get('date_to') ){
 
 
                     $from = str_replace('-', '', $req->get('date_from'));
@@ -567,10 +437,214 @@ class SiteController extends Controller
                       'data_str' => $data_str
                     ]);
              
-            }
-             else   return $this->render('report'); 
-
-
-   
+          }
+          else   return $this->render('report'); 
     }
-}    
+
+      // public function actionMaketaskkk()
+      // {
+
+      //   //$folder_path = Yii::getAlias('@appp').'/INTRASERVICE_TASK';
+
+
+
+      //   $file_list = scandir($folder_path);
+      //   $all_tasks = [];
+      //    ///бъединяем файлы в один
+      //   foreach ($file_list as $file) {
+
+      //          if ($file === '.' || $file === '..') {
+      //                   continue;
+      //           }
+      //           $file_path = $folder_path .'/'. $file;
+
+      //               // Проверяем, что файл с расширением .xlsx
+      //          if (pathinfo($file_path, PATHINFO_EXTENSION) === 'xlsx') {
+      //             // Проверяем, что класс SimpleXLSX существует
+      //             if (class_exists('Shuchkin\SimpleXLSX')) {
+      //                 // Пытаемся загрузить файл
+      //                 try {
+      //                     $xlsx = new SimpleXLSX($file_path);
+      //                     $rows = $xlsx->rows(); // Получаем данные из файла
+      //                     // Пропускаем первую строку с заголовками
+      //                     $header_values = array_shift($rows);
+      //                     // Создаем ассоциативный массив данных
+      //                     foreach ($rows as $row) {
+      //                         $all_tasks[] = array_combine($header_values, $row);
+      //                     }
+      //                 } catch (Exception $e) {
+      //                     echo 'Ошибка при чтении файла ' . $file . ': ' . $e->getMessage() . "\n";
+      //                 }
+      //             } else {
+      //                 echo 'Класс SimpleXLSX не найден' . "\n";
+      //             }
+      //          }
+      //   }
+      //   return $this->render('maketask',[
+      //         'all_tasks' => $all_tasks
+      //   ]);
+      // }
+
+
+
+
+    public function actionMaketask()
+    {
+        $all_tasks = [];
+        $empty_time = [];
+        $folder_name = Yii::$app->request->get('folder', '');
+
+        if (Yii::$app->request->isPost) {
+            $uploaded_files = UploadedFile::getInstancesByName('files');
+
+            foreach ($uploaded_files as $file) {
+                // Проверяем, что файл с расширением .xlsx
+                if ($file->extension === 'xlsx') {
+                    // Проверяем, что класс SimpleXLSX существует
+                    if (class_exists('Shuchkin\SimpleXLSX')) {
+                        // Пытаемся загрузить файл
+                        try {
+                            $xlsx = SimpleXLSX::parse($file->tempName);
+                            if ($xlsx) {
+                                $rows = $xlsx->rows(); // Получаем данные из файла
+                                // Пропускаем первую строку с заголовками
+                                $header_values = array_shift($rows);
+                                // Создаем ассоциативный массив данных
+                                foreach ($rows as $row) {
+
+                                    $all_tasks[] = array_combine($header_values, $row);
+                                }
+                            } else {
+                                Yii::$app->session->setFlash('error', 'Ошибка парсинга файла: ' . SimpleXLSX::parseError());
+                            }
+                        } catch (\Exception $e) {
+                            Yii::$app->session->setFlash('error', 'Ошибка при чтении файла ' . $file->name . ': ' . $e->getMessage());
+                        }
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Класс SimpleXLSX не найден');
+                    }
+                }
+            }
+        }
+
+        $done_tasks = array();
+        $fail_tasks = array();
+        $message = array();
+        foreach ($all_tasks as $key => $value) {
+            foreach ($value as $k => $val) {
+              if(str_contains($k, 'Field')  && $val > 0 ){
+                    $response = $this->makeIntraserviceRequest($all_tasks[$key]);
+
+               
+                    if( isset($response['failedTasks'])){
+                       $fail_tasks[] = $response;
+                     }else{
+                         $done_tasks[] = $response;
+                     }
+
+              }
+            }
+        }
+        return $this->render('maketask', [ 'done_tasks' => $done_tasks, 'fail_tasks' => $fail_tasks]);
+    }
+    ///////////////////////////////////////////////////////////////////////
+
+
+    protected function createTask(Client $client, $task) {
+        try {
+            $response = $client->post('https://intraservice.ugmk-telecom.ru/api/task', [
+                'json' => $task,
+                'headers' => [
+                    'Authorization' => 'Basic Z2FhMTpnYWExMDcxMQ=='
+                ]
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch (RequestException $e) {
+           // echo "Ошибка при создании задачи: " . Psr7\Message::toString($e->getRequest());
+            if ($e->hasResponse()) {
+               // echo Psr7\Message::toString($e->getResponse());
+            }
+            return null;
+        }
+    }
+
+    protected function updateTask(Client $client, $taskId, $data) {
+        try {
+            $response = $client->put("https://intraservice.ugmk-telecom.ru/api/task/{$taskId}", [
+                'json' => $data,
+                'headers' => [
+                    'Authorization' => 'Basic Z2FhMTpnYWExMDcxMQ=='
+                ]
+            ]);
+
+            return json_decode($response->getBody(), true);
+        } catch (RequestException $e) {
+            echo "Ошибка при обновлении задачи: " . Psr7\Message::toString($e->getRequest());
+            if ($e->hasResponse()) {
+                echo Psr7\Message::toString($e->getResponse());
+            }
+            return null;
+        }
+    }
+    protected function makeIntraserviceRequest($task) {
+        $client = new Client();
+        $maxAttempts = 3;
+        $attempt = 0;
+        $delay = 2;
+        $failedTasks = [];
+
+        while ($attempt < $maxAttempts) {
+            $attempt++;
+        
+                $taskData = $this->createTask($client, $task);
+
+                if ($taskData &&  isset($taskData['Task'])) {
+                    $doneTasks = [];
+                    $doneTasks['taskId'] = $taskData['Task']['Id'];
+                    $doneTasks['taskName'] = $taskData['Task']['Name'];
+                    $doneTasks['taskService'] = $taskData['Task']['ServiceId'];
+                    $doneTasks['taskDate_create'] = $taskData['Task']['Created'];
+                    $doneTasks['taskServicePath'] = $taskData['Task']['ServicePath'];
+                    $doneTasks['taskRegion'] = $task['RegionID'];
+                    $doneTasks['taskAgreementID'] = $task['AgreementID'];
+
+                    ///log  task create
+                    \Yii::info("Заявка id:". $taskData['Task']['Id'].", name:".$taskData['Task']['Name'].", service:".$taskData['Task']['ServiceId']."---успешно  создана в INTRASEWRVICE", 'task_create');
+
+                    $TaskAddInDb = new Tasks();
+                     $TaskAddInDb->region_id = $task['RegionID'];
+                      $TaskAddInDb->task_name = $taskData['Task']['Name'];
+                       $TaskAddInDb->dogovor_code = $task['AgreementID'];
+                        $TaskAddInDb->task_id = $taskData['Task']['Id'];
+                         $TaskAddInDb->date_create = $taskData['Task']['Created'];
+                         if($TaskAddInDb->save() ){
+
+                            ///log  task save in db
+                            \Yii::info("Заявка id:". $taskData['Task']['Id'].", name:".$taskData['Task']['Name'].", service:".$taskData['Task']['ServiceId']."---успешно добавлена в базу", 'task_create');
+                            return $doneTasks;
+                         }
+
+                }
+        
+              else{
+                 \Yii::warning("Заявка  name:".$task['Name'].", serviceId:".$task['ServiceId']."---не создалась в INTRASERVICE ", 'task_create');
+                $failedTasks[] = [
+                    'task' => $task,
+                    'attempt' => $attempt,
+                    'error' => 'Ошибка при создании заявки'
+                ];
+                if ($attempt < $maxAttempts) {
+                    sleep($delay); // Задержка перед повторной попыткой
+                }
+
+              }
+        }
+
+        return ['failedTasks' => $failedTasks];
+    }
+
+} 
+
+
+ 

@@ -1,0 +1,15 @@
+{
+    "name": "gaa/sites",
+    "autoload": {
+        "psr-4": {
+            "Gaa\\Sites\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "you@example.com"
+        }
+    ],
+    "require": {}
+}

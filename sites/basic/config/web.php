@@ -14,6 +14,7 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@appp'   =>  dirname(dirname(__DIR__)).'/basic'
 
     ],
 
@@ -60,7 +61,7 @@ $config = [
             //     'class' => 'Swift_SmtpTransport',
             //     'host' => 'smtp.yandex.ru',
             //     'username' => 'golopolosovartem@yandex.ru',
-            //     'password' => '128900mgmggmgm',
+            //     'password' => '******',
             //     'port' => '587',
             //     'encryption' => 'tls',
             // ],
@@ -79,7 +80,14 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error', 'warning', 'info'],
+                ],
+                 [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['info',  'error', 'warning'],
+                    'categories' => ['task_create'],
+                    'logVars' => [],
+                    'logFile' => '@runtime/logs/task_create_log/myfile.log',
                 ],
             ],
         ],
