@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><?= $k; ?></td> 
               <td><?= $value[$k]['Код НГ'] ?></td> 
                 <td><?= $value[$k]['Назначение ТМЦ'] ?></td> 
-                  <td><?= $value[$k]['Участок'] ?></td> 
+                  <td><?= $value[$k]['Участок']."/".$value[$k]['Участок__'] ?></td> 
                      <td><?= str_replace('.', ',' , strval((round($value[$k]['OBJ_SUM']/$value[$k]['TOTAL'] *100,2)))); ?></td> 
                      <td><?=str_replace('.', ',',strval($value[$k]['OBJ_SUM']));?></td>
         </tr>

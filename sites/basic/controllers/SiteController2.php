@@ -16,6 +16,9 @@ use app\models\Dogovor;
 use app\models\Services;
 
 
+use Shuchkin\SimpleXLSX;
+
+
 
 use yii\data\Pagination;
 
@@ -575,4 +578,49 @@ class SiteController extends Controller
 
    
     }
+
+
+        // public function actionMaketaskkk()
+      // {
+
+      //   //$folder_path = Yii::getAlias('@appp').'/INTRASERVICE_TASK';
+
+
+
+      //   $file_list = scandir($folder_path);
+      //   $all_tasks = [];
+      //    ///бъединяем файлы в один
+      //   foreach ($file_list as $file) {
+
+      //          if ($file === '.' || $file === '..') {
+      //                   continue;
+      //           }
+      //           $file_path = $folder_path .'/'. $file;
+
+      //               // Проверяем, что файл с расширением .xlsx
+      //          if (pathinfo($file_path, PATHINFO_EXTENSION) === 'xlsx') {
+      //             // Проверяем, что класс SimpleXLSX существует
+      //             if (class_exists('Shuchkin\SimpleXLSX')) {
+      //                 // Пытаемся загрузить файл
+      //                 try {
+      //                     $xlsx = new SimpleXLSX($file_path);
+      //                     $rows = $xlsx->rows(); // Получаем данные из файла
+      //                     // Пропускаем первую строку с заголовками
+      //                     $header_values = array_shift($rows);
+      //                     // Создаем ассоциативный массив данных
+      //                     foreach ($rows as $row) {
+      //                         $all_tasks[] = array_combine($header_values, $row);
+      //                     }
+      //                 } catch (Exception $e) {
+      //                     echo 'Ошибка при чтении файла ' . $file . ': ' . $e->getMessage() . "\n";
+      //                 }
+      //             } else {
+      //                 echo 'Класс SimpleXLSX не найден' . "\n";
+      //             }
+      //          }
+      //   }
+      //   return $this->render('maketask',[
+      //         'all_tasks' => $all_tasks
+      //   ]);
+      // }
 }    

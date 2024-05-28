@@ -205,7 +205,7 @@ class SiteController extends Controller
 
     protected  function getAllServices(){
 
-      $services = Services::find()->select('services.SERV_ID, services.GUID , services.Attribut_dogovor')->joinWith('dogovor')->all();
+      $services = Services::find()->select('services.SERV_ID, services.GUID , services.Attribut_dogovor, services.Path, services.NAME')->joinWith('dogovor')->all();
          
       $SERVICES = array();
 
@@ -213,11 +213,13 @@ class SiteController extends Controller
       foreach ($services as $key => $value) {
              $SERVICES[$value['SERV_ID']]['SERV_ID'] = $value->SERV_ID;
                 $SERVICES[$value['SERV_ID']]['GUID'] = $value->GUID;
+                  $SERVICES[$value['SERV_ID']]['NAME'] = $value->NAME;
                   $SERVICES[$value['SERV_ID']]['Attribut_dogovor'] = $value->Attribut_dogovor;
                     $SERVICES[$value['SERV_ID']]['dogovor']['CODE_NG'] = $value->dogovor->CODE_NG ?? 0;
                       $SERVICES[$value['SERV_ID']]['dogovor']['NAME_NG'] = $value->dogovor->NAME_NG ?? 0;
                         $SERVICES[$value['SERV_ID']]['dogovor']['USE_TMC'] = $value->dogovor->USE_TMC ?? 0;
                           $SERVICES[$value['SERV_ID']]['dogovor']['REGION_ID'] = $value->dogovor->REGION_ID ?? 0;
+                            $SERVICES[$value['SERV_ID']]['Path'] = $value->Path ?? 'Z';
 
                             $id = $value->dogovor->REGION_ID ?? 0;
                             if( $id > 0){
@@ -362,6 +364,14 @@ class SiteController extends Controller
                                   $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
                                   $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
                                   $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
+                                      ///////
+                                     $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
+                                      // if(isset($services[$start_path[0]])) {
+                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
+									  //}else{
+									  //	$val['Участок__'] = 'ZZZZ';
+									  //}
+                                 
                               }
 
                           }else{
@@ -371,6 +381,7 @@ class SiteController extends Controller
                                 $val['Название НГ'] = '_';
                                 $val['Назначение ТМЦ'] = '_';
                                 $val['Участок'] = '_';
+                                $val['Участок__'] = '_';
                           }
 
                         
@@ -412,6 +423,7 @@ class SiteController extends Controller
                           $NewArr3[$key][$ky]['Название НГ'] = $objs[0]['Название НГ'];
                           $NewArr3[$key][$ky]['Назначение ТМЦ'] = $objs[0]['Назначение ТМЦ'];
                           $NewArr3[$key][$ky]['Участок'] = $objs[0]['Участок'];
+                          $NewArr3[$key][$ky]['Участок__'] = $objs[0]['Участок__'];
                           
                           $NewArr3[$key][$ky]['TOTAL'] = $Total[$key];
 
@@ -423,7 +435,7 @@ class SiteController extends Controller
                               // Yii::$app->mailer->compose()
                               //   ->setFrom(Yii::$app->params['senderEmail'])
                               //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
-                              //   ->setTo('golopolosovartem@yandex.ru')
+                              //   ->setTo('gaa1@ugmk-telecom.ru')
                               //   ->setSubject('Заполнена форма обратной связи')
                               //   ->setTextBody('TEST')
                               //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
@@ -431,7 +443,8 @@ class SiteController extends Controller
 
 
                     return $this->render('report',[
-                       'array' => $NewArr3,
+                     // 'array' => $services,
+                     'array' => $NewArr3,
                     // 'array' => $NewArr,
                       // 'services' => $services,
                       'data_str' => $data_str
@@ -441,53 +454,67 @@ class SiteController extends Controller
           else   return $this->render('report'); 
     }
 
-      // public function actionMaketaskkk()
+      // public function actionMaketask()
       // {
+      //     $all_tasks = [];
+      //     $empty_time = [];
+      //     $folder_name = Yii::$app->request->get('folder', '');
 
-      //   //$folder_path = Yii::getAlias('@appp').'/INTRASERVICE_TASK';
+      //     if (Yii::$app->request->isPost) {
+      //         $uploaded_files = UploadedFile::getInstancesByName('files');
 
+      //         foreach ($uploaded_files as $file) {
+      //             // Проверяем, что файл с расширением .xlsx
+      //             if ($file->extension === 'xlsx') {
+      //                 // Проверяем, что класс SimpleXLSX существует
+      //                 if (class_exists('Shuchkin\SimpleXLSX')) {
+      //                     // Пытаемся загрузить файл
+      //                     try {
+      //                         $xlsx = SimpleXLSX::parse($file->tempName);
+      //                         if ($xlsx) {
+      //                             $rows = $xlsx->rows(); // Получаем данные из файла
+      //                             // Пропускаем первую строку с заголовками
+      //                             $header_values = array_shift($rows);
+      //                             // Создаем ассоциативный массив данных
+      //                             foreach ($rows as $row) {
 
-
-      //   $file_list = scandir($folder_path);
-      //   $all_tasks = [];
-      //    ///бъединяем файлы в один
-      //   foreach ($file_list as $file) {
-
-      //          if ($file === '.' || $file === '..') {
-      //                   continue;
-      //           }
-      //           $file_path = $folder_path .'/'. $file;
-
-      //               // Проверяем, что файл с расширением .xlsx
-      //          if (pathinfo($file_path, PATHINFO_EXTENSION) === 'xlsx') {
-      //             // Проверяем, что класс SimpleXLSX существует
-      //             if (class_exists('Shuchkin\SimpleXLSX')) {
-      //                 // Пытаемся загрузить файл
-      //                 try {
-      //                     $xlsx = new SimpleXLSX($file_path);
-      //                     $rows = $xlsx->rows(); // Получаем данные из файла
-      //                     // Пропускаем первую строку с заголовками
-      //                     $header_values = array_shift($rows);
-      //                     // Создаем ассоциативный массив данных
-      //                     foreach ($rows as $row) {
-      //                         $all_tasks[] = array_combine($header_values, $row);
+      //                                 $all_tasks[] = array_combine($header_values, $row);
+      //                             }
+      //                         } else {
+      //                             Yii::$app->session->setFlash('error', 'Ошибка парсинга файла: ' . SimpleXLSX::parseError());
+      //                         }
+      //                     } catch (\Exception $e) {
+      //                         Yii::$app->session->setFlash('error', 'Ошибка при чтении файла ' . $file->name . ': ' . $e->getMessage());
       //                     }
-      //                 } catch (Exception $e) {
-      //                     echo 'Ошибка при чтении файла ' . $file . ': ' . $e->getMessage() . "\n";
+      //                 } else {
+      //                     Yii::$app->session->setFlash('error', 'Класс SimpleXLSX не найден');
       //                 }
-      //             } else {
-      //                 echo 'Класс SimpleXLSX не найден' . "\n";
       //             }
-      //          }
-      //   }
-      //   return $this->render('maketask',[
-      //         'all_tasks' => $all_tasks
-      //   ]);
+      //         }
+      //     }
+
+      //     $done_tasks = array();
+      //     $fail_tasks = array();
+      //     $message = array();
+      //     foreach ($all_tasks as $key => $value) {
+      //         foreach ($value as $k => $val) {
+      //           if(str_contains($k, 'Field')  && $val > 0 ){
+      //                 $response = $this->makeIntraserviceRequest($all_tasks[$key]);
+
+                 
+      //                 if( isset($response['failedTasks'])){
+      //                    $fail_tasks[] = $response;
+      //                  }else{
+      //                      $done_tasks[] = $response;
+      //                  }
+
+      //           }
+      //         }
+      //     }
+      //     return $this->render('maketask', [ 'done_tasks' => $done_tasks, 'fail_tasks' => $fail_tasks]);
       // }
 
-
-
-
+    ////////////////////////////
     public function actionMaketask()
     {
         $all_tasks = [];
@@ -496,8 +523,33 @@ class SiteController extends Controller
 
         if (Yii::$app->request->isPost) {
             $uploaded_files = UploadedFile::getInstancesByName('files');
+            $all_tasks = $this->getFiles( $uploaded_files);
+        }
 
-            foreach ($uploaded_files as $file) {
+        $done_tasks = array();
+        $fail_tasks = array();
+        $message = array();
+        foreach ($all_tasks as $key => $value) {
+            foreach ($value as $k => $val) {
+              if(str_contains($k, 'Field')  && $val > 0 ){
+                    $response = $this->makeIntraserviceRequest($value);
+
+               
+                    if( isset($response['failedTasks'])){
+                       $fail_tasks[] = $response;
+                     }else{
+                         $done_tasks[] = $response;
+                     }
+
+              }
+            }
+        }
+        return $this->render('maketask', [ 'done_tasks' => $done_tasks, 'fail_tasks' => $fail_tasks]);
+    }
+    
+    protected function getFiles($data){
+
+       foreach ($data as $file) {
                 // Проверяем, что файл с расширением .xlsx
                 if ($file->extension === 'xlsx') {
                     // Проверяем, что класс SimpleXLSX существует
@@ -512,7 +564,8 @@ class SiteController extends Controller
                                 // Создаем ассоциативный массив данных
                                 foreach ($rows as $row) {
 
-                                    $all_tasks[] = array_combine($header_values, $row);
+                                   // $all_tasks[] = array_combine($header_values, $row);
+                                  yield   array_combine($header_values, $row);
                                 }
                             } else {
                                 Yii::$app->session->setFlash('error', 'Ошибка парсинга файла: ' . SimpleXLSX::parseError());
@@ -525,29 +578,11 @@ class SiteController extends Controller
                     }
                 }
             }
-        }
-
-        $done_tasks = array();
-        $fail_tasks = array();
-        $message = array();
-        foreach ($all_tasks as $key => $value) {
-            foreach ($value as $k => $val) {
-              if(str_contains($k, 'Field')  && $val > 0 ){
-                    $response = $this->makeIntraserviceRequest($all_tasks[$key]);
-
-               
-                    if( isset($response['failedTasks'])){
-                       $fail_tasks[] = $response;
-                     }else{
-                         $done_tasks[] = $response;
-                     }
-
-              }
-            }
-        }
-        return $this->render('maketask', [ 'done_tasks' => $done_tasks, 'fail_tasks' => $fail_tasks]);
     }
-    ///////////////////////////////////////////////////////////////////////
+    
+           
+
+    //////////////////////////////
 
 
     protected function createTask(Client $client, $task) {
