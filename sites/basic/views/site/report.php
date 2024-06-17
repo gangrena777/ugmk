@@ -20,6 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= Html::beginForm([''], 'get', ['enctype' => 'multipart/form-data', 'id' =>'fot_report_form']) ?>
 
+
+
+<?= Html::radioList('report', 0, [ 0 =>'FOT', 1=>'TASKS']) ?>
+
+
+
+
 <?= Html::label('Период  с :', 'date_from', ['class' => 'label date_from', 'required'=>'required']) ?>
 <?= Html::input('date', 'date_from') ?>
 

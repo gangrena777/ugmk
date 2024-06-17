@@ -48,7 +48,7 @@ class SiteController extends Controller
         return [
               'access' => [
                     'class' => AccessControl::className(),
-                    'only' => ['login', 'logout', 'signup','about', 'report'],
+                    'only' => ['login', 'logout', 'signup','about', 'report','maketask','planetask'],
                     'rules' => [
                         [
                             'allow' => true,
@@ -62,7 +62,7 @@ class SiteController extends Controller
                         ],
                           [
                           'allow' => true,
-                          'actions' => ['about', 'report'],
+                          'actions' => ['about', 'report', 'maketask','planetask'],
                            'roles' => ['admin'],
                         ],
                     ],
@@ -337,9 +337,10 @@ class SiteController extends Controller
                          $arr['Трудозатраты(часы)'] = isset($line2[11]) ? date( "G:i", mktime( 0, intval($line2[11]))) :  0 ;
                          $arr['ЧЧ'] = isset($line2[11]) ? round(floatval($line2[11])/60 , 2) : 0 ;
                          $arr['Статус'] = $line2[23];
+                         $arr['Тип'] = $line2[3];
 
                          $array[] = $arr;
-                        // $array[] = $line2;
+                         //$array[] = $line2;
                         
 
                       }
@@ -351,7 +352,7 @@ class SiteController extends Controller
                     $NewArr =[];
                     foreach ($array as $key => $val) {
 
-                        if($val['Статус'] == '28'){
+                        if($val['Статус'] == '28' || $val['Статус'] == '29'){
                           //28 - close
                           //29 - done
 
@@ -368,9 +369,9 @@ class SiteController extends Controller
                                      $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
                                       // if(isset($services[$start_path[0]])) {
                                   $val['Участок__'] = $services[$start_path[0]]['NAME'];
-									  //}else{
-									  //	$val['Участок__'] = 'ZZZZ';
-									  //}
+                    									  //}else{
+                    									  //	$val['Участок__'] = 'ZZZZ';
+                    									  //}
                                  
                               }
 
@@ -400,121 +401,84 @@ class SiteController extends Controller
                       $Total[$key] = array_sum($itemsSum); /// Исполнитель => всего времени
                    
                     }
+                    //////////////////////////////////////////IF TASKS  /////////////////////////
+
+                    if(  $req->get('report')  &&  $req->get('report') == 1){
 
 
-                    $NewArr3 = $this->ArrayGroupBy( $NewArr, 'Исполнитель','Название НГ');
+                            return $this->render('report_t',[
+                                // 'array' => $services,
+                             'array' => $NewArr,
+                                //'array' => $array,
+                                //'array' => $NewArr,
+                                // 'services' => $services,
+                              'data_str' => $data_str
+                            ]);
 
-                    foreach ($NewArr3 as $key => $users) {
 
-                      
-              
-                      foreach ($users as $ky => $objs) {
 
-                        $summ = 0;
-
-                        foreach ($objs as $k => $val) {
-
-                            $summ += $val['ЧЧ'];
-
-                        }
-
-                          $NewArr3[$key][$ky]['OBJ_SUM'] = $summ;
-                          $NewArr3[$key][$ky]['Код НГ'] = $objs[0]['Код НГ'];
-                          $NewArr3[$key][$ky]['Название НГ'] = $objs[0]['Название НГ'];
-                          $NewArr3[$key][$ky]['Назначение ТМЦ'] = $objs[0]['Назначение ТМЦ'];
-                          $NewArr3[$key][$ky]['Участок'] = $objs[0]['Участок'];
-                          $NewArr3[$key][$ky]['Участок__'] = $objs[0]['Участок__'];
-                          
-                          $NewArr3[$key][$ky]['TOTAL'] = $Total[$key];
-
-                      }
-                      
-                          
                     }
+                    ////////////////////////////////////////IF  FOT /////////////////////////////
+                    else{
+                            $NewArr3 = $this->ArrayGroupBy( $NewArr, 'Исполнитель','Название НГ');
 
-                              // Yii::$app->mailer->compose()
-                              //   ->setFrom(Yii::$app->params['senderEmail'])
-                              //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
-                              //   ->setTo('gaa1@ugmk-telecom.ru')
-                              //   ->setSubject('Заполнена форма обратной связи')
-                              //   ->setTextBody('TEST')
-                              //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
-                              //   ->send();
+                            foreach ($NewArr3 as $key => $users) {
+
+                              
+                      
+                              foreach ($users as $ky => $objs) {
+
+                                $summ = 0;
+
+                                foreach ($objs as $k => $val) {
+
+                                    $summ += $val['ЧЧ'];
+
+                                }
+
+                                  $NewArr3[$key][$ky]['OBJ_SUM'] = $summ;
+                                  $NewArr3[$key][$ky]['Код НГ'] = $objs[0]['Код НГ'];
+                                  $NewArr3[$key][$ky]['Название НГ'] = $objs[0]['Название НГ'];
+                                  $NewArr3[$key][$ky]['Назначение ТМЦ'] = $objs[0]['Назначение ТМЦ'];
+                                  $NewArr3[$key][$ky]['Участок'] = $objs[0]['Участок'];
+                                  $NewArr3[$key][$ky]['Участок__'] = $objs[0]['Участок__'];
+                                  
+                                  $NewArr3[$key][$ky]['TOTAL'] = $Total[$key];
+
+                              }
+                              
+                                  
+                            }
+
+                                      // Yii::$app->mailer->compose()
+                                      //  // ->setFrom(Yii::$app->params['senderEmail'])
+                                      // ->setFrom('gaa1@ugmk-telecom.ru')
+                                      //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
+                                      //   ->setTo('gaa1@ugmk-telecom.ru')
+                                      //   ->setSubject('Заполнена форма обратной связи')
+                                      //   ->setTextBody('TEST')
+                                      //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
+                                      //   ->send();
+
+                            return $this->render('report',[
+                                // 'array' => $services,
+                             'array' => $NewArr3,
+                                //'array' => $array,
+                                //'array' => $NewArr,
+                                // 'services' => $services,
+                              'data_str' => $data_str
+                            ]);
+                    }
+                   
 
 
-                    return $this->render('report',[
-                     // 'array' => $services,
-                     'array' => $NewArr3,
-                    // 'array' => $NewArr,
-                      // 'services' => $services,
-                      'data_str' => $data_str
-                    ]);
+
              
           }
           else   return $this->render('report'); 
     }
 
-      // public function actionMaketask()
-      // {
-      //     $all_tasks = [];
-      //     $empty_time = [];
-      //     $folder_name = Yii::$app->request->get('folder', '');
 
-      //     if (Yii::$app->request->isPost) {
-      //         $uploaded_files = UploadedFile::getInstancesByName('files');
-
-      //         foreach ($uploaded_files as $file) {
-      //             // Проверяем, что файл с расширением .xlsx
-      //             if ($file->extension === 'xlsx') {
-      //                 // Проверяем, что класс SimpleXLSX существует
-      //                 if (class_exists('Shuchkin\SimpleXLSX')) {
-      //                     // Пытаемся загрузить файл
-      //                     try {
-      //                         $xlsx = SimpleXLSX::parse($file->tempName);
-      //                         if ($xlsx) {
-      //                             $rows = $xlsx->rows(); // Получаем данные из файла
-      //                             // Пропускаем первую строку с заголовками
-      //                             $header_values = array_shift($rows);
-      //                             // Создаем ассоциативный массив данных
-      //                             foreach ($rows as $row) {
-
-      //                                 $all_tasks[] = array_combine($header_values, $row);
-      //                             }
-      //                         } else {
-      //                             Yii::$app->session->setFlash('error', 'Ошибка парсинга файла: ' . SimpleXLSX::parseError());
-      //                         }
-      //                     } catch (\Exception $e) {
-      //                         Yii::$app->session->setFlash('error', 'Ошибка при чтении файла ' . $file->name . ': ' . $e->getMessage());
-      //                     }
-      //                 } else {
-      //                     Yii::$app->session->setFlash('error', 'Класс SimpleXLSX не найден');
-      //                 }
-      //             }
-      //         }
-      //     }
-
-      //     $done_tasks = array();
-      //     $fail_tasks = array();
-      //     $message = array();
-      //     foreach ($all_tasks as $key => $value) {
-      //         foreach ($value as $k => $val) {
-      //           if(str_contains($k, 'Field')  && $val > 0 ){
-      //                 $response = $this->makeIntraserviceRequest($all_tasks[$key]);
-
-                 
-      //                 if( isset($response['failedTasks'])){
-      //                    $fail_tasks[] = $response;
-      //                  }else{
-      //                      $done_tasks[] = $response;
-      //                  }
-
-      //           }
-      //         }
-      //     }
-      //     return $this->render('maketask', [ 'done_tasks' => $done_tasks, 'fail_tasks' => $fail_tasks]);
-      // }
-
-    ////////////////////////////
     public function actionMaketask()
     {
         $all_tasks = [];
@@ -540,6 +504,9 @@ class SiteController extends Controller
                      }else{
                          $done_tasks[] = $response;
                      }
+
+                //////test 
+                //$done_tasks[] = $value;
 
               }
             }
@@ -624,7 +591,7 @@ class SiteController extends Controller
     }
     protected function makeIntraserviceRequest($task) {
         $client = new Client();
-        $maxAttempts = 3;
+        $maxAttempts = 2;
         $attempt = 0;
         $delay = 2;
         $failedTasks = [];
@@ -677,6 +644,36 @@ class SiteController extends Controller
         }
 
         return ['failedTasks' => $failedTasks];
+    }
+
+    public function  actionPlanetask(){
+
+        $all_tasks = [];
+        $empty_time = [];
+        $folder_name = Yii::$app->request->get('folder', '');
+
+        if (Yii::$app->request->isPost) {
+            $uploaded_files = UploadedFile::getInstancesByName('files');
+            $all_tasks = $this->getFiles( $uploaded_files);
+        }
+        $regions = $this->findRegions();
+        $done_tasks = array();
+      
+
+        foreach ($all_tasks as $key => $value) {
+
+            $value['RegionName'] = $regions[$value['RegionId']];
+            foreach ($value as $k => $val) {
+              if(str_contains($k, 'Field')  && $val > 0 ){
+                
+
+                //////test 
+                $done_tasks[] = $value;
+
+              }
+            }
+        }
+        return $this->render('planetask', [ 'array' => $done_tasks]);
     }
 
 } 

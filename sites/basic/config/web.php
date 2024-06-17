@@ -61,7 +61,7 @@ $config = [
             //     'class' => 'Swift_SmtpTransport',
             //     'host' => 'smtp.yandex.ru',
             //     'username' => 'golopolosovartem@yandex.ru',
-            //     'password' => '******',
+            //     'password' => '128900mgmggm',
             //     'port' => '587',
             //     'encryption' => 'tls',
             // ],
@@ -183,6 +183,7 @@ $config = [
             'api/*',
             'reports/*',
             'service/*',
+             //'maketask/*',
             'some-controller/some-action',
             // The actions listed here will be allowed to everyone including guests.
             // So, 'admin/*' should not appear here in the production, of course.
