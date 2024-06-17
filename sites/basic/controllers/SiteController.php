@@ -673,7 +673,32 @@ class SiteController extends Controller
               }
             }
         }
-        return $this->render('planetask', [ 'array' => $done_tasks]);
+
+        $regs = $this->Group_by('RegionName', $done_tasks);
+
+        $DATA = array();
+        foreach ($regs as $key => $value) {
+        	$SUM =0;
+        
+        	foreach ($value as $k => $val) {
+
+          $tt = (isset($val['Field1307'])) ? (floatval($val['Field1307'])) : (floatval($val['Field1302']));
+
+        		$SUM += $tt;
+
+
+
+        	       
+        	
+        	}
+        	// $regs[$key]['REGION_TT_SUMM'] = $SUM;
+        	$DATA[$key]['SUMM'] = $SUM;
+        	$DATA[$key]['COUNT'] = count($value);
+        }
+
+
+
+        return $this->render('planetask', [ 'array' => $done_tasks,  'regs' => $DATA ]);
     }
 
 } 

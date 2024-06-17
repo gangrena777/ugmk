@@ -44,10 +44,31 @@ $this->params['breadcrumbs'][] = $this->title;
             });
         </script>
 
- <?// echo "<pre>"; print_r($array); echo "</pre>"; ?>
+ <?// echo "<pre>"; print_r($regs); echo "</pre>"; ?>
+
+<? if(isset($regs) && !empty($regs)) :?>
+
+  <table class="table" >
+     <tr>
+        <th scope="col">Участок</th>
+        <th scope="col">Планируемое кол-во заявок</th>
+        <th scope="col">Планируемая норма на времени(часы)</th>
+     </tr>
+
+  <?foreach ($regs as $key => $value) :?>
+      <tr>
+        <td><?= $key;?></td>
+        <td><?=$value['COUNT']; ?></td>
+        <td><?= $value['SUMM']; ?></td>
+        
+      </tr>
+
+  <? endforeach;?>
+  </table>
+<? endif; ?>
 
 
-
+<? if(isset($array) && !empty($array)) :?>
     <div  class="done_tasks"  style="color: green">
           <div>
              <input  type="button" class="exel_download   link-success"  onclick="exportToExcel('plane_table')"  value="Скачать....в EXEL">
@@ -65,11 +86,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                       <th  scope="col">Приоритет</th>
                                       <th  scope="col">Заявитель</th>
                                       <th  scope="col">Тип заявки</th>
-                                    
-
-                                   
-
-                                    
                                       <th  scope="col">Назнание участка</th>
                                       
                                     
@@ -77,35 +93,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                       <? foreach($array as $key =>$value)  :?>
                                           <tr  scope="row">
-                                             <td  scope="col"><?= $key + 1 ?></td>
-                                             <td><?= $value['Name']; ?></td>
-                                               <td><?=substr($value['Description'],0 , 100); ?></td>
-                                               <? $tt = (isset($value['Field1307'])) ? (floatval($value['Field1307'])) : (floatval($value['Field1302'])) ?>
-                                                 
-                                                 <td><?= str_replace('.', ',' , strval($tt)); ?></td>
-                                                   <td><?= $value['ServiceId']; ?></td>
-                                                     <td><?= $value['CategoryIds']; ?></td>
-                                                       <td><?= $value['ExecutorGroupId']; ?></td>
-                                                       
-                                                           <td><?= $value['PriorityId']; ?></td>
-                                                             <td><?= $value['CreatorId']; ?></td>
-                                                               <td><?= $value['TypeId'] == 5 ? 'Плановое ТО(ТО1)' :'Плановое квартальное ТО(ТО2)'; ?></td>
-
-                                                              
-                                                                 <td><?= $value['RegionName']; ?></td>
-                                                                 
-                                           
-
-                                      
-                                             
-                                              
-                                      
+                                              <td  scope="col"><?= $key + 1 ?></td>
+                                              <td><?= $value['Name']; ?></td>
+                                              <td><?=substr($value['Description'],0 , 100); ?></td>
+                                                <? $tt = (isset($value['Field1307'])) ? (floatval($value['Field1307'])) : (floatval($value['Field1302'])) ?>
+                                              <td><?= str_replace('.', ',' , strval($tt)); ?></td>
+                                              <td><?= $value['ServiceId']; ?></td>
+                                              <td><?= $value['CategoryIds']; ?></td>
+                                              <td><?= $value['ExecutorGroupId']; ?></td>
+                                              <td><?= $value['PriorityId']; ?></td>
+                                              <td><?= $value['CreatorId']; ?></td>
+                                              <td><?= $value['TypeId'] == 5 ? 'Плановое ТО(ТО1)' :'Плановое квартальное ТО(ТО2)'; ?></td>
+                                              <td><?= $value['RegionName']; ?></td>
                                           </tr>
-
                                       <?   endforeach;  ?>
                   </table>
           </div>
 
     </div>
+
+<? endif;?>    
 
 </div>
