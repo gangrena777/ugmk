@@ -76,9 +76,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <? foreach($array as $key =>$value)  :?>
     <tr  scope="row">
-          <td><?= $key; ?></td>
+          <td><?= $key +1; ?></td>
             <td><?= $value['Дата трудозатрат']; ?></td> 
-              <td><?= $value['Статус'] == 28 ? 'Закрыта' : 'Выполнена' ?></td> 
+              <? 
+                $s='';
+                if($value['Статус'] == 28){ 
+                   $s ='Закрыта'; 
+                }
+                elseif ($value['Статус'] == 29) {
+                      $s = 'Выполнена';
+                }
+                else{
+                    $s = 'В работе';
+                }
+              ?>
+
+              <td><?= $s; ?></td> 
                 <td><?= $value['№ заявки'] ?></td> 
                    <td><?= preg_replace('/<[^>]*>/', ' ',preg_replace("/[a-zA-Z]/", " ", $value['Тип']));?></td> 
 

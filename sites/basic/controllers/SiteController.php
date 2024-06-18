@@ -352,9 +352,10 @@ class SiteController extends Controller
                     $NewArr =[];
                     foreach ($array as $key => $val) {
 
-                        if($val['Статус'] == '28' || $val['Статус'] == '29'){
+                        if($val['Статус'] == '28' || $val['Статус'] == '29' ||  $val['Статус'] == '27'){
                           //28 - close
                           //29 - done
+                          //27 - in work
 
                          if($val['Индефикатор сервиса'] > 0 ){
                               if(array_key_exists($val['Индефикатор сервиса'], $services )){
