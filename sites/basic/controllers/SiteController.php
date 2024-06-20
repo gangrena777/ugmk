@@ -407,12 +407,34 @@ class SiteController extends Controller
                     if(  $req->get('report')  &&  $req->get('report') == 1){
 
 
+                    	$REGS_ARR =  $this->Group_by('Участок__', $NewArr);
+
+                        $DATA = array();
+
+				        foreach ($REGS_ARR as $key => $value) {
+				        	$SUM =0;
+				        
+				        	foreach ($value as $k => $val) {
+
+				        		$SUM += $val['ЧЧ'];
+
+				        	}
+				        	// $regs[$key]['REGION_TT_SUMM'] = $SUM;
+				        	$DATA[$key]['SUMM'] = $SUM;
+				        	$DATA[$key]['COUNT'] = count($value);
+				        }
+
+
+
+
+
+
                             return $this->render('report_t',[
-                                // 'array' => $services,
+                               
                              'array' => $NewArr,
-                                //'array' => $array,
-                                //'array' => $NewArr,
-                                // 'services' => $services,
+                             'regs_array' => $DATA,
+                              //'array' => $NewArr,
+                            
                               'data_str' => $data_str
                             ]);
 

@@ -50,7 +50,26 @@ $this->params['breadcrumbs'][] = $this->title;
   <div>
     <h3>Выборка за период : <?= $data_str; ?></h3>
   </div>
-<?// echo "<pre>";  print_r($array); echo "</pre>"; ?>
+<?// echo "<pre>";  print_r($regs_array); echo "</pre>"; ?>
+
+  <table class="table" >
+     <tr>
+        <th scope="col">Участок</th>
+        <th scope="col">Кол-во заявок</th>
+        <th scope="col">Фактическое временя(часы)</th>
+     </tr>
+
+  <?foreach ($regs_array as $key => $value) :?>
+      <tr>
+        <td><?= $key;?></td>
+        <td><?=$value['COUNT']; ?></td>
+        <td><?= $value['SUMM']; ?></td>
+        
+      </tr>
+
+  <? endforeach;?>
+  </table>
+
 
 
 
