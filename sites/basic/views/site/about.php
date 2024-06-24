@@ -157,12 +157,12 @@ $this->params['breadcrumbs'][] = $this->title;
           // }
 
 ?>
-
+<!-- 
  <form action="process.php" method="post">
         <label for="folder_path">Enter the folder path:</label>
         <input type="file" name="folder_path[]" id="folder_path"   multiple webkitdirectory directory required>
         <input type="submit" value="Process Files">
-    </form>
+    </form> -->
 <?
 // use Shuchkin\SimpleXLSX;
 
@@ -302,59 +302,177 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
+///////////////////////////////////////////////////////////////////////////////
+// use Shuchkin\SimpleXLSX;
 
-use Shuchkin\SimpleXLSX;
+// $all_tasks = [];
 
-$all_tasks = [];
+// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['files'])) {
+//     $upload_dir = __DIR__ . '/uploads/';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['files'])) {
-    $upload_dir = __DIR__ . '/uploads/';
+//     // Проверяем, существует ли директория для загрузки, если нет, создаем ее
+//     if (!is_dir($upload_dir)) {
+//         mkdir($upload_dir, 0777, true);
+//     }
 
-    // Проверяем, существует ли директория для загрузки, если нет, создаем ее
-    if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0777, true);
-    }
+//     foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
+//         $file_name = basename($_FILES['files']['name'][$key]);
+//         $file_path = $upload_dir . $file_name;
 
-    foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
-        $file_name = basename($_FILES['files']['name'][$key]);
-        $file_path = $upload_dir . $file_name;
+//         // Перемещаем загруженные файлы в директорию uploads
+//         if (move_uploaded_file($tmp_name, $file_path)) {
+//             // Проверяем, что файл с расширением .xlsx
+//             if (pathinfo($file_path, PATHINFO_EXTENSION) === 'xlsx') {
+//                 // Проверяем, что класс SimpleXLSX существует
+//                 if (class_exists('Shuchkin\SimpleXLSX')) {
+//                     // Пытаемся загрузить файл
+//                     try {
+//                         $xlsx = SimpleXLSX::parse($file_path);
+//                         if ($xlsx) {
+//                             $rows = $xlsx->rows(); // Получаем данные из файла
+//                             // Пропускаем первую строку с заголовками
+//                             $header_values = array_shift($rows);
+//                             // Создаем ассоциативный массив данных
+//                             foreach ($rows as $row) {
+//                                 $all_tasks[] = array_combine($header_values, $row);
+//                             }
+//                         } else {
+//                             echo 'Ошибка парсинга файла: ' . SimpleXLSX::parseError() . "<br>";
+//                         }
+//                     } catch (Exception $e) {
+//                         echo 'Ошибка при чтении файла ' . $file_name . ': ' . $e->getMessage() . "<br>";
+//                     }
+//                 } else {
+//                     echo 'Класс SimpleXLSX не найден' . "<br>";
+//                 }
+//             }
+//         } else {
+//             echo 'Ошибка при загрузке файла ' . $file_name . "<br>";
+//         }
+//     }
+// }
 
-        // Перемещаем загруженные файлы в директорию uploads
-        if (move_uploaded_file($tmp_name, $file_path)) {
-            // Проверяем, что файл с расширением .xlsx
-            if (pathinfo($file_path, PATHINFO_EXTENSION) === 'xlsx') {
-                // Проверяем, что класс SimpleXLSX существует
-                if (class_exists('Shuchkin\SimpleXLSX')) {
-                    // Пытаемся загрузить файл
-                    try {
-                        $xlsx = SimpleXLSX::parse($file_path);
-                        if ($xlsx) {
-                            $rows = $xlsx->rows(); // Получаем данные из файла
-                            // Пропускаем первую строку с заголовками
-                            $header_values = array_shift($rows);
-                            // Создаем ассоциативный массив данных
-                            foreach ($rows as $row) {
-                                $all_tasks[] = array_combine($header_values, $row);
-                            }
-                        } else {
-                            echo 'Ошибка парсинга файла: ' . SimpleXLSX::parseError() . "<br>";
-                        }
-                    } catch (Exception $e) {
-                        echo 'Ошибка при чтении файла ' . $file_name . ': ' . $e->getMessage() . "<br>";
-                    }
-                } else {
-                    echo 'Класс SimpleXLSX не найден' . "<br>";
-                }
-            }
-        } else {
-            echo 'Ошибка при загрузке файла ' . $file_name . "<br>";
-        }
-    }
+// echo "<pre>";
+// print_r($all_tasks);
+// echo "</pre>";
+//////////////////////////////////////////////////////////////////////////////
+
+
+
+
+ use google\apiclient\src\Google\Client;
+
+// $client = new Google\Client();
+// $client->setApplicationName('GGG');
+// putenv("GOOGLE_APPLICATION_CREDENTIALS=credential.json");
+
+// $client->useApplicationDefaultCredentials();
+// $client->addScope(Google_Service_Drive::DRIVE);
+
+
+// $folderId = "1pKxsaDiATWYtE8pitlMM5rBRkae1YTl_KglOAg0X22s";
+// $opt_params = array(
+//    'q'=> "'".$folderId."' in parents"
+
+// );
+
+// $service = new Google_Service_Drive($client);
+
+
+// $results = $service->files->listFiles($opt_params);
+
+
+//if(count($results->getFiles()) > 0 ){
+  //var_dump($results);
+
+//}
+
+                                  // рабочий вариант
+
+                                  //https://docs.google.com/spreadsheets/d/1RbAvIUFJZqdCPfME_5wI-w2fiHXBFFiafe3GxDXIjOY/edit?gid=0#gid=0
+
+
+                                  // $id = '1RbAvIUFJZqdCPfME_5wI-w2fiHXBFFiafe3GxDXIjOY';
+                                  // $gid = '0';
+                                  // //$range = 'A12:D12';
+                                  // $range ='';
+                                   
+                                  // $csv = file_get_contents('https://docs.google.com/spreadsheets/d/' . $id . '/export?format=csv&gid=' . $gid);
+                                  // $csv = explode("\r\n", $csv);
+                                  // $array = array_map('str_getcsv', $csv);
+                                   
+                                  // echo "<pre>"; 
+                                  // print_r($array);
+                                  // echo "</pre>";
+
+
+
+
+  /**
+ * Подключаемся к API
+ *******************************************************/
+
+
+// Путь к файлу ключа сервисного аккаунта
+
+
+
+// Документация https://developers.google.com/sheets/api/
+$client = new Google_Client();
+$client->useApplicationDefaultCredentials();
+ putenv("GOOGLE_APPLICATION_CREDENTIALS=credential.json");
+// Области, к которым будет доступ
+// https://developers.google.com/identity/protocols/googlescopes
+$client->addScope( 'https://www.googleapis.com/auth/spreadsheets' );
+
+$service = new Google_Service_Sheets( $client );
+
+// ID таблицы
+$id_sheets = '1RbAvIUFJZqdCPfME_5wI-w2fiHXBFFiafe3GxDXIjOY';
+$response = $service->spreadsheets->get($id_sheets);
+
+$spreadsheetProperties = $response->getProperties();
+$spreadsheetProperties->title; // Название таблицы
+
+
+// foreach ($response->getSheets() as $sheet) {
+ 
+//   // Свойства листа
+//   $sheetProperties = $sheet->getProperties();
+//  echo  $sheetProperties->title; // Название листа
+//  echo "</br>";
+ 
+//   $gridProperties = $sheetProperties->getGridProperties();
+//   echo $gridProperties->columnCount; // Количество колонок
+//    echo "</br>";
+//   echo $gridProperties->rowCount; // Количество строк
+ 
+// }
+
+
+// echo "<pre>";
+// print_r($spreadsheetProperties->title);
+// echo "</pre>";
+
+$range = 'Лист1';
+$response2 = $service->spreadsheets_values->get($id_sheets,$range);
+$response2 = json_decode(json_encode($response2,true),true);;
+
+$header = array_shift($response2['values']);
+echo count($header);
+
+$all_tasks = array();
+// Создаем ассоциативный массив данных
+foreach ($response2['values'] as $row) {
+
+   //echo count($row);
+   //echo "<br>";
+   $arr_eq = array_pad($row, count($header), " ");
+   $all_tasks[] = array_combine($header, $arr_eq);
 }
 
 echo "<pre>";
 print_r($all_tasks);
 echo "</pre>";
-
 ?>
 </div>

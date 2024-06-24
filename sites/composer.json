@@ -11,5 +11,7 @@
             "email": "you@example.com"
         }
     ],
-    "require": {}
+    "require": {
+        "google/apiclient": "^2.15.0"
+    }
 }

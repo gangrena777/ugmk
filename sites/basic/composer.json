@@ -30,7 +30,8 @@
         "yii2mod/yii2-rbac": "*",
         "mdmsoft/yii2-admin": "~2.0",
        "moonlandsoft/yii2-phpexcel": "*",
-        "shuchkin/simplexlsx": "^1.1"
+        "shuchkin/simplexlsx": "^1.1",
+        "google/apiclient": "^2.15.0"
 
         
        
