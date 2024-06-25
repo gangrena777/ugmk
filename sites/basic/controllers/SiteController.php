@@ -407,36 +407,75 @@ class SiteController extends Controller
                     if(  $req->get('report')  &&  $req->get('report') == 1){
 
 
-                    	$REGS_ARR =  $this->Group_by('Участок__', $NewArr);
+                    	    $REGS_ARR =  $this->Group_by('Участок__', $NewArr);
 
-                        $DATA = array();
+                          $DATA = array();
 
-				        foreach ($REGS_ARR as $key => $value) {
-				        	$SUM =0;
-				        
-				        	foreach ($value as $k => $val) {
+          				        foreach ($REGS_ARR as $key => $value) {
+          				        	$SUM = 0;
+          				        
+          				        	foreach ($value as $k => $val) {
 
-				        		$SUM += $val['ЧЧ'];
+          				        		$SUM += $val['ЧЧ'];
 
-				        	}
-				        	// $regs[$key]['REGION_TT_SUMM'] = $SUM;
-				        	$DATA[$key]['SUMM'] = $SUM;
-				        	$DATA[$key]['COUNT'] = count($value);
-				        }
+          				        	}
+          				        	// $regs[$key]['REGION_TT_SUMM'] = $SUM;
+          				        	$DATA[$key]['SUMM'] = $SUM;
+          				        	$DATA[$key]['COUNT'] = count($value);
+          				        }
+
+                          /////////
+
+                          $DATA2 = array();
+                          $TYPE = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип');
+
+                          foreach ($TYPE as $key => $value) {
+                            $TOTAL = 0;
+                            $TOTAL_COUNT = 0;
+
+                         
+                            $type_count = array();
+
+                            foreach ($value as $k => $val) {
+                              $type_sum = 0;
+                             
+                              foreach ($val as $i => $v) {
+                                 $type_sum +=$v['ЧЧ'];
+                              }
+                              $type_count[$k]['count'] = count($val);
+                              $type_count[$k]['sum'] = $type_sum;
+                              $TOTAL += $type_sum;
+                              
+                              $TOTAL_COUNT += count($val);
+                            
+                            }
+
+                             $DATA2[$key]['TOTAL'] = $TOTAL;
+                             $DATA2[$key]['COUNT'] = $TOTAL_COUNT;
+
+                             $DATA2[$key]['TYPE'][] = $type_count;
+                          
+                           
+
+
+                          }
+                          //////////////
+
+   
 
 
 
-
-
-
-                            return $this->render('report_t',[
+                          return $this->render('report_t',[
                                
                              'array' => $NewArr,
                              'regs_array' => $DATA,
-                              //'array' => $NewArr,
+
+
+                              //'array2' => $TYPE,
+                             'array2' => $DATA2,
                             
                               'data_str' => $data_str
-                            ]);
+                          ]);
 
 
 

@@ -44,9 +44,58 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <? endif; ?>
+
+
+<?
+   // echo "<pre>";
+   // print_r($array2);
+   // echo "</pre>";
+
+?>
+
+
 <?  if(isset($array)) :?>
 
+  <div>
+    <h3>Выборка за период : <?= $data_str; ?></h3>
+  </div>
+<?// echo "<pre>";  print_r($regs_array); echo "</pre>"; ?>
 
+ <div>
+    <input  type="button" class="exel_download   link-success"  onclick="exportToExcel('Fot_table3')"  value="Скачать....в EXEL">
+ </div>
+
+  <table class="table"  id ="Fot_table3">
+     <tr>
+        <th scope="col">Участок</th>
+         <th scope="col">Тип заявок</th>
+        <th scope="col">Общее кол-во заявок</th>
+        <th scope="col">Общее фактическое временя(часы)</th>
+     </tr>
+
+  <?foreach ($array2 as $key => $value) :?>
+      <tr>
+        <td><?= $key;?></td>
+        <td>
+          <? foreach ($value['TYPE'][0] as $k => $val) :?>
+            <div>
+              <p  style="margin-bottom: 5px; font-size: 14px;line-height: 20px;"><strong><?=  preg_replace('/<[^>]*>/', ' ',preg_replace("/[a-zA-Z]/", " ", $k));?></strong></p>
+              <p style="margin-bottom: 5px; font-size: 14px;line-height: 15px;">Кол-во  заявок - <?= $val['count'];?></p>
+              <p style="margin-bottom: 5px; font-size: 14px;line-height: 15px;">Кол-во часов - <?= $val['sum'];?></p>
+            </div>
+          <? endforeach; ?>
+          
+        </td>
+        <td><?=$value['COUNT']; ?></td>
+        <td><?= $value['TOTAL']; ?></td>
+        
+      </tr>
+
+  <? endforeach;?>
+  </table>
+
+
+<!---
   <div>
     <h3>Выборка за период : <?= $data_str; ?></h3>
   </div>
@@ -59,18 +108,18 @@ $this->params['breadcrumbs'][] = $this->title;
         <th scope="col">Фактическое временя(часы)</th>
      </tr>
 
-  <?foreach ($regs_array as $key => $value) :?>
+  <?//foreach ($regs_array as $key => $value) :?>
       <tr>
-        <td><?= $key;?></td>
-        <td><?=$value['COUNT']; ?></td>
-        <td><?= $value['SUMM']; ?></td>
+        <td><?//= $key;?></td>
+        <td><?//=$value['COUNT']; ?></td>
+        <td><?//= $value['SUMM']; ?></td>
         
       </tr>
 
-  <? endforeach;?>
+  <? //endforeach;?>
   </table>
 
-
+--->
 
 
  <div>
