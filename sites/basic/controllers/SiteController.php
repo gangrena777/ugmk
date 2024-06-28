@@ -558,6 +558,8 @@ class SiteController extends Controller
         foreach ($all_tasks as $key => $value) {
             foreach ($value as $k => $val) {
               if(str_contains($k, 'Field')  && $val > 0 ){
+              	$value['Deadline'] = date("d.m.Y", strtotime("last day of this month"));
+
                     $response = $this->makeIntraserviceRequest($value);
 
                
@@ -567,8 +569,8 @@ class SiteController extends Controller
                          $done_tasks[] = $response;
                      }
 
-                //////test 
-                //$done_tasks[] = $value;
+                      //////test 
+                     //$done_tasks[] = $value;
 
               }
             }
@@ -672,6 +674,7 @@ class SiteController extends Controller
                     $doneTasks['taskServicePath'] = $taskData['Task']['ServicePath'];
                     $doneTasks['taskRegion'] = $task['RegionID'];
                     $doneTasks['taskAgreementID'] = $task['AgreementID'];
+                     $doneTasks['Deadline'] = $task['Deadline'];
 
                     ///log  task create
                     \Yii::info("Заявка id:". $taskData['Task']['Id'].", name:".$taskData['Task']['Name'].", service:".$taskData['Task']['ServiceId']."---успешно  создана в INTRASEWRVICE", 'task_create');

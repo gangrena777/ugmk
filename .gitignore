@@ -32,5 +32,4 @@ tests/_support/_generated
 #vagrant folder
 /.vagrant
 
-/data/logs/access.log
-/data/mysql/*
+sites/basic/web/credential.json
