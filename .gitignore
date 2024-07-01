@@ -33,3 +33,6 @@ tests/_support/_generated
 /.vagrant
 
 sites/basic/web/credential.json
+data/logs/*
+data/mysql/*
+

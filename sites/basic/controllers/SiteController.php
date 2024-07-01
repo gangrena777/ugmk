@@ -565,12 +565,12 @@ class SiteController extends Controller
                
                     if( isset($response['failedTasks'])){
                        $fail_tasks[] = $response;
-                     }else{
+                    }else{
                          $done_tasks[] = $response;
-                     }
+                    }
 
                       //////test 
-                     //$done_tasks[] = $value;
+                    // $done_tasks[] = $response;
 
               }
             }
@@ -660,10 +660,12 @@ class SiteController extends Controller
         $delay = 2;
         $failedTasks = [];
 
-        while ($attempt < $maxAttempts) {
-            $attempt++;
+        // while ($attempt < $maxAttempts) {
+        //     $attempt++;
         
                 $taskData = $this->createTask($client, $task);
+
+
 
                 if ($taskData &&  isset($taskData['Task'])) {
                     $doneTasks = [];
@@ -672,7 +674,7 @@ class SiteController extends Controller
                     $doneTasks['taskService'] = $taskData['Task']['ServiceId'];
                     $doneTasks['taskDate_create'] = $taskData['Task']['Created'];
                     $doneTasks['taskServicePath'] = $taskData['Task']['ServicePath'];
-                    $doneTasks['taskRegion'] = $task['RegionID'];
+                    $doneTasks['taskRegion'] = $task['RegionId'];
                     $doneTasks['taskAgreementID'] = $task['AgreementID'];
                      $doneTasks['Deadline'] = $task['Deadline'];
 
@@ -680,35 +682,44 @@ class SiteController extends Controller
                     \Yii::info("Заявка id:". $taskData['Task']['Id'].", name:".$taskData['Task']['Name'].", service:".$taskData['Task']['ServiceId']."---успешно  создана в INTRASEWRVICE", 'task_create');
 
                     $TaskAddInDb = new Tasks();
-                     $TaskAddInDb->region_id = $task['RegionID'];
+                     $TaskAddInDb->region_id = $task['RegionId'];
                       $TaskAddInDb->task_name = $taskData['Task']['Name'];
                        $TaskAddInDb->dogovor_code = $task['AgreementID'];
                         $TaskAddInDb->task_id = $taskData['Task']['Id'];
                          $TaskAddInDb->date_create = $taskData['Task']['Created'];
                          if($TaskAddInDb->save() ){
 
-                            ///log  task save in db
-                            \Yii::info("Заявка id:". $taskData['Task']['Id'].", name:".$taskData['Task']['Name'].", service:".$taskData['Task']['ServiceId']."---успешно добавлена в базу", 'task_create');
-                            return $doneTasks;
-                         }
+                               ///log  task save in db
+                               \Yii::info("Заявка id:". $taskData['Task']['Id'].", name:".$taskData['Task']['Name'].", service:".$taskData['Task']['ServiceId']."---успешно добавлена в базу", 'task_create');
 
+
+                               return ['succes maketask in IS' =>$doneTasks,  'succes save DB' => "Заявка id:". $taskData['Task']['Id']." save in DB"];
+                         }else{
+                         	   ///log  task save in db
+                               \Yii::info("Заявка id:". $taskData['Task']['Id'].", name:".$taskData['Task']['Name'].", service:".$taskData['Task']['ServiceId']."---ошибка при добавлении в базу", 'task_create');
+                               return ['succes maketask in IS' =>$doneTasks, 'error' =>'task id='.$taskData['Task']['Id'].' not save in DB'];
+                         }
+                        
                 }
         
-              else{
-                 \Yii::warning("Заявка  name:".$task['Name'].", serviceId:".$task['ServiceId']."---не создалась в INTRASERVICE ", 'task_create');
-                $failedTasks[] = [
-                    'task' => $task,
-                    'attempt' => $attempt,
-                    'error' => 'Ошибка при создании заявки'
-                ];
-                if ($attempt < $maxAttempts) {
-                    sleep($delay); // Задержка перед повторной попыткой
+                else{
+                     \Yii::warning("Заявка  name:".$task['Name'].", serviceId:".$task['ServiceId']."---не создалась в INTRASERVICE ", 'task_create');
+                         
+                         $failedTasks[] = [
+                            'task' => $task,
+                            'attempt' => $attempt,
+                            'error' => 'Ошибка при создании заявки'
+                         ];
+
+                    return ['failedTasks' => $failedTasks];
                 }
 
-              }
-        }
+                // if ($attempt < $maxAttempts) {
+                //          sleep($delay); // Задержка перед повторной попыткой
+                // }
+      //  }
 
-        return ['failedTasks' => $failedTasks];
+       // return ['failedTasks' => $failedTasks];
     }
 
     public function  actionPlanetask(){
