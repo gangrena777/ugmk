@@ -300,6 +300,244 @@ class SiteController extends Controller
       /////////////////////////
 
 
+    // public function actionReport()
+    // {
+    //       $req = Yii::$app->request;
+    //       if(  $req->get('date_from')  && $req->get('date_to') ){
+
+
+    //                 $from = str_replace('-', '', $req->get('date_from'));
+    //                 $to = str_replace('-', '', $req->get('date_to'));
+
+    //                 $data_str = $req->get('date_from')." --  ".$req->get('date_to');
+
+
+    //                 $report = file_get_contents('http://46.160.151.67/intraservice_procs2.php?procedure=get_taskexpenses777&params=date_between&from='.$from.'&to='.$to);
+
+    //                 $lines = explode(PHP_EOL,  $report);
+    //                 $array = array();
+
+
+    //                 $FINALL = array();
+    //                 foreach ($lines as $line) {
+    //                   if($line){
+
+    //                      $line2 = preg_split('/\"/',$line);
+    //                       $arr = array();
+    //                       $arr['Исполнитель'] = $line2[7];
+                      
+    //                      $arr['Дата трудозатрат'] =  $line2[5];
+    //                      $arr['Комментарий'] = isset($line2[9])  ?  $line2[9] : "CCCCCCCCCC";
+    //                      $arr['Код сервиса'] = isset($line2[21]) ? $line2[21]  : "KKKKKKKKK";
+    //                      $arr['№ заявки'] = $line2[1];
+    //                      $arr['Наименование заявки'] = $line2[13];
+    //                      $arr['Заявитель'] = $line2[19];
+    //                      $arr['Индефикатор сервиса'] = intval($line2[15]);
+    //                      $arr['Трудозатраты(мин)'] = isset($line2[11]) ? $line2[11] : 0 ;
+    //                      $arr['Трудозатраты(часы)'] = isset($line2[11]) ? date( "G:i", mktime( 0, intval($line2[11]))) :  0 ;
+    //                      $arr['ЧЧ'] = isset($line2[11]) ? round(floatval($line2[11])/60 , 2) : 0 ;
+    //                      $arr['Статус'] = $line2[23];
+    //                      $arr['Тип'] = $line2[3];
+
+    //                      $array[] = $arr;
+    //                      //$array[] = $line2;
+                        
+
+    //                   }
+
+    //                 }
+
+    //                 $services = $this->getAllServices();
+    //                 array_shift($array);
+    //                 $NewArr =[];
+    //                 foreach ($array as $key => $val) {
+
+    //                     if($val['Статус'] == '28' || $val['Статус'] == '29' ||  $val['Статус'] == '27'){
+    //                       //28 - close
+    //                       //29 - done
+    //                       //27 - in work
+
+    //                      if($val['Индефикатор сервиса'] > 0 ){
+    //                           if(array_key_exists($val['Индефикатор сервиса'], $services )){
+                            
+    //                               $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
+
+    //                               $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
+    //                               $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
+    //                               $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
+    //                               $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
+    //                                   ///////
+    //                                  $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
+    //                                   // if(isset($services[$start_path[0]])) {
+    //                               $val['Участок__'] = $services[$start_path[0]]['NAME'];
+    //                 									  //}else{
+    //                 									  //	$val['Участок__'] = 'ZZZZ';
+    //                 									  //}
+                                 
+    //                           }
+
+    //                       }else{
+
+    //                             $val['Attribut_dogovor'] = 0;
+    //                             $val['Код НГ'] = 0;
+    //                             $val['Название НГ'] = '_';
+    //                             $val['Назначение ТМЦ'] = '_';
+    //                             $val['Участок'] = '_';
+    //                             $val['Участок__'] = '_';
+    //                       }
+
+                        
+    //                       $NewArr[] = $val;
+    //                     }
+    //                 }
+
+    //                 $NewArr2 = $this->Group_by('Исполнитель', $NewArr);
+                    
+    //                 $Total = array(); ////------- Всего времени пользователем
+
+    //                 foreach ($NewArr2 as $key => $value) {
+
+
+    //                   $itemsSum = array_column($value, 'ЧЧ');
+    //                   $Total[$key] = array_sum($itemsSum); /// Исполнитель => всего времени
+                   
+    //                 }
+    //                 //////////////////////////////////////////IF TASKS  /////////////////////////
+
+    //                 if(  $req->get('report')  &&  $req->get('report') == 1){
+
+
+    //                     	    //$REGS_ARR =  $this->Group_by('Участок__', $NewArr);
+
+    //                           //$DATA = array();
+
+    //           				        // foreach ($REGS_ARR as $key => $value) {
+    //           				        // 	$SUM = 0;
+              				        
+    //           				        // 	foreach ($value as $k => $val) {
+
+    //           				        // 		$SUM += $val['ЧЧ'];
+
+    //           				        // 	}
+    //           				        // 	// $regs[$key]['REGION_TT_SUMM'] = $SUM;
+    //           				        // 	$DATA[$key]['SUMM'] = $SUM;
+    //           				        // 	$DATA[$key]['COUNT'] = count($value);
+    //           				        // }
+
+    //                           /////////
+
+    //                       $DATA2 = array();
+    //                       $TYPE = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип');
+
+    //                       foreach ($TYPE as $key => $value) {
+    //                             $TOTAL = 0;
+    //                             $TOTAL_COUNT = 0;
+
+                             
+    //                             $type_count = array();
+
+    //                             foreach ($value as $k => $val) {
+    //                               $type_sum = 0;
+                                 
+    //                               foreach ($val as $i => $v) {
+    //                                  $type_sum +=$v['ЧЧ'];
+    //                               }
+    //                               $type_count[$k]['count'] = count($val);
+    //                               $type_count[$k]['sum'] = $type_sum;
+    //                               $TOTAL += $type_sum;
+                                  
+    //                               $TOTAL_COUNT += count($val);
+                                
+    //                             }
+
+    //                              $DATA2[$key]['TOTAL'] = $TOTAL;
+    //                              $DATA2[$key]['COUNT'] = $TOTAL_COUNT;
+
+    //                              $DATA2[$key]['TYPE'][] = $type_count;
+                              
+    //                       }
+    //                       //////////////
+
+    //                       return $this->render('report_t',[
+                               
+    //                          'array' => $NewArr,
+    //                          //'regs_array' => $DATA,
+
+
+    //                        // 'array2' => $TYPE,
+    //                          'array2' => $DATA2,
+                            
+    //                           'data_str' => $data_str
+    //                       ]);
+
+
+
+    //                 }
+    //                 //////////////////////////////  end IF TASK   ///////////////////////////////
+
+    //                 ////////////////////////////////////////IF  FOT /////////////////////////////
+    //                 else{
+    //                         $NewArr3 = $this->ArrayGroupBy( $NewArr, 'Исполнитель','Название НГ');
+
+    //                         foreach ($NewArr3 as $key => $users) {
+
+                              
+                      
+    //                           foreach ($users as $ky => $objs) {
+
+    //                             $summ = 0;
+
+    //                             foreach ($objs as $k => $val) {
+
+    //                                 $summ += $val['ЧЧ'];
+
+    //                             }
+
+    //                               $NewArr3[$key][$ky]['OBJ_SUM'] = $summ;
+    //                               $NewArr3[$key][$ky]['Код НГ'] = $objs[0]['Код НГ'];
+    //                               $NewArr3[$key][$ky]['Название НГ'] = $objs[0]['Название НГ'];
+    //                               $NewArr3[$key][$ky]['Назначение ТМЦ'] = $objs[0]['Назначение ТМЦ'];
+    //                               $NewArr3[$key][$ky]['Участок'] = $objs[0]['Участок'];
+    //                               $NewArr3[$key][$ky]['Участок__'] = $objs[0]['Участок__'];
+                                  
+    //                               $NewArr3[$key][$ky]['TOTAL'] = $Total[$key];
+
+    //                           }
+                              
+                                  
+    //                         }
+
+    //                                   // Yii::$app->mailer->compose()
+    //                                   //  // ->setFrom(Yii::$app->params['senderEmail'])
+    //                                   // ->setFrom('gaa1@ugmk-telecom.ru')
+    //                                   //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
+    //                                   //   ->setTo('gaa1@ugmk-telecom.ru')
+    //                                   //   ->setSubject('Заполнена форма обратной связи')
+    //                                   //   ->setTextBody('TEST')
+    //                                   //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
+    //                                   //   ->send();
+
+    //                         return $this->render('report',[
+    //                             // 'array' => $services,
+    //                          'array' => $NewArr3,
+    //                             //'array' => $array,
+    //                             //'array' => $NewArr,
+    //                             // 'services' => $services,
+    //                           'data_str' => $data_str
+    //                         ]);
+    //                 }
+                   
+
+
+
+             
+    //       }
+    //       else   return $this->render('report'); 
+    // }
+
+
+
+
     public function actionReport()
     {
           $req = Yii::$app->request;
@@ -370,9 +608,9 @@ class SiteController extends Controller
                                      $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
                                       // if(isset($services[$start_path[0]])) {
                                   $val['Участок__'] = $services[$start_path[0]]['NAME'];
-                    									  //}else{
-                    									  //	$val['Участок__'] = 'ZZZZ';
-                    									  //}
+                                       //}else{
+                                       //  $val['Участок__'] = 'ZZZZ';
+                                       //}
                                  
                               }
 
@@ -407,72 +645,68 @@ class SiteController extends Controller
                     if(  $req->get('report')  &&  $req->get('report') == 1){
 
 
-                    	    $REGS_ARR =  $this->Group_by('Участок__', $NewArr);
-
-                          $DATA = array();
-
-          				        foreach ($REGS_ARR as $key => $value) {
-          				        	$SUM = 0;
-          				        
-          				        	foreach ($value as $k => $val) {
-
-          				        		$SUM += $val['ЧЧ'];
-
-          				        	}
-          				        	// $regs[$key]['REGION_TT_SUMM'] = $SUM;
-          				        	$DATA[$key]['SUMM'] = $SUM;
-          				        	$DATA[$key]['COUNT'] = count($value);
-          				        }
-
-                          /////////
-
                           $DATA2 = array();
-                          $TYPE = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип');
+                          $TASKS = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип','№ заявки');
 
-                          foreach ($TYPE as $key => $value) {
-                            $TOTAL = 0;
-                            $TOTAL_COUNT = 0;
-
-                         
-                            $type_count = array();
-
-                            foreach ($value as $k => $val) {
-                              $type_sum = 0;
+                          foreach ($TASKS as $key => $region) {   ////region
+                                $TOTAL_SUM = 0;
+                               
+                                $type_task_count =0;
+                                $TOTAL_COUNT =0;
+                                $typeData = array();
                              
-                              foreach ($val as $i => $v) {
-                                 $type_sum +=$v['ЧЧ'];
-                              }
-                              $type_count[$k]['count'] = count($val);
-                              $type_count[$k]['sum'] = $type_sum;
-                              $TOTAL += $type_sum;
+
+                                foreach ($region as $k => $type) {   /////type
+                                   $type_sum = 0;  
+                                 
+                                       foreach ($type as $i => $task) { ////task number
+                                        
+                                            $task_sum = 0; 
+                                            foreach ($task as $z => $v) {  ////taskexp
+                                       
+                                              $task_sum +=$v['ЧЧ'];
+
+                                            }
+                                     
+                                            $type_sum +=  $task_sum;
+                                  
+                                        }
+                               
+                                
+                                  $TOTAL_SUM += $type_sum;
                               
-                              $TOTAL_COUNT += count($val);
-                            
-                            }
 
-                             $DATA2[$key]['TOTAL'] = $TOTAL;
-                             $DATA2[$key]['COUNT'] = $TOTAL_COUNT;
-
-                             $DATA2[$key]['TYPE'][] = $type_count;
-                          
-                           
+                                 $type_task_count = count($type);
+                                
+                                    //$DATA2[$key][$k]['TYPE_TASK_COUNT'][] = $type_task_count;
+                                   //$DATA2[$key][$k]['TYPE_TASK_SUM'][] = $type_sum;
 
 
-                          }
-                          //////////////
+                                 $typeData[$k]['count'] = $type_task_count;
+                                 $typeData[$k]['sum'] = $type_sum;
 
+
+                                 $TOTAL_COUNT +=  $type_task_count;
+                                
+                                }
+
+
+                                 $DATA2[$key]['TOTAL'] = $TOTAL_SUM;
+                                 $DATA2[$key]['COUNT'] =  $TOTAL_COUNT;
+
+                                 $DATA2[$key]['TYPE'][] = $typeData;
    
-
-
+                          }
+                            //////////////
 
                           return $this->render('report_t',[
                                
-                             'array' => $NewArr,
-                             'regs_array' => $DATA,
+                              'array' => $NewArr,
+                               //'regs_array' => $DATA,
 
 
-                              //'array2' => $TYPE,
-                             'array2' => $DATA2,
+                              'array3' => $TASKS,
+                              'array2' => $DATA2,
                             
                               'data_str' => $data_str
                           ]);
@@ -480,6 +714,8 @@ class SiteController extends Controller
 
 
                     }
+                    //////////////////////////////  end IF TASK   ///////////////////////////////
+
                     ////////////////////////////////////////IF  FOT /////////////////////////////
                     else{
                             $NewArr3 = $this->ArrayGroupBy( $NewArr, 'Исполнитель','Название НГ');
@@ -531,11 +767,7 @@ class SiteController extends Controller
                               'data_str' => $data_str
                             ]);
                     }
-                   
 
-
-
-             
           }
           else   return $this->render('report'); 
     }
@@ -775,6 +1007,133 @@ class SiteController extends Controller
 
 
         return $this->render('planetask', [ 'array' => $done_tasks,  'regs' => $DATA ]);
+    }
+
+
+    public function actionTaketask(){
+               
+            $req = Yii::$app->request;
+           if(  $req->get('date_from')  && $req->get('date_to') ){
+
+
+                    $from = str_replace('-', '', $req->get('date_from'));
+                    $to = str_replace('-', '', $req->get('date_to'));
+
+                    $data_str = $req->get('date_from')." --  ".$req->get('date_to');
+
+
+                    $report = file_get_contents('http://46.160.151.67/intraservice_procs2.php?procedure=get_task_from_intraservice777&params=date_between&from='.$from.'&to='.$to);
+                 
+
+                    $lines = explode(PHP_EOL,  $report);
+                    $array = array();
+
+
+                    $FINALL = array();
+                    foreach ($lines as $line) {
+                      if($line){
+
+                         $line2 = preg_split('/\"/',$line);
+                           $arr = array();
+                           $arr['№ заявки'] = $line2[1];
+                             $arr['Тип'] = $line2[3];
+                                $arr['Создана'] = $line2[5];
+                                    $arr['Заявитель'] = $line2[7];
+                                       $arr['Исполнитель'] = $line2[9];
+                                         $arr['Наименование заявки'] = $line2[13];
+                                          // $arr['Описание заявки'] = $line2[13];
+                                              $arr['Статус'] = $line2[15]; 
+                                                 $arr['Дата выполнения'] =  $line2[17];
+                                                   $arr['Дата изменения статуса'] =  $line2[19];
+                                                      $arr['Срок откладывания'] = $line2[21];
+                                                        $arr['Причина откладывания'] = $line2[23]; 
+                                                          $arr['Норматив трудозатрат'] =  $line2[25];
+                                                             $arr['Трудозатраты'] =  $line2[27];
+                                                                 $arr['Категория'] =  $line2[29];
+                                                                     $arr['Вложение'] = $line2[31];
+                                                                         $arr['DayDiff'] =  $line2[33];
+                                                                            $arr['serviceId'] = $line2[39];
+                                                                                  $array[] = $arr;
+                                                                                     //$array[] = $line2;
+                        
+
+                      }
+
+                    }
+
+                    $services = $this->getAllServices();
+                    array_shift($array);
+                    $NewArr =[];
+                    foreach ($array as $key => $val) {
+
+
+                         if($val['serviceId'] > 0 ){
+                              if(array_key_exists($val['serviceId'], $services )){
+                            
+                                  $val['Участок'] = $services[$val['serviceId']]['dogovor']['REGION_NAME'];
+                                      ///////
+                                  $start_path = explode("|", $services[$val['serviceId']]['Path']);
+                                      // if(isset($services[$start_path[0]])) {
+                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
+                                        //}else{
+                                        //  $val['Участок__'] = 'ZZZZ';
+                                        //}
+                                 
+                              }
+
+                          }else{
+
+                            
+                                $val['Участок'] = '_';
+                                $val['Участок__'] = '_';
+                          }
+
+                        
+                          $NewArr[] = $val;
+                        
+                    }
+
+                          $DATA2 = array();
+                          $TYPE = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип');
+
+                          foreach ($TYPE as $key => $value) {
+                            $TOTAL = 0;
+                            $TOTAL_COUNT = 0;
+
+                         
+                            $type_count = array();
+
+                            foreach ($value as $k => $val) {
+                              $type_sum = 0;
+                             
+                              foreach ($val as $i => $v) {
+                                 $type_sum += intval($v['Трудозатраты']);
+                              }
+
+                                //$type_count[$k]['count'] = count($val);
+                                //$type_count[$k]['sum'] = $type_sum;
+
+                                $TOTAL += $type_sum;
+                              
+                                $TOTAL_COUNT += count($val);
+                            
+                            }
+
+                             $DATA2[$key]['TOTAL'] = $TOTAL;
+                             $DATA2[$key]['COUNT'] = $TOTAL_COUNT;
+
+                             $DATA2[$key]['TYPE'][] = $type_count;
+                          }
+
+                          //$NewArr
+                          //TYPE
+                          //$DATA2
+
+                          
+                    return $this->render('taketask', [ 'array' => $TYPE, 'data_str' => $data_str]);
+                   
+            }
+            else return $this->render('taketask');
     }
 
 } 
