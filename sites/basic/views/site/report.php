@@ -7,26 +7,15 @@ use yii\helpers\Html;
 $this->title = 'Reports';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-      Создание  ФОТ :
-    </p>
-
-
-
+<p  class="alert alert-info"><small>В отчет за период попадают заявки со статусом : в работе, закрыта, выполнена.</small></p>    
 
 
 <?= Html::beginForm([''], 'get', ['enctype' => 'multipart/form-data', 'id' =>'fot_report_form']) ?>
-
-
-
-<?= Html::radioList('report', 0, [ 0 =>'FOT', 1=>'TASKS']) ?>
-
-
-
-
+<?= Html::radioList('report', 0, [ 0 =>'ФОТ', 1=>'ОТЧЕТ ЗА ПЕРИОД']) ?>
 <?= Html::label('Период  с :', 'date_from', ['class' => 'label date_from', 'required'=>'required']) ?>
 <?= Html::input('date', 'date_from') ?>
 

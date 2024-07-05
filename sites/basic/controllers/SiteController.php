@@ -591,41 +591,41 @@ class SiteController extends Controller
                     foreach ($array as $key => $val) {
 
                         if($val['Статус'] == '28' || $val['Статус'] == '29' ||  $val['Статус'] == '27'){
-                          //28 - close
-                          //29 - done
-                          //27 - in work
+                              //28 - close
+                              //29 - done
+                              //27 - in work
 
-                         if($val['Индефикатор сервиса'] > 0 ){
-                              if(array_key_exists($val['Индефикатор сервиса'], $services )){
-                            
-                                  $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
+                             if($val['Индефикатор сервиса'] > 0 ){
+                                  if(array_key_exists($val['Индефикатор сервиса'], $services )){
+                                
+                                      $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
 
-                                  $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
-                                  $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
-                                  $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
-                                  $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
-                                      ///////
-                                     $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
-                                      // if(isset($services[$start_path[0]])) {
-                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
-                                       //}else{
-                                       //  $val['Участок__'] = 'ZZZZ';
-                                       //}
-                                 
+                                      $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
+                                      $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
+                                      $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
+                                      $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
+                                          ///////
+                                         $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
+                                          // if(isset($services[$start_path[0]])) {
+                                      $val['Участок__'] = $services[$start_path[0]]['NAME'];
+                                           //}else{
+                                           //  $val['Участок__'] = 'ZZZZ';
+                                           //}
+                                     
+                                  }
+
+                              }else{
+
+                                    $val['Attribut_dogovor'] = 0;
+                                    $val['Код НГ'] = 0;
+                                    $val['Название НГ'] = '_';
+                                    $val['Назначение ТМЦ'] = '_';
+                                    $val['Участок'] = '_';
+                                    $val['Участок__'] = '_';
                               }
 
-                          }else{
-
-                                $val['Attribut_dogovor'] = 0;
-                                $val['Код НГ'] = 0;
-                                $val['Название НГ'] = '_';
-                                $val['Назначение ТМЦ'] = '_';
-                                $val['Участок'] = '_';
-                                $val['Участок__'] = '_';
-                          }
-
-                        
-                          $NewArr[] = $val;
+                            
+                              $NewArr[] = $val;
                         }
                     }
 
@@ -648,65 +648,64 @@ class SiteController extends Controller
                           $DATA2 = array();
                           $TASKS = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип','№ заявки');
 
-                          foreach ($TASKS as $key => $region) {   ////region
-                                $TOTAL_SUM = 0;
-                               
-                                $type_task_count =0;
-                                $TOTAL_COUNT =0;
-                                $typeData = array();
-                             
-
-                                foreach ($region as $k => $type) {   /////type
-                                   $type_sum = 0;  
-                                 
-                                       foreach ($type as $i => $task) { ////task number
-                                        
-                                            $task_sum = 0; 
-                                            foreach ($task as $z => $v) {  ////taskexp
-                                       
-                                              $task_sum +=$v['ЧЧ'];
-
-                                            }
-                                     
-                                            $type_sum +=  $task_sum;
-                                  
-                                        }
-                               
+                          // $TOTAL_SUM = 0;
+                          // $TOTAL_COUNT = 0;
+                          // foreach ($TASKS as $key => $region) {   ////region
                                 
-                                  $TOTAL_SUM += $type_sum;
+                               
+                          //       $type_task_count = 0;
+                              
+                          //       $typeData = array();
+                             
+                               
+                          //       foreach ($region as $k => $type) {   /////type
+                                  
+                          //            $type_sum = 0;   
+                                 
+                          //               foreach ($type as $i => $task) { ////task number
+                                        
+                          //                   $task_sum = 0; 
+                          //                   foreach ($task as $z => $v) {  ////taskexp
+                                       
+                          //                     $task_sum +=$v['ЧЧ'];
+
+                          //                   }  ////task exep
+                                     
+                                          
+                                  
+                          //               }   ////task number
+                          //            $type_sum += $task_sum;
+                                    
+                                 
+                                  
+
+                          //            $type_task_count = count($type);
+                                    
                               
 
-                                 $type_task_count = count($type);
-                                
-                                    //$DATA2[$key][$k]['TYPE_TASK_COUNT'][] = $type_task_count;
-                                   //$DATA2[$key][$k]['TYPE_TASK_SUM'][] = $type_sum;
+                          //            $typeData[$k]['count'] = $type_task_count;
+                          //            $typeData[$k]['sum'] = $type_sum;
 
 
-                                 $typeData[$k]['count'] = $type_task_count;
-                                 $typeData[$k]['sum'] = $type_sum;
+                          //            $TOTAL_COUNT +=  $type_task_count;
+                          //            $TOTAL_SUM += $type_sum;
+                          //       }////type
 
 
-                                 $TOTAL_COUNT +=  $type_task_count;
-                                
-                                }
+                          //        $DATA2[$key]['TOTAL'] = $TOTAL_SUM;
+                          //        $DATA2[$key]['COUNT'] =  $TOTAL_COUNT;
 
-
-                                 $DATA2[$key]['TOTAL'] = $TOTAL_SUM;
-                                 $DATA2[$key]['COUNT'] =  $TOTAL_COUNT;
-
-                                 $DATA2[$key]['TYPE'][] = $typeData;
+                          //        $DATA2[$key]['TYPE'][] = $typeData;
    
-                          }
+                          // } ////region
                             //////////////
 
                           return $this->render('report_t',[
                                
                               'array' => $NewArr,
-                               //'regs_array' => $DATA,
-
-
+                                //'regs_array' => $DATA,
                               'array3' => $TASKS,
-                              'array2' => $DATA2,
+                              //'array2' => $DATA2,
                             
                               'data_str' => $data_str
                           ]);
@@ -1093,44 +1092,40 @@ class SiteController extends Controller
                         
                     }
 
-                          $DATA2 = array();
-                          $TYPE = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип');
+                    $DATA2 = array();
+                    $TASKS = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип','Статус');
 
-                          foreach ($TYPE as $key => $value) {
-                            $TOTAL = 0;
-                            $TOTAL_COUNT = 0;
+                          // foreach ($TASKS as $key => $region) {   ////region
+                          //         $TOTAL = 0;
+                                
+                          //         foreach ($region as $k => $type) {   /////type
+                          //           $type_count = 0;
+                          //           $types = array();
+                          //           $status_count = 0;
+                                     
+                          //               foreach ($type as $i => $task) { ////task status
+                                           
+                          //                   $status_count = count($task);
 
-                         
-                            $type_count = array();
-
-                            foreach ($value as $k => $val) {
-                              $type_sum = 0;
-                             
-                              foreach ($val as $i => $v) {
-                                 $type_sum += intval($v['Трудозатраты']);
-                              }
-
-                                //$type_count[$k]['count'] = count($val);
-                                //$type_count[$k]['sum'] = $type_sum;
-
-                                $TOTAL += $type_sum;
-                              
-                                $TOTAL_COUNT += count($val);
-                            
-                            }
-
-                             $DATA2[$key]['TOTAL'] = $TOTAL;
-                             $DATA2[$key]['COUNT'] = $TOTAL_COUNT;
-
-                             $DATA2[$key]['TYPE'][] = $type_count;
-                          }
-
-                          //$NewArr
-                          //TYPE
-                          //$DATA2
-
+                          //                   $type_count += $status_count;
+                          //                  // $DATA2[$key][$k][$i] = $status_count;
+                                          
+                                      
+                                           
+                          //               }
+                          //           $types[$k][$i] = $status_count;
+                          //           //$DATA2[$key][$k]['type_count'] =  $type_count;
+                          //           // $types[$key][$k][$i]['type_count'] = $type_count;
+                          //           $TOTAL += $type_count;
+                          //         }
+                          //        $DATA2[$key]['TOTAL_COUNT'] = $TOTAL;
+                          //        $DATA2[$key]['type'] = $types;
+                          // }
+                               
+                        
+                    
                           
-                    return $this->render('taketask', [ 'array' => $TYPE, 'data_str' => $data_str]);
+                    return $this->render('taketask', [ 'array' => $TASKS, 'data_str' => $data_str]);
                    
             }
             else return $this->render('taketask');
