@@ -108,6 +108,8 @@ $this->params['breadcrumbs'][] = $this->title;
                       <th  scope="col">ID сервиса</th>
                       <th  scope="col">Назнание участка</th>
                       <th  scope="col">Трудозатраты в часах</th>
+                      <th  scope="col">Комментарий</th>
+
                   
                   </tr> 
 
@@ -138,6 +140,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         
                                             <td><?=$value['Участок__'] ?></td>
                                             	 <td><?=$value['Трудозатраты(часы)'] ?></td>
+                                                <td><?=$value['Комментарий'] ?></td>
                   </tr>
 
               <?   endforeach;  ?>

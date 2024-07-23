@@ -578,7 +578,7 @@ class SiteController extends Controller
                          $arr['Тип'] = $line2[3];
 
                          $array[] = $arr;
-                         //$array[] = $line2;
+                        //$array[] = $line2;
                         
 
                       }
@@ -599,6 +599,7 @@ class SiteController extends Controller
                                   if(array_key_exists($val['Индефикатор сервиса'], $services )){
                                 
                                       $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
+
 
                                       $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
                                       $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
@@ -639,73 +640,24 @@ class SiteController extends Controller
                       $itemsSum = array_column($value, 'ЧЧ');
                       $Total[$key] = array_sum($itemsSum); /// Исполнитель => всего времени
                    
-                    }
+                   }
                     //////////////////////////////////////////IF TASKS  /////////////////////////
 
                     if(  $req->get('report')  &&  $req->get('report') == 1){
 
 
-                          $DATA2 = array();
-                          $TASKS = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип','№ заявки');
+                           $DATA2 = array();
+                           $TASKS = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип','№ заявки');
 
-                          // $TOTAL_SUM = 0;
-                          // $TOTAL_COUNT = 0;
-                          // foreach ($TASKS as $key => $region) {   ////region
-                                
-                               
-                          //       $type_task_count = 0;
-                              
-                          //       $typeData = array();
-                             
-                               
-                          //       foreach ($region as $k => $type) {   /////type
-                                  
-                          //            $type_sum = 0;   
-                                 
-                          //               foreach ($type as $i => $task) { ////task number
-                                        
-                          //                   $task_sum = 0; 
-                          //                   foreach ($task as $z => $v) {  ////taskexp
-                                       
-                          //                     $task_sum +=$v['ЧЧ'];
-
-                          //                   }  ////task exep
-                                     
-                                          
-                                  
-                          //               }   ////task number
-                          //            $type_sum += $task_sum;
-                                    
-                                 
-                                  
-
-                          //            $type_task_count = count($type);
-                                    
-                              
-
-                          //            $typeData[$k]['count'] = $type_task_count;
-                          //            $typeData[$k]['sum'] = $type_sum;
-
-
-                          //            $TOTAL_COUNT +=  $type_task_count;
-                          //            $TOTAL_SUM += $type_sum;
-                          //       }////type
-
-
-                          //        $DATA2[$key]['TOTAL'] = $TOTAL_SUM;
-                          //        $DATA2[$key]['COUNT'] =  $TOTAL_COUNT;
-
-                          //        $DATA2[$key]['TYPE'][] = $typeData;
-   
-                          // } ////region
-                            //////////////
 
                           return $this->render('report_t',[
+
+                            
                                
                               'array' => $NewArr,
-                                //'regs_array' => $DATA,
+                               
                               'array3' => $TASKS,
-                              //'array2' => $DATA2,
+                             
                             
                               'data_str' => $data_str
                           ]);
