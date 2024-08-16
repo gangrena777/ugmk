@@ -11,11 +11,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
-<p  class="alert alert-info"><small>В отчет за период попадают заявки со статусом : в работе, закрыта, выполнена.</small></p>    
+
 
 
 <?= Html::beginForm([''], 'get', ['enctype' => 'multipart/form-data', 'id' =>'fot_report_form']) ?>
-<?= Html::radioList('report', 0, [ 0 =>'ФОТ', 1=>'ОТЧЕТ ЗА ПЕРИОД']) ?>
+
+<?= Html::radioList('report', 0, [ 0 =>'ФОТ', 1=>'Отчет за период']) ?>
+
 <?= Html::label('Период  с :', 'date_from', ['class' => 'label date_from', 'required'=>'required']) ?>
 <?= Html::input('date', 'date_from') ?>
 

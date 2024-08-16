@@ -219,6 +219,9 @@ class SiteController extends Controller
                       $SERVICES[$value['SERV_ID']]['dogovor']['NAME_NG'] = $value->dogovor->NAME_NG ?? 0;
                         $SERVICES[$value['SERV_ID']]['dogovor']['USE_TMC'] = $value->dogovor->USE_TMC ?? 0;
                           $SERVICES[$value['SERV_ID']]['dogovor']['REGION_ID'] = $value->dogovor->REGION_ID ?? 0;
+                             $SERVICES[$value['SERV_ID']]['dogovor']['PLAN'] = $value->dogovor->PLAN ?? 0;
+                                 $SERVICES[$value['SERV_ID']]['dogovor']['CODE'] = $value->dogovor->CODE ?? 0;
+                                     $SERVICES[$value['SERV_ID']]['dogovor']['CONTRAGENT'] = $value->dogovor->CONTRAGENT ?? 0;
                             $SERVICES[$value['SERV_ID']]['Path'] = $value->Path ?? 'Z';
 
                             $id = $value->dogovor->REGION_ID ?? 0;
@@ -229,6 +232,11 @@ class SiteController extends Controller
                             }
       }
       return $SERVICES;
+    }
+
+    protected function getAllDogovor(){
+
+       
     }
 
    
@@ -297,260 +305,16 @@ class SiteController extends Controller
 
         return $grouped;
     }
-      /////////////////////////
+    /////////////////////////
+    
+    protected function get_taskexpenses777($date_from, $date_to,  $status = null){
+    	         
 
+                    $data_str = $date_from." --  ".$date_to;
+                  
 
-    // public function actionReport()
-    // {
-    //       $req = Yii::$app->request;
-    //       if(  $req->get('date_from')  && $req->get('date_to') ){
 
-
-    //                 $from = str_replace('-', '', $req->get('date_from'));
-    //                 $to = str_replace('-', '', $req->get('date_to'));
-
-    //                 $data_str = $req->get('date_from')." --  ".$req->get('date_to');
-
-
-    //                 $report = file_get_contents('http://46.160.151.67/intraservice_procs2.php?procedure=get_taskexpenses777&params=date_between&from='.$from.'&to='.$to);
-
-    //                 $lines = explode(PHP_EOL,  $report);
-    //                 $array = array();
-
-
-    //                 $FINALL = array();
-    //                 foreach ($lines as $line) {
-    //                   if($line){
-
-    //                      $line2 = preg_split('/\"/',$line);
-    //                       $arr = array();
-    //                       $arr['Исполнитель'] = $line2[7];
-                      
-    //                      $arr['Дата трудозатрат'] =  $line2[5];
-    //                      $arr['Комментарий'] = isset($line2[9])  ?  $line2[9] : "CCCCCCCCCC";
-    //                      $arr['Код сервиса'] = isset($line2[21]) ? $line2[21]  : "KKKKKKKKK";
-    //                      $arr['№ заявки'] = $line2[1];
-    //                      $arr['Наименование заявки'] = $line2[13];
-    //                      $arr['Заявитель'] = $line2[19];
-    //                      $arr['Индефикатор сервиса'] = intval($line2[15]);
-    //                      $arr['Трудозатраты(мин)'] = isset($line2[11]) ? $line2[11] : 0 ;
-    //                      $arr['Трудозатраты(часы)'] = isset($line2[11]) ? date( "G:i", mktime( 0, intval($line2[11]))) :  0 ;
-    //                      $arr['ЧЧ'] = isset($line2[11]) ? round(floatval($line2[11])/60 , 2) : 0 ;
-    //                      $arr['Статус'] = $line2[23];
-    //                      $arr['Тип'] = $line2[3];
-
-    //                      $array[] = $arr;
-    //                      //$array[] = $line2;
-                        
-
-    //                   }
-
-    //                 }
-
-    //                 $services = $this->getAllServices();
-    //                 array_shift($array);
-    //                 $NewArr =[];
-    //                 foreach ($array as $key => $val) {
-
-    //                     if($val['Статус'] == '28' || $val['Статус'] == '29' ||  $val['Статус'] == '27'){
-    //                       //28 - close
-    //                       //29 - done
-    //                       //27 - in work
-
-    //                      if($val['Индефикатор сервиса'] > 0 ){
-    //                           if(array_key_exists($val['Индефикатор сервиса'], $services )){
-                            
-    //                               $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
-
-    //                               $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
-    //                               $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
-    //                               $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
-    //                               $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
-    //                                   ///////
-    //                                  $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
-    //                                   // if(isset($services[$start_path[0]])) {
-    //                               $val['Участок__'] = $services[$start_path[0]]['NAME'];
-    //                 									  //}else{
-    //                 									  //	$val['Участок__'] = 'ZZZZ';
-    //                 									  //}
-                                 
-    //                           }
-
-    //                       }else{
-
-    //                             $val['Attribut_dogovor'] = 0;
-    //                             $val['Код НГ'] = 0;
-    //                             $val['Название НГ'] = '_';
-    //                             $val['Назначение ТМЦ'] = '_';
-    //                             $val['Участок'] = '_';
-    //                             $val['Участок__'] = '_';
-    //                       }
-
-                        
-    //                       $NewArr[] = $val;
-    //                     }
-    //                 }
-
-    //                 $NewArr2 = $this->Group_by('Исполнитель', $NewArr);
-                    
-    //                 $Total = array(); ////------- Всего времени пользователем
-
-    //                 foreach ($NewArr2 as $key => $value) {
-
-
-    //                   $itemsSum = array_column($value, 'ЧЧ');
-    //                   $Total[$key] = array_sum($itemsSum); /// Исполнитель => всего времени
-                   
-    //                 }
-    //                 //////////////////////////////////////////IF TASKS  /////////////////////////
-
-    //                 if(  $req->get('report')  &&  $req->get('report') == 1){
-
-
-    //                     	    //$REGS_ARR =  $this->Group_by('Участок__', $NewArr);
-
-    //                           //$DATA = array();
-
-    //           				        // foreach ($REGS_ARR as $key => $value) {
-    //           				        // 	$SUM = 0;
-              				        
-    //           				        // 	foreach ($value as $k => $val) {
-
-    //           				        // 		$SUM += $val['ЧЧ'];
-
-    //           				        // 	}
-    //           				        // 	// $regs[$key]['REGION_TT_SUMM'] = $SUM;
-    //           				        // 	$DATA[$key]['SUMM'] = $SUM;
-    //           				        // 	$DATA[$key]['COUNT'] = count($value);
-    //           				        // }
-
-    //                           /////////
-
-    //                       $DATA2 = array();
-    //                       $TYPE = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип');
-
-    //                       foreach ($TYPE as $key => $value) {
-    //                             $TOTAL = 0;
-    //                             $TOTAL_COUNT = 0;
-
-                             
-    //                             $type_count = array();
-
-    //                             foreach ($value as $k => $val) {
-    //                               $type_sum = 0;
-                                 
-    //                               foreach ($val as $i => $v) {
-    //                                  $type_sum +=$v['ЧЧ'];
-    //                               }
-    //                               $type_count[$k]['count'] = count($val);
-    //                               $type_count[$k]['sum'] = $type_sum;
-    //                               $TOTAL += $type_sum;
-                                  
-    //                               $TOTAL_COUNT += count($val);
-                                
-    //                             }
-
-    //                              $DATA2[$key]['TOTAL'] = $TOTAL;
-    //                              $DATA2[$key]['COUNT'] = $TOTAL_COUNT;
-
-    //                              $DATA2[$key]['TYPE'][] = $type_count;
-                              
-    //                       }
-    //                       //////////////
-
-    //                       return $this->render('report_t',[
-                               
-    //                          'array' => $NewArr,
-    //                          //'regs_array' => $DATA,
-
-
-    //                        // 'array2' => $TYPE,
-    //                          'array2' => $DATA2,
-                            
-    //                           'data_str' => $data_str
-    //                       ]);
-
-
-
-    //                 }
-    //                 //////////////////////////////  end IF TASK   ///////////////////////////////
-
-    //                 ////////////////////////////////////////IF  FOT /////////////////////////////
-    //                 else{
-    //                         $NewArr3 = $this->ArrayGroupBy( $NewArr, 'Исполнитель','Название НГ');
-
-    //                         foreach ($NewArr3 as $key => $users) {
-
-                              
-                      
-    //                           foreach ($users as $ky => $objs) {
-
-    //                             $summ = 0;
-
-    //                             foreach ($objs as $k => $val) {
-
-    //                                 $summ += $val['ЧЧ'];
-
-    //                             }
-
-    //                               $NewArr3[$key][$ky]['OBJ_SUM'] = $summ;
-    //                               $NewArr3[$key][$ky]['Код НГ'] = $objs[0]['Код НГ'];
-    //                               $NewArr3[$key][$ky]['Название НГ'] = $objs[0]['Название НГ'];
-    //                               $NewArr3[$key][$ky]['Назначение ТМЦ'] = $objs[0]['Назначение ТМЦ'];
-    //                               $NewArr3[$key][$ky]['Участок'] = $objs[0]['Участок'];
-    //                               $NewArr3[$key][$ky]['Участок__'] = $objs[0]['Участок__'];
-                                  
-    //                               $NewArr3[$key][$ky]['TOTAL'] = $Total[$key];
-
-    //                           }
-                              
-                                  
-    //                         }
-
-    //                                   // Yii::$app->mailer->compose()
-    //                                   //  // ->setFrom(Yii::$app->params['senderEmail'])
-    //                                   // ->setFrom('gaa1@ugmk-telecom.ru')
-    //                                   //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
-    //                                   //   ->setTo('gaa1@ugmk-telecom.ru')
-    //                                   //   ->setSubject('Заполнена форма обратной связи')
-    //                                   //   ->setTextBody('TEST')
-    //                                   //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
-    //                                   //   ->send();
-
-    //                         return $this->render('report',[
-    //                             // 'array' => $services,
-    //                          'array' => $NewArr3,
-    //                             //'array' => $array,
-    //                             //'array' => $NewArr,
-    //                             // 'services' => $services,
-    //                           'data_str' => $data_str
-    //                         ]);
-    //                 }
-                   
-
-
-
-             
-    //       }
-    //       else   return $this->render('report'); 
-    // }
-
-
-
-
-    public function actionReport()
-    {
-          $req = Yii::$app->request;
-          if(  $req->get('date_from')  && $req->get('date_to') ){
-
-
-                    $from = str_replace('-', '', $req->get('date_from'));
-                    $to = str_replace('-', '', $req->get('date_to'));
-
-                    $data_str = $req->get('date_from')." --  ".$req->get('date_to');
-
-
-                    $report = file_get_contents('http://46.160.151.67/intraservice_procs2.php?procedure=get_taskexpenses777&params=date_between&from='.$from.'&to='.$to);
+                    $report = file_get_contents('http://46.160.151.67/intraservice_procs2.php?procedure=get_taskexpenses777&params=date_between&from='.$date_from.'&to='.$date_to);
 
                     $lines = explode(PHP_EOL,  $report);
                     $array = array();
@@ -590,135 +354,231 @@ class SiteController extends Controller
                     $NewArr =[];
                     foreach ($array as $key => $val) {
 
-                        if($val['Статус'] == '28' || $val['Статус'] == '29' ||  $val['Статус'] == '27'){
-                              //28 - close
-                              //29 - done
-                              //27 - in work
+                    	if(isset($status)  && !empty($status)){
 
-                             if($val['Индефикатор сервиса'] > 0 ){
-                                  if(array_key_exists($val['Индефикатор сервиса'], $services )){
-                                
-                                      $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
-
-
-                                      $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
-                                      $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
-                                      $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
-                                      $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
-                                          ///////
-                                         $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
-                                          // if(isset($services[$start_path[0]])) {
-                                      $val['Участок__'] = $services[$start_path[0]]['NAME'];
-                                           //}else{
-                                           //  $val['Участок__'] = 'ZZZZ';
-                                           //}
-                                     
-                                  }
-
-                              }else{
-
-                                    $val['Attribut_dogovor'] = 0;
-                                    $val['Код НГ'] = 0;
-                                    $val['Название НГ'] = '_';
-                                    $val['Назначение ТМЦ'] = '_';
-                                    $val['Участок'] = '_';
-                                    $val['Участок__'] = '_';
-                              }
-
-                            
-                              $NewArr[] = $val;
-                        }
-                    }
-
-                    $NewArr2 = $this->Group_by('Исполнитель', $NewArr);
-                    
-                    $Total = array(); ////------- Всего времени пользователем
-
-                    foreach ($NewArr2 as $key => $value) {
-
-
-                      $itemsSum = array_column($value, 'ЧЧ');
-                      $Total[$key] = array_sum($itemsSum); /// Исполнитель => всего времени
-                   
-                   }
-                    //////////////////////////////////////////IF TASKS  /////////////////////////
-
-                    if(  $req->get('report')  &&  $req->get('report') == 1){
-
-
-                           $DATA2 = array();
-                           $TASKS = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип','№ заявки');
+                    			if( in_array($val['Статус'] , $status)){
+                    	
+                    				    //  if($val['Статус'] == '28' || $val['Статус'] == '29' ||  $val['Статус'] == '27' || $val['Статус'] == '26' ){
+                    	                    	  
+                    	
+				                        if($val['Индефикатор сервиса'] > 0 ){
+				                              if(array_key_exists($val['Индефикатор сервиса'], $services )){
+				                            
+				                                  $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
+				                                  $val['dogovor_name'] = $services[$val['Индефикатор сервиса']]['NAME'];
+	
+	
+				                                  $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
+				                                  $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
+				                                  $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
+				                                  $val['Д.Code'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE'];
+				                                  $val['Д.Contragent'] = $services[$val['Индефикатор сервиса']]['dogovor']['CONTRAGENT'];
+				                                  $val['Д.Plan'] = $services[$val['Индефикатор сервиса']]['dogovor']['PLAN'];
+	
+				                                  $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
+				                                      ///////
+				                                     $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
+				                                      // if(isset($services[$start_path[0]])) {
+				                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
+	
+	
+				                                       //}else{
+				                                       //  $val['Участок__'] = 'ZZZZ';
+				                                       //}
+				                                 
+				                              }
+	
+				                        }else{
+	
+				                                $val['Attribut_dogovor'] = 0;
+				                                $val['Код НГ'] = 0;
+				                                $val['Название НГ'] = '_';
+				                                $val['Назначение ТМЦ'] = '_';
+				                                $val['Участок'] = '_';
+				                                $val['Участок__'] = '_';
+				                        }
+	
+				                       
+				                        $NewArr[] = $val;
+                    				                    
+                    				                    
+                    	        }
+                        }else{
+			                if($val['Индефикатор сервиса'] > 0 ){
+			                              if(array_key_exists($val['Индефикатор сервиса'], $services )){
+			                            
+			                                  $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
+			                                  $val['dogovor_name'] = $services[$val['Индефикатор сервиса']]['NAME'];
 
 
-                          return $this->render('report_t',[
+			                                  $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
+			                                  $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
+			                                  $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
+			                                  $val['Д.Code'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE'];
+			                                  $val['Д.Contragent'] = $services[$val['Индефикатор сервиса']]['dogovor']['CONTRAGENT'];
+			                                  $val['Д.Plan'] = $services[$val['Индефикатор сервиса']]['dogovor']['PLAN'];
 
-                            
-                               
-                              'array' => $NewArr,
-                               
-                              'array3' => $TASKS,
-                             
-                            
-                              'data_str' => $data_str
-                          ]);
+			                                  $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
+			                                      ///////
+			                                     $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
+			                                      // if(isset($services[$start_path[0]])) {
+			                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
 
 
+			                                       //}else{
+			                                       //  $val['Участок__'] = 'ZZZZ';
+			                                       //}
+			                                 
+			                              }
 
-                    }
-                    //////////////////////////////  end IF TASK   ///////////////////////////////
+			                }else{
 
+			                                $val['Attribut_dogovor'] = 0;
+			                                $val['Код НГ'] = 0;
+			                                $val['Название НГ'] = '_';
+			                                $val['Назначение ТМЦ'] = '_';
+			                                $val['Участок'] = '_';
+			                                $val['Участок__'] = '_';
+			                }
+
+			                $NewArr[] = $val;
+			                      
+			            }   
+			        }         
+                    return $NewArr;
+    }
+
+     
+
+
+    public function actionReport()
+    {
+          $req = Yii::$app->request;
+          if(  $req->get('date_from')  && $req->get('date_to') ){
+
+
+                $from = str_replace('-', '', $req->get('date_from'));
+                $to = str_replace('-', '', $req->get('date_to'));
+
+                $data_str = $req->get('date_from')." --  ".$req->get('date_to');
+
+          	  
+	                 /////////////  end TOTAL   ///////////////////////////
+				                 //////////////////////////////////////////IF TASKS  /////////////////////////
+
+	                if(  $req->get('report')  &&  $req->get('report') == 1){
+
+                        $NewArr = $this->get_taskexpenses777($from, $to, [27,28,29]);
+	                 
+	                       $TASKS = $this->ArrayGroupBy($NewArr, 'Участок__', 'Тип','№ заявки');
+
+
+	                      return $this->render('report_t',[
+
+	                        
+	                           
+	                          'array' => $NewArr,
+	                           
+	                          'array3' => $TASKS,
+	                         
+	                        
+	                          'data_str' => $data_str
+	                      ]);
+
+
+	                }
+	                //////////////////////////////  end IF TASK   ///////////////////////////////
+                    ////////////////////////////// if analiz rent    ////////////////////////////
+
+	                // elseif( $req->get('report') && $req->get('report') == 2){
+
+                 //        $NewArrr = $this->get_taskexpenses777($from, $to, [27,28,29]);
+
+	                // 	    $NewArr5 = $this->ArrayGroupBy($NewArrr,'Участок__', 'Д.Code');
+	                    
+
+	                      
+
+	                 
+	          
+
+	                // 	    return $this->render('report_a',[
+	                //             // 'array' => $services,
+	                //           // 'array' =>    $DATAZZ,
+	                //             //'array' => $array,
+	                //             'array' => $NewArr5,
+	                //             // 'services' => $services,
+	                //           'data_str' => $data_str
+	                //         ]);
+
+	                // }
+	                ////////////////////////////// end  analiz rent    //////////////////////////
                     ////////////////////////////////////////IF  FOT /////////////////////////////
-                    else{
-                            $NewArr3 = $this->ArrayGroupBy( $NewArr, 'Исполнитель','Название НГ');
+	                else{
 
-                            foreach ($NewArr3 as $key => $users) {
+	                	    $NewArr = $this->get_taskexpenses777($from, $to, [27,28,29]);
 
-                              
-                      
-                              foreach ($users as $ky => $objs) {
+                               // if($NewArr){
+				                 //////  TOTAL  ////////////////////////////////////////
+				            $NewArr2 = $this->Group_by('Исполнитель', $NewArr);
+				                
+				            $Total = array(); ////------- Всего времени пользователем
 
-                                $summ = 0;
+	                        foreach ($NewArr2 as $key => $value) {
+					                $itemsSum = array_column($value, 'ЧЧ');
+	                                $Total[$key] = array_sum($itemsSum); /// Исполнитель => всего времени
+	                        }
 
-                                foreach ($objs as $k => $val) {
+	                        $NewArr3 = $this->ArrayGroupBy( $NewArr, 'Исполнитель','Название НГ');
 
-                                    $summ += $val['ЧЧ'];
+	                        foreach ($NewArr3 as $key => $users) {
 
-                                }
+	                          
+	                  
+	                          foreach ($users as $ky => $objs) {
 
-                                  $NewArr3[$key][$ky]['OBJ_SUM'] = $summ;
-                                  $NewArr3[$key][$ky]['Код НГ'] = $objs[0]['Код НГ'];
-                                  $NewArr3[$key][$ky]['Название НГ'] = $objs[0]['Название НГ'];
-                                  $NewArr3[$key][$ky]['Назначение ТМЦ'] = $objs[0]['Назначение ТМЦ'];
-                                  $NewArr3[$key][$ky]['Участок'] = $objs[0]['Участок'];
-                                  $NewArr3[$key][$ky]['Участок__'] = $objs[0]['Участок__'];
-                                  
-                                  $NewArr3[$key][$ky]['TOTAL'] = $Total[$key];
+	                            $summ = 0;
 
-                              }
-                              
-                                  
-                            }
+	                            foreach ($objs as $k => $val) {
 
-                                      // Yii::$app->mailer->compose()
-                                      //  // ->setFrom(Yii::$app->params['senderEmail'])
-                                      // ->setFrom('gaa1@ugmk-telecom.ru')
-                                      //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
-                                      //   ->setTo('gaa1@ugmk-telecom.ru')
-                                      //   ->setSubject('Заполнена форма обратной связи')
-                                      //   ->setTextBody('TEST')
-                                      //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
-                                      //   ->send();
+	                                $summ += $val['ЧЧ'];
 
-                            return $this->render('report',[
-                                // 'array' => $services,
-                             'array' => $NewArr3,
-                                //'array' => $array,
-                                //'array' => $NewArr,
-                                // 'services' => $services,
-                              'data_str' => $data_str
-                            ]);
-                    }
+	                            }
 
+	                              $NewArr3[$key][$ky]['OBJ_SUM'] = $summ;
+	                              $NewArr3[$key][$ky]['Код НГ'] = $objs[0]['Код НГ'];
+	                              $NewArr3[$key][$ky]['Название НГ'] = $objs[0]['Название НГ'];
+	                              $NewArr3[$key][$ky]['Назначение ТМЦ'] = $objs[0]['Назначение ТМЦ'];
+	                              $NewArr3[$key][$ky]['Участок'] = $objs[0]['Участок'];
+	                              $NewArr3[$key][$ky]['Участок__'] = $objs[0]['Участок__'];
+	                              
+	                              $NewArr3[$key][$ky]['TOTAL'] = $Total[$key];
+
+	                          }
+	                          
+	                              
+	                        }
+
+	                                  // Yii::$app->mailer->compose()
+	                                  //  // ->setFrom(Yii::$app->params['senderEmail'])
+	                                  // ->setFrom('gaa1@ugmk-telecom.ru')
+	                                  //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
+	                                  //   ->setTo('gaa1@ugmk-telecom.ru')
+	                                  //   ->setSubject('Заполнена форма обратной связи')
+	                                  //   ->setTextBody('TEST')
+	                                  //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
+	                                  //   ->send();
+
+	                        return $this->render('report',[
+	                            // 'array' => $services,
+	                         'array' => $NewArr3,
+	                            //'array' => $array,
+	                            //'array' => $NewArr,
+	                            // 'services' => $services,
+	                          'data_str' => $data_str
+	                        ]);
+	                }
+                            // }else 
           }
           else   return $this->render('report'); 
     }
@@ -793,7 +653,34 @@ class SiteController extends Controller
                 }
             }
     }
-    
+
+
+   
+    protected  function mergeArrays($array1, $array2) {
+          
+          $merged = $array2; // Начинаем с массива $array2
+
+		    foreach ($array1 as $outerKey => $innerArray1) {
+		        if (!isset($merged[$outerKey])) {
+		            $merged[$outerKey] = $innerArray1;
+		        } else {
+		            foreach ($innerArray1 as $innerKey => $values1) {
+		                if (!isset($merged[$outerKey][$innerKey])) {
+		                    $merged[$outerKey][$innerKey] = $values1;
+		                } else {
+		                    // Объединяем вложенные массивы
+		                    $merged[$outerKey][$innerKey] = array_merge($merged[$outerKey][$innerKey], $values1);
+		                }
+		            }
+		        }
+		    }
+
+		    return $merged;
+	}
+
+
+
+
            
 
     //////////////////////////////
@@ -917,14 +804,45 @@ class SiteController extends Controller
         }
         $regions = $this->findRegions();
         $done_tasks = array();
+       
+        ////////////////////////////////////////////
+
+
+
+
+        $services = $this->getAllServices();
       
 
         foreach ($all_tasks as $key => $value) {
 
-            $value['RegionName'] = $regions[$value['RegionId']];
+            // $value['RegionName'] = $regions[$value['RegionId']];
+
+            // if(array_key_exists($value['ServiceId'], $services )){
+
+            // 	$value['dogovor_code'] = $services[$value['ServiceId']]['dogovor']['CODE'];
+            // 	$value['dogovor_contragent'] = $services[$value['ServiceId']]['dogovor']['CONTRAGENT'];
+
+
+            // }else{
+            // 	$value['dogovor_code'] = "ZZZZZ";
+            // }
+
+
             foreach ($value as $k => $val) {
               if(str_contains($k, 'Field')  && $val > 0 ){
-                
+
+              	$value['RegionName'] = $regions[$value['RegionId']];
+
+                if(array_key_exists($value['ServiceId'], $services )){
+
+            	    $value['dogovor_code'] = $services[$value['ServiceId']]['dogovor']['CODE'];
+            	    $value['dogovor_contragent'] = $services[$value['ServiceId']]['dogovor']['CONTRAGENT'];
+
+
+                }else{
+            	    $value['dogovor_code'] = "ZZZZZ";
+                }
+
 
                 //////test 
                 $done_tasks[] = $value;
@@ -957,7 +875,12 @@ class SiteController extends Controller
 
 
 
-        return $this->render('planetask', [ 'array' => $done_tasks,  'regs' => $DATA ]);
+        return $this->render('planetask', [ 
+
+        	                                 'array' => $done_tasks, 
+        	                                 ///'array' => $all_tasks,
+        	                                 'regs' => $DATA 
+        	                               ]);
     }
 
 
@@ -1077,11 +1000,154 @@ class SiteController extends Controller
                         
                     
                           
-                    return $this->render('taketask', [ 'array' => $TASKS, 'data_str' => $data_str]);
+                    return $this->render('taketask', [ 'array' => $TASKS, 'data_str' => $data_str,  'array2' => $NewArr]);
                    
             }
             else return $this->render('taketask');
     }
+
+    public function  actionPlanerenttask(){
+
+        $plan_tasks = [];
+        $empty_time = [];
+        $ERROR = [];
+
+     
+
+        $folder_name = Yii::$app->request->get('folder', '');
+
+        if (Yii::$app->request->isPost) {
+
+            $uploaded_files = UploadedFile::getInstancesByName('files');
+            $plan_tasks = $this->getFiles( $uploaded_files);
+        }else{
+        	$ERROR[] = "Загрузите файл...";
+
+        }
+
+        if(Yii::$app->request->post('date_from') && Yii::$app->request->post('date_to')) {
+
+        	$from = str_replace('-', '', Yii::$app->request->post('date_from'));
+            $to = str_replace('-', '', Yii::$app->request->post('date_to'));
+
+            $data_str = $from." --  ".$to;
+
+        }else{
+        	$ERROR[] = "Заполните даты периода....";
+        }
+
+        if( empty($ERROR)){
+
+						    $regions = $this->findRegions();
+
+
+						    $done_tasks = array();
+						   
+						    ////////////////////  PLAN  ////////////////////////
+
+						    $services = $this->getAllServices();
+						  
+
+						    foreach ($plan_tasks as $key => $value) {
+
+						   
+
+						        foreach ($value as $k => $val) {
+						          if(str_contains($k, 'Field')  && $val > 0 ){
+
+						          	$value['RegionName'] = $regions[$value['RegionId']];
+
+						            if(array_key_exists($value['ServiceId'], $services )){
+
+						        	    $value['dogovor_code'] = $services[$value['ServiceId']]['dogovor']['CODE'];
+						        	    $value['dogovor_contragent'] = $services[$value['ServiceId']]['dogovor']['CONTRAGENT'];
+
+
+						            }else{
+						        	    $value['dogovor_code'] = "ZZZZZ";
+						        	     $value['dogovor_contragent'] = "YYYYY";
+						            }
+
+
+						            //////test 
+						            $done_tasks[] = $value;
+
+						          }
+						        }
+						    }
+
+						     $plan_tasks = $this->ArrayGroupBy($done_tasks, 'RegionName', 'dogovor_code');
+
+						  
+
+						    $DATA_PLAN = array();
+						    foreach ($plan_tasks as $key => $region) {
+
+
+                                
+						    	foreach ($region as $kk => $contract) {
+
+                                    $SUM = 0;
+						    		foreach ($contract as $k => $task) {
+
+                                        $tt = (isset($task['Field1307'])) ? (floatval($task['Field1307'])) : (floatval($task['Field1302']));
+
+						    	     	$SUM += $tt;
+
+						    	     	$contr = $task['dogovor_contragent'];
+
+						    		
+						    		}
+
+						    	    $DATA_PLAN[$key][$kk]['PLAN_ЧЧ']    = $SUM;
+						    	    //$DATA_PLAN[$key][$kk]['CONTRAGENT'] =  $contr;
+						        }
+						    }
+						    ////////////////  PLAN  //////////////////////////
+
+						    $NewArr = $this->get_taskexpenses777($from, $to, [27,28,29]);
+
+                            $NewArrr = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code');
+
+
+                            $DATA_FAKT = array();
+
+                            foreach ($NewArrr as $key => $Region) {
+
+                            	foreach ($Region as $kk => $Contr) {
+                            		$Total = 0;
+                            		$TASKS =[];
+                            		foreach ($Contr as $k => $task) {
+
+                            			$Total += $task['ЧЧ'];
+                            			$DATA_FAKT[$key][$kk]['TASKS'][] = $task;
+
+                            			
+                            		}
+                            		$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = $Total;
+  								}
+							}
+
+
+							$mergedArray = $this->mergeArrays($DATA_PLAN, $DATA_FAKT);
+
+						    return $this->render('report_a', [ 
+
+						    	                                 'data_str' => $data_str,
+						    	                                 //'array' => $plan_tasks,
+						    	                                 //'array' => $DATA_PLAN,
+						    	                                 
+						    	                                 'array2' => $mergedArray
+						    	                               ]);
+
+        }else{
+
+			    return $this->render('report_a', [  'error' => $ERROR ]);
+        }
+   
+    }
+
+
 
 } 
 

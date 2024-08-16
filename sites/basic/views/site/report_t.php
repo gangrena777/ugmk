@@ -13,7 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?= Html::beginForm([''], 'get', ['enctype' => 'multipart/form-data', 'id' =>'fot_report_form']) ?>
-<?= Html::radioList('report', 0, [ 0 =>'ФОТ', 1=>'ОТЧЕТ ЗА ПЕРИОД']) ?>
+
+<?= Html::radioList('report', 1, [ 0 =>'ФОТ', 1=>'Отчет за период']) ?>
+
 <?= Html::label('Период  с :', 'date_from', ['class' => 'label date_from', 'required'=>'required']) ?>
 <?= Html::input('date', 'date_from') ?>
 
@@ -109,6 +111,9 @@ $this->params['breadcrumbs'][] = $this->title;
                       <th  scope="col">Назнание участка</th>
                       <th  scope="col">Трудозатраты в часах</th>
                       <th  scope="col">Комментарий</th>
+                       <th  scope="col">dogovor_code</th>
+                       <th  scope="col">Attribut_dogovor(Номер договора)</th>
+                        <th  scope="col">dogovor_name(Название договора)</th>
 
                   
                   </tr> 
@@ -119,15 +124,24 @@ $this->params['breadcrumbs'][] = $this->title;
                           <td><?= $value['Дата трудозатрат']; ?></td> 
                             <? 
                               $s='';
-                              if($value['Статус'] == 28){ 
+                              if($value['Статус'] == '28'){ 
                                  $s ='Закрыта'; 
                               }
-                              elseif ($value['Статус'] == 29) {
+                              elseif ($value['Статус'] == '29') {
                                     $s = 'Выполнена';
                               }
-                              else{
+                              elseif($value['Статус'] == '27'){
                                   $s = 'В работе';
+                              }elseif($value['Статус'] == '26'){
+                                   $s = 'Отложена';
                               }
+                              elseif($value['Статус'] == '30'){
+                                   $s = 'Отменена';
+                              }
+                              elseif($value['Статус'] == '31'){
+                                   $s = 'Открыта';
+                              }
+                              else $s = $value['Статус'];
                             ?>
 
                             <td><?= $s; ?></td> 
@@ -141,6 +155,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <td><?=$value['Участок__'] ?></td>
                                             	 <td><?=$value['Трудозатраты(часы)'] ?></td>
                                                 <td><?=$value['Комментарий'] ?></td>
+                                                 <td><?=$value['Д.Code'] ?></td>
+                                                  <td><?=$value['Attribut_dogovor'] ?></td>
+                                                      <td><?=$value['dogovor_name'] ?></td>
+
                   </tr>
 
               <?   endforeach;  ?>

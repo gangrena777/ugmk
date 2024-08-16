@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-about">
 
         <h1><?= Html::encode($this->title) ?></h1>
-        <p  class="alert alert-info"><small>Посмотреть  заявки  созданные за период</small></p>
+        <p  class="alert alert-info"><small>Посмотреть  заявки  созданные за период. Загрузку производить +1день.</small></p>
 
 
 
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                              <? $TOTAL_TOTAL += $TOTAL; ?>
                         <? endforeach;?>
 
-                    <div  style =" width: 30%; border: 2px solid  black; margin: 3px 3px; padding: 3px 3px; background:red; ">
+                    <div  style =" width: 30%; border: 2px solid  black; margin: 3px 3px; padding: 3px 3px; background:red;">
                           <h5>ВСЕГО ЗАЯВОК ЗА ПЕРИОД : <?=$TOTAL_TOTAL; ?></h5>
 
                           <? 
@@ -101,6 +101,10 @@ $this->params['breadcrumbs'][] = $this->title;
            
                       <? //echo "<pre>"; print_r(($TOTAL_STATUS)); echo "</pre>"; ?>
         <? endif; ?>
+
+        <? if(isset($array2))  :?>
+                      <? echo "<pre>"; print_r(($array2)); echo "</pre>"; ?>
+        <? endif; ?>              
 
 
 </div>

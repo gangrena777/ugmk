@@ -69,7 +69,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <? if(isset($array) && !empty($array)) :?>
-    <div  class="done_tasks"  style="color: green">
+        <? //echo "<pre>";  print_r($array); echo "</pre>"; ?>
+
+           <div  class="done_tasks"  style="color: green">
           <div>
              <input  type="button" class="exel_download   link-success"  onclick="exportToExcel('plane_table')"  value="Скачать....в EXEL">
           </div>
@@ -87,6 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                       <th  scope="col">Заявитель</th>
                                       <th  scope="col">Тип заявки</th>
                                       <th  scope="col">Назнание участка</th>
+                                        <th  scope="col">Договор</th>
+
                                       
                                     
                                     </tr> 
@@ -105,12 +109,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                               <td><?= $value['CreatorId']; ?></td>
                                               <td><?= $value['TypeId'] == 5 ? 'Плановое ТО(ТО1)' :'Плановое квартальное ТО(ТО2)'; ?></td>
                                               <td><?= $value['RegionName']; ?></td>
+                                              <td><?= $value['dogovor_code'];?></td>
                                           </tr>
                                       <?   endforeach;  ?>
                   </table>
           </div>
 
     </div>
+
+
+  
 
 <? endif;?>    
 

@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?= Html::beginForm([''], 'get', ['enctype' => 'multipart/form-data', 'id' =>'fot_report_form']) ?>
-<?= Html::radioList('report', 0, [ 0 =>'ФОТ', 1=>'ОТЧЕТ ЗА ПЕРИОД']) ?>
+<?= Html::radioList('report', 0, [ 0 =>'ФОТ', 1=>'Отчет за период', 2 => 'Анализ плановой рентабильности']) ?>
 <?= Html::label('Период  с :', 'date_from', ['class' => 'label date_from', 'required'=>'required']) ?>
 <?= Html::input('date', 'date_from') ?>
 
