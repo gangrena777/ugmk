@@ -5252,3 +5252,484 @@ $_SERVER = [
 2024/08/08 10:39:02 [notice] 1#1: start worker process 25
 2024/08/08 10:39:02 [notice] 1#1: start worker process 26
 2024/08/08 10:39:02 [notice] 1#1: start worker process 27
+2024/08/19 11:50:50 [error] 20#20: *1624 client intended to send too large body: 6885888 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=126 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=126"
+2024/08/19 11:51:05 [error] 20#20: *1626 client intended to send too large body: 7157024 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=126 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=126"
+2024/08/20 11:16:45 [error] 23#23: *1711 client intended to send too large body: 6885910 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:36:23 [error] 24#24: *1727 client intended to send too large body: 6885910 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:36:26 [error] 24#24: *1728 client intended to send too large body: 6885910 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:36:35 [error] 23#23: *1730 client intended to send too large body: 6672452 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:37:40 [error] 23#23: *1733 client intended to send too large body: 6885910 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:41:05 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2024/08/20 11:41:05 [notice] 21#21: gracefully shutting down
+2024/08/20 11:41:05 [notice] 23#23: gracefully shutting down
+2024/08/20 11:41:05 [notice] 21#21: exiting
+2024/08/20 11:41:05 [notice] 22#22: gracefully shutting down
+2024/08/20 11:41:05 [notice] 23#23: exiting
+2024/08/20 11:41:05 [notice] 20#20: gracefully shutting down
+2024/08/20 11:41:05 [notice] 24#24: gracefully shutting down
+2024/08/20 11:41:05 [notice] 22#22: exiting
+2024/08/20 11:41:05 [notice] 20#20: exiting
+2024/08/20 11:41:05 [notice] 24#24: exiting
+2024/08/20 11:41:05 [notice] 23#23: exit
+2024/08/20 11:41:05 [notice] 21#21: exit
+2024/08/20 11:41:05 [notice] 22#22: exit
+2024/08/20 11:41:05 [notice] 20#20: exit
+2024/08/20 11:41:05 [notice] 24#24: exit
+2024/08/20 11:41:05 [notice] 27#27: gracefully shutting down
+2024/08/20 11:41:05 [notice] 27#27: exiting
+2024/08/20 11:41:05 [notice] 25#25: gracefully shutting down
+2024/08/20 11:41:05 [notice] 25#25: exiting
+2024/08/20 11:41:05 [notice] 27#27: exit
+2024/08/20 11:41:05 [notice] 25#25: exit
+2024/08/20 11:41:05 [notice] 26#26: gracefully shutting down
+2024/08/20 11:41:05 [notice] 26#26: exiting
+2024/08/20 11:41:05 [notice] 26#26: exit
+2024/08/20 11:41:05 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2024/08/20 11:41:05 [notice] 1#1: worker process 23 exited with code 0
+2024/08/20 11:41:05 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:41:05 [notice] 1#1: signal 17 (SIGCHLD) received from 25
+2024/08/20 11:41:05 [notice] 1#1: worker process 25 exited with code 0
+2024/08/20 11:41:05 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:41:05 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2024/08/20 11:41:05 [notice] 1#1: worker process 22 exited with code 0
+2024/08/20 11:41:05 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:41:05 [notice] 1#1: signal 17 (SIGCHLD) received from 26
+2024/08/20 11:41:05 [notice] 1#1: worker process 21 exited with code 0
+2024/08/20 11:41:05 [notice] 1#1: worker process 24 exited with code 0
+2024/08/20 11:41:05 [notice] 1#1: worker process 26 exited with code 0
+2024/08/20 11:41:05 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:41:05 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2024/08/20 11:41:05 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2024/08/20 11:41:05 [notice] 1#1: worker process 20 exited with code 0
+2024/08/20 11:41:05 [notice] 1#1: signal 17 (SIGCHLD) received from 27
+2024/08/20 11:41:05 [notice] 1#1: worker process 27 exited with code 0
+2024/08/20 11:41:05 [notice] 1#1: exit
+2024/08/20 11:41:19 [notice] 1#1: using the "epoll" event method
+2024/08/20 11:41:19 [notice] 1#1: nginx/1.26.0
+2024/08/20 11:41:19 [notice] 1#1: built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014) 
+2024/08/20 11:41:19 [notice] 1#1: OS: Linux 5.15.0-107-generic
+2024/08/20 11:41:19 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/08/20 11:41:19 [notice] 1#1: start worker processes
+2024/08/20 11:41:19 [notice] 1#1: start worker process 21
+2024/08/20 11:41:19 [notice] 1#1: start worker process 22
+2024/08/20 11:41:19 [notice] 1#1: start worker process 23
+2024/08/20 11:41:19 [notice] 1#1: start worker process 24
+2024/08/20 11:41:19 [notice] 1#1: start worker process 25
+2024/08/20 11:41:19 [notice] 1#1: start worker process 26
+2024/08/20 11:41:19 [notice] 1#1: start worker process 27
+2024/08/20 11:41:19 [notice] 1#1: start worker process 28
+2024/08/20 11:41:32 [error] 22#22: *1 client intended to send too large body: 7157046 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:43:04 [error] 28#28: *4 client intended to send too large body: 7157046 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:45:17 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2024/08/20 11:45:17 [notice] 21#21: gracefully shutting down
+2024/08/20 11:45:17 [notice] 27#27: gracefully shutting down
+2024/08/20 11:45:17 [notice] 21#21: exiting
+2024/08/20 11:45:17 [notice] 26#26: gracefully shutting down
+2024/08/20 11:45:17 [notice] 27#27: exiting
+2024/08/20 11:45:17 [notice] 26#26: exiting
+2024/08/20 11:45:17 [notice] 27#27: exit
+2024/08/20 11:45:17 [notice] 21#21: exit
+2024/08/20 11:45:17 [notice] 26#26: exit
+2024/08/20 11:45:17 [notice] 24#24: gracefully shutting down
+2024/08/20 11:45:17 [notice] 24#24: exiting
+2024/08/20 11:45:17 [notice] 24#24: exit
+2024/08/20 11:45:17 [notice] 25#25: gracefully shutting down
+2024/08/20 11:45:17 [notice] 25#25: exiting
+2024/08/20 11:45:17 [notice] 23#23: gracefully shutting down
+2024/08/20 11:45:17 [notice] 28#28: gracefully shutting down
+2024/08/20 11:45:17 [notice] 23#23: exiting
+2024/08/20 11:45:17 [notice] 28#28: exiting
+2024/08/20 11:45:17 [notice] 25#25: exit
+2024/08/20 11:45:17 [notice] 23#23: exit
+2024/08/20 11:45:17 [notice] 28#28: exit
+2024/08/20 11:45:17 [notice] 22#22: gracefully shutting down
+2024/08/20 11:45:17 [notice] 22#22: exiting
+2024/08/20 11:45:17 [notice] 22#22: exit
+2024/08/20 11:45:17 [notice] 1#1: signal 17 (SIGCHLD) received from 27
+2024/08/20 11:45:17 [notice] 1#1: worker process 27 exited with code 0
+2024/08/20 11:45:17 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:45:17 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2024/08/20 11:45:17 [notice] 1#1: worker process 21 exited with code 0
+2024/08/20 11:45:17 [notice] 1#1: worker process 24 exited with code 0
+2024/08/20 11:45:17 [notice] 1#1: worker process 26 exited with code 0
+2024/08/20 11:45:17 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:45:17 [notice] 1#1: signal 17 (SIGCHLD) received from 25
+2024/08/20 11:45:17 [notice] 1#1: worker process 23 exited with code 0
+2024/08/20 11:45:17 [notice] 1#1: worker process 25 exited with code 0
+2024/08/20 11:45:17 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:45:17 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2024/08/20 11:45:17 [notice] 1#1: worker process 22 exited with code 0
+2024/08/20 11:45:17 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:45:17 [notice] 1#1: signal 17 (SIGCHLD) received from 28
+2024/08/20 11:45:17 [notice] 1#1: worker process 28 exited with code 0
+2024/08/20 11:45:17 [notice] 1#1: exit
+2024/08/20 11:45:30 [notice] 1#1: using the "epoll" event method
+2024/08/20 11:45:30 [notice] 1#1: nginx/1.26.0
+2024/08/20 11:45:30 [notice] 1#1: built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014) 
+2024/08/20 11:45:30 [notice] 1#1: OS: Linux 5.15.0-107-generic
+2024/08/20 11:45:30 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/08/20 11:45:30 [notice] 1#1: start worker processes
+2024/08/20 11:45:30 [notice] 1#1: start worker process 20
+2024/08/20 11:45:30 [notice] 1#1: start worker process 21
+2024/08/20 11:45:30 [notice] 1#1: start worker process 22
+2024/08/20 11:45:30 [notice] 1#1: start worker process 23
+2024/08/20 11:45:30 [notice] 1#1: start worker process 24
+2024/08/20 11:45:30 [notice] 1#1: start worker process 25
+2024/08/20 11:45:30 [notice] 1#1: start worker process 26
+2024/08/20 11:45:30 [notice] 1#1: start worker process 27
+2024/08/20 11:45:49 [error] 20#20: *2 client intended to send too large body: 7157046 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:47:40 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2024/08/20 11:47:40 [notice] 21#21: gracefully shutting down
+2024/08/20 11:47:40 [notice] 20#20: gracefully shutting down
+2024/08/20 11:47:40 [notice] 20#20: exiting
+2024/08/20 11:47:40 [notice] 20#20: exit
+2024/08/20 11:47:40 [notice] 24#24: gracefully shutting down
+2024/08/20 11:47:40 [notice] 21#21: exiting
+2024/08/20 11:47:40 [notice] 24#24: exiting
+2024/08/20 11:47:40 [notice] 21#21: exit
+2024/08/20 11:47:40 [notice] 24#24: exit
+2024/08/20 11:47:40 [notice] 25#25: gracefully shutting down
+2024/08/20 11:47:40 [notice] 26#26: gracefully shutting down
+2024/08/20 11:47:40 [notice] 25#25: exiting
+2024/08/20 11:47:40 [notice] 26#26: exiting
+2024/08/20 11:47:40 [notice] 26#26: exit
+2024/08/20 11:47:40 [notice] 25#25: exit
+2024/08/20 11:47:40 [notice] 22#22: gracefully shutting down
+2024/08/20 11:47:40 [notice] 22#22: exiting
+2024/08/20 11:47:40 [notice] 22#22: exit
+2024/08/20 11:47:40 [notice] 23#23: gracefully shutting down
+2024/08/20 11:47:40 [notice] 23#23: exiting
+2024/08/20 11:47:40 [notice] 23#23: exit
+2024/08/20 11:47:40 [notice] 27#27: gracefully shutting down
+2024/08/20 11:47:40 [notice] 27#27: exiting
+2024/08/20 11:47:40 [notice] 27#27: exit
+2024/08/20 11:47:40 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2024/08/20 11:47:40 [notice] 1#1: worker process 20 exited with code 0
+2024/08/20 11:47:40 [notice] 1#1: worker process 21 exited with code 0
+2024/08/20 11:47:40 [notice] 1#1: worker process 22 exited with code 0
+2024/08/20 11:47:40 [notice] 1#1: worker process 24 exited with code 0
+2024/08/20 11:47:40 [notice] 1#1: worker process 25 exited with code 0
+2024/08/20 11:47:40 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:47:40 [notice] 1#1: signal 17 (SIGCHLD) received from 25
+2024/08/20 11:47:40 [notice] 1#1: signal 17 (SIGCHLD) received from 26
+2024/08/20 11:47:40 [notice] 1#1: worker process 26 exited with code 0
+2024/08/20 11:47:40 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:47:40 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2024/08/20 11:47:40 [notice] 1#1: worker process 23 exited with code 0
+2024/08/20 11:47:40 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:47:40 [notice] 1#1: signal 17 (SIGCHLD) received from 27
+2024/08/20 11:47:40 [notice] 1#1: worker process 27 exited with code 0
+2024/08/20 11:47:40 [notice] 1#1: exit
+2024/08/20 11:47:53 [notice] 1#1: using the "epoll" event method
+2024/08/20 11:47:53 [notice] 1#1: nginx/1.26.0
+2024/08/20 11:47:53 [notice] 1#1: built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014) 
+2024/08/20 11:47:53 [notice] 1#1: OS: Linux 5.15.0-107-generic
+2024/08/20 11:47:53 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/08/20 11:47:53 [notice] 1#1: start worker processes
+2024/08/20 11:47:53 [notice] 1#1: start worker process 20
+2024/08/20 11:47:53 [notice] 1#1: start worker process 21
+2024/08/20 11:47:53 [notice] 1#1: start worker process 22
+2024/08/20 11:47:53 [notice] 1#1: start worker process 23
+2024/08/20 11:47:53 [notice] 1#1: start worker process 24
+2024/08/20 11:47:53 [notice] 1#1: start worker process 25
+2024/08/20 11:47:53 [notice] 1#1: start worker process 26
+2024/08/20 11:47:53 [notice] 1#1: start worker process 27
+2024/08/20 11:48:18 [error] 20#20: *1 client intended to send too large body: 7157046 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:55:23 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2024/08/20 11:55:23 [notice] 22#22: gracefully shutting down
+2024/08/20 11:55:23 [notice] 21#21: gracefully shutting down
+2024/08/20 11:55:23 [notice] 25#25: gracefully shutting down
+2024/08/20 11:55:23 [notice] 20#20: gracefully shutting down
+2024/08/20 11:55:23 [notice] 21#21: exiting
+2024/08/20 11:55:23 [notice] 25#25: exiting
+2024/08/20 11:55:23 [notice] 22#22: exiting
+2024/08/20 11:55:23 [notice] 20#20: exiting
+2024/08/20 11:55:23 [notice] 20#20: exit
+2024/08/20 11:55:23 [notice] 21#21: exit
+2024/08/20 11:55:23 [notice] 25#25: exit
+2024/08/20 11:55:23 [notice] 22#22: exit
+2024/08/20 11:55:23 [notice] 26#26: gracefully shutting down
+2024/08/20 11:55:23 [notice] 23#23: gracefully shutting down
+2024/08/20 11:55:23 [notice] 26#26: exiting
+2024/08/20 11:55:23 [notice] 23#23: exiting
+2024/08/20 11:55:23 [notice] 26#26: exit
+2024/08/20 11:55:23 [notice] 23#23: exit
+2024/08/20 11:55:23 [notice] 27#27: gracefully shutting down
+2024/08/20 11:55:23 [notice] 27#27: exiting
+2024/08/20 11:55:23 [notice] 27#27: exit
+2024/08/20 11:55:23 [notice] 24#24: gracefully shutting down
+2024/08/20 11:55:23 [notice] 24#24: exiting
+2024/08/20 11:55:23 [notice] 24#24: exit
+2024/08/20 11:55:23 [notice] 1#1: signal 17 (SIGCHLD) received from 26
+2024/08/20 11:55:23 [notice] 1#1: worker process 21 exited with code 0
+2024/08/20 11:55:23 [notice] 1#1: worker process 25 exited with code 0
+2024/08/20 11:55:23 [notice] 1#1: worker process 26 exited with code 0
+2024/08/20 11:55:23 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:55:23 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2024/08/20 11:55:23 [notice] 1#1: worker process 24 exited with code 0
+2024/08/20 11:55:23 [notice] 1#1: signal 17 (SIGCHLD) received from 27
+2024/08/20 11:55:23 [notice] 1#1: worker process 27 exited with code 0
+2024/08/20 11:55:23 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:55:23 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:55:23 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2024/08/20 11:55:23 [notice] 1#1: worker process 22 exited with code 0
+2024/08/20 11:55:23 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/20 11:55:23 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2024/08/20 11:55:23 [notice] 1#1: worker process 20 exited with code 0
+2024/08/20 11:55:23 [notice] 1#1: worker process 23 exited with code 0
+2024/08/20 11:55:23 [notice] 1#1: exit
+2024/08/20 11:55:40 [notice] 1#1: using the "epoll" event method
+2024/08/20 11:55:40 [notice] 1#1: nginx/1.26.0
+2024/08/20 11:55:40 [notice] 1#1: built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014) 
+2024/08/20 11:55:40 [notice] 1#1: OS: Linux 5.15.0-107-generic
+2024/08/20 11:55:40 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/08/20 11:55:40 [notice] 1#1: start worker processes
+2024/08/20 11:55:40 [notice] 1#1: start worker process 20
+2024/08/20 11:55:40 [notice] 1#1: start worker process 21
+2024/08/20 11:55:40 [notice] 1#1: start worker process 22
+2024/08/20 11:55:40 [notice] 1#1: start worker process 23
+2024/08/20 11:55:40 [notice] 1#1: start worker process 24
+2024/08/20 11:55:40 [notice] 1#1: start worker process 25
+2024/08/20 11:55:40 [notice] 1#1: start worker process 26
+2024/08/20 11:55:40 [notice] 1#1: start worker process 27
+2024/08/20 11:56:01 [error] 23#23: *1 client intended to send too large body: 7609170 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:56:11 [error] 20#20: *2 client intended to send too large body: 7079234 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:56:39 [error] 24#24: *7 client intended to send too large body: 7079234 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 11:56:42 [error] 22#22: *8 client intended to send too large body: 7079234 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/20 12:02:10 [error] 26#26: *11 client intended to send too large body: 7160499 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=126 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=126"
+2024/08/20 12:03:58 [error] 21#21: *17 client intended to send too large body: 3603088 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=126 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=126"
+2024/08/20 12:15:55 [error] 23#23: *31 client intended to send too large body: 7157046 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=127 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=127"
+2024/08/21 09:23:00 [error] 22#22: *125 client intended to send too large body: 6200519 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=129 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=129"
+2024/08/21 09:27:28 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2024/08/21 09:27:28 [notice] 20#20: gracefully shutting down
+2024/08/21 09:27:28 [notice] 23#23: gracefully shutting down
+2024/08/21 09:27:28 [notice] 20#20: exiting
+2024/08/21 09:27:28 [notice] 23#23: exiting
+2024/08/21 09:27:28 [notice] 27#27: gracefully shutting down
+2024/08/21 09:27:28 [notice] 21#21: gracefully shutting down
+2024/08/21 09:27:28 [notice] 27#27: exiting
+2024/08/21 09:27:28 [notice] 21#21: exiting
+2024/08/21 09:27:28 [notice] 20#20: exit
+2024/08/21 09:27:28 [notice] 23#23: exit
+2024/08/21 09:27:28 [notice] 21#21: exit
+2024/08/21 09:27:28 [notice] 27#27: exit
+2024/08/21 09:27:28 [notice] 25#25: gracefully shutting down
+2024/08/21 09:27:28 [notice] 25#25: exiting
+2024/08/21 09:27:28 [notice] 25#25: exit
+2024/08/21 09:27:28 [notice] 22#22: gracefully shutting down
+2024/08/21 09:27:28 [notice] 26#26: gracefully shutting down
+2024/08/21 09:27:28 [notice] 22#22: exiting
+2024/08/21 09:27:28 [notice] 26#26: exiting
+2024/08/21 09:27:28 [notice] 22#22: exit
+2024/08/21 09:27:28 [notice] 26#26: exit
+2024/08/21 09:27:28 [notice] 24#24: gracefully shutting down
+2024/08/21 09:27:28 [notice] 24#24: exiting
+2024/08/21 09:27:28 [notice] 24#24: exit
+2024/08/21 09:27:28 [notice] 1#1: signal 17 (SIGCHLD) received from 20
+2024/08/21 09:27:28 [notice] 1#1: worker process 20 exited with code 0
+2024/08/21 09:27:28 [notice] 1#1: worker process 26 exited with code 0
+2024/08/21 09:27:28 [notice] 1#1: worker process 22 exited with code 0
+2024/08/21 09:27:28 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 09:27:28 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2024/08/21 09:27:28 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2024/08/21 09:27:28 [notice] 1#1: worker process 21 exited with code 0
+2024/08/21 09:27:28 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 09:27:28 [notice] 1#1: signal 17 (SIGCHLD) received from 27
+2024/08/21 09:27:28 [notice] 1#1: worker process 27 exited with code 0
+2024/08/21 09:27:28 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 09:27:28 [notice] 1#1: signal 17 (SIGCHLD) received from 25
+2024/08/21 09:27:28 [notice] 1#1: worker process 25 exited with code 0
+2024/08/21 09:27:28 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 09:27:28 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2024/08/21 09:27:28 [notice] 1#1: worker process 24 exited with code 0
+2024/08/21 09:27:28 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 09:27:28 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2024/08/21 09:27:28 [notice] 1#1: worker process 23 exited with code 0
+2024/08/21 09:27:28 [notice] 1#1: exit
+2024/08/21 09:30:33 [notice] 1#1: using the "epoll" event method
+2024/08/21 09:30:33 [notice] 1#1: nginx/1.26.0
+2024/08/21 09:30:33 [notice] 1#1: built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014) 
+2024/08/21 09:30:33 [notice] 1#1: OS: Linux 5.15.0-107-generic
+2024/08/21 09:30:33 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/08/21 09:30:33 [notice] 1#1: start worker processes
+2024/08/21 09:30:33 [notice] 1#1: start worker process 20
+2024/08/21 09:30:33 [notice] 1#1: start worker process 21
+2024/08/21 09:30:33 [notice] 1#1: start worker process 22
+2024/08/21 09:30:33 [notice] 1#1: start worker process 23
+2024/08/21 09:30:33 [notice] 1#1: start worker process 24
+2024/08/21 09:30:33 [notice] 1#1: start worker process 25
+2024/08/21 09:30:33 [notice] 1#1: start worker process 26
+2024/08/21 09:30:33 [notice] 1#1: start worker process 27
+2024/08/21 09:32:23 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2024/08/21 09:32:23 [notice] 20#20: gracefully shutting down
+2024/08/21 09:32:23 [notice] 22#22: gracefully shutting down
+2024/08/21 09:32:23 [notice] 24#24: gracefully shutting down
+2024/08/21 09:32:23 [notice] 23#23: gracefully shutting down
+2024/08/21 09:32:23 [notice] 21#21: gracefully shutting down
+2024/08/21 09:32:23 [notice] 27#27: gracefully shutting down
+2024/08/21 09:32:23 [notice] 22#22: exiting
+2024/08/21 09:32:23 [notice] 20#20: exiting
+2024/08/21 09:32:23 [notice] 24#24: exiting
+2024/08/21 09:32:23 [notice] 23#23: exiting
+2024/08/21 09:32:23 [notice] 27#27: exiting
+2024/08/21 09:32:23 [notice] 21#21: exiting
+2024/08/21 09:32:23 [notice] 24#24: exit
+2024/08/21 09:32:23 [notice] 21#21: exit
+2024/08/21 09:32:23 [notice] 22#22: exit
+2024/08/21 09:32:23 [notice] 23#23: exit
+2024/08/21 09:32:23 [notice] 20#20: exit
+2024/08/21 09:32:23 [notice] 27#27: exit
+2024/08/21 09:32:23 [notice] 25#25: gracefully shutting down
+2024/08/21 09:32:23 [notice] 25#25: exiting
+2024/08/21 09:32:23 [notice] 25#25: exit
+2024/08/21 09:32:23 [notice] 26#26: gracefully shutting down
+2024/08/21 09:32:23 [notice] 26#26: exiting
+2024/08/21 09:32:23 [notice] 26#26: exit
+2024/08/21 09:32:23 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2024/08/21 09:32:23 [notice] 1#1: worker process 20 exited with code 0
+2024/08/21 09:32:23 [notice] 1#1: worker process 22 exited with code 0
+2024/08/21 09:32:23 [notice] 1#1: worker process 23 exited with code 0
+2024/08/21 09:32:23 [notice] 1#1: worker process 24 exited with code 0
+2024/08/21 09:32:23 [notice] 1#1: worker process 25 exited with code 0
+2024/08/21 09:32:23 [notice] 1#1: worker process 27 exited with code 0
+2024/08/21 09:32:23 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 09:32:23 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2024/08/21 09:32:23 [notice] 1#1: worker process 21 exited with code 0
+2024/08/21 09:32:23 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 09:32:23 [notice] 1#1: signal 17 (SIGCHLD) received from 26
+2024/08/21 09:32:23 [notice] 1#1: worker process 26 exited with code 0
+2024/08/21 09:32:23 [notice] 1#1: exit
+2024/08/21 09:32:47 [notice] 1#1: using the "epoll" event method
+2024/08/21 09:32:47 [notice] 1#1: nginx/1.26.0
+2024/08/21 09:32:47 [notice] 1#1: built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014) 
+2024/08/21 09:32:47 [notice] 1#1: OS: Linux 5.15.0-107-generic
+2024/08/21 09:32:47 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/08/21 09:32:47 [notice] 1#1: start worker processes
+2024/08/21 09:32:47 [notice] 1#1: start worker process 21
+2024/08/21 09:32:47 [notice] 1#1: start worker process 22
+2024/08/21 09:32:47 [notice] 1#1: start worker process 23
+2024/08/21 09:32:47 [notice] 1#1: start worker process 24
+2024/08/21 09:32:47 [notice] 1#1: start worker process 25
+2024/08/21 09:32:47 [notice] 1#1: start worker process 26
+2024/08/21 09:32:47 [notice] 1#1: start worker process 27
+2024/08/21 09:32:47 [notice] 1#1: start worker process 28
+2024/08/21 09:33:00 [error] 21#21: *1 client intended to send too large body: 6200519 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=129 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=129"
+2024/08/21 09:33:10 [error] 22#22: *3 client intended to send too large body: 7426094 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=129 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=129"
+2024/08/21 09:43:02 [error] 26#26: *9 client intended to send too large body: 1248285 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=129 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=129"
+2024/08/21 09:43:45 [error] 24#24: *10 client intended to send too large body: 1119770 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=131 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=131"
+2024/08/21 09:51:50 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2024/08/21 09:51:50 [notice] 21#21: gracefully shutting down
+2024/08/21 09:51:50 [notice] 23#23: gracefully shutting down
+2024/08/21 09:51:50 [notice] 24#24: gracefully shutting down
+2024/08/21 09:51:50 [notice] 23#23: exiting
+2024/08/21 09:51:50 [notice] 24#24: exiting
+2024/08/21 09:51:50 [notice] 21#21: exiting
+2024/08/21 09:51:50 [notice] 25#25: gracefully shutting down
+2024/08/21 09:51:50 [notice] 24#24: exit
+2024/08/21 09:51:50 [notice] 23#23: exit
+2024/08/21 09:51:50 [notice] 21#21: exit
+2024/08/21 09:51:50 [notice] 25#25: exiting
+2024/08/21 09:51:50 [notice] 25#25: exit
+2024/08/21 09:51:50 [notice] 22#22: gracefully shutting down
+2024/08/21 09:51:50 [notice] 26#26: gracefully shutting down
+2024/08/21 09:51:50 [notice] 26#26: exiting
+2024/08/21 09:51:50 [notice] 22#22: exiting
+2024/08/21 09:51:50 [notice] 28#28: gracefully shutting down
+2024/08/21 09:51:50 [notice] 26#26: exit
+2024/08/21 09:51:50 [notice] 28#28: exiting
+2024/08/21 09:51:50 [notice] 22#22: exit
+2024/08/21 09:51:50 [notice] 28#28: exit
+2024/08/21 09:51:50 [notice] 27#27: gracefully shutting down
+2024/08/21 09:51:50 [notice] 27#27: exiting
+2024/08/21 09:51:50 [notice] 27#27: exit
+2024/08/21 09:51:50 [notice] 1#1: signal 17 (SIGCHLD) received from 28
+2024/08/21 09:51:50 [notice] 1#1: worker process 21 exited with code 0
+2024/08/21 09:51:50 [notice] 1#1: worker process 22 exited with code 0
+2024/08/21 09:51:50 [notice] 1#1: worker process 23 exited with code 0
+2024/08/21 09:51:50 [notice] 1#1: worker process 25 exited with code 0
+2024/08/21 09:51:50 [notice] 1#1: worker process 26 exited with code 0
+2024/08/21 09:51:50 [notice] 1#1: worker process 27 exited with code 0
+2024/08/21 09:51:50 [notice] 1#1: worker process 28 exited with code 0
+2024/08/21 09:51:50 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 09:51:50 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2024/08/21 09:51:50 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2024/08/21 09:51:50 [notice] 1#1: worker process 24 exited with code 0
+2024/08/21 09:51:50 [notice] 1#1: exit
+2024/08/21 09:52:11 [notice] 1#1: using the "epoll" event method
+2024/08/21 09:52:11 [notice] 1#1: nginx/1.26.0
+2024/08/21 09:52:11 [notice] 1#1: built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014) 
+2024/08/21 09:52:11 [notice] 1#1: OS: Linux 5.15.0-107-generic
+2024/08/21 09:52:11 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/08/21 09:52:11 [notice] 1#1: start worker processes
+2024/08/21 09:52:11 [notice] 1#1: start worker process 19
+2024/08/21 09:52:11 [notice] 1#1: start worker process 20
+2024/08/21 09:52:11 [notice] 1#1: start worker process 21
+2024/08/21 09:52:11 [notice] 1#1: start worker process 22
+2024/08/21 09:52:11 [notice] 1#1: start worker process 23
+2024/08/21 09:52:11 [notice] 1#1: start worker process 24
+2024/08/21 09:52:11 [notice] 1#1: start worker process 25
+2024/08/21 09:52:11 [notice] 1#1: start worker process 26
+2024/08/21 09:58:24 [error] 23#23: *2 client intended to send too large body: 1119770 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=131 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=131"
+2024/08/21 09:58:31 [error] 20#20: *1 client intended to send too large body: 1248252 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=131 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=131"
+2024/08/21 09:58:35 [error] 21#21: *5 client intended to send too large body: 1248252 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=131 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=131"
+2024/08/21 10:00:09 [error] 25#25: *9 client intended to send too large body: 1248252 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=131 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=131"
+2024/08/21 10:00:14 [error] 25#25: *8 client intended to send too large body: 1248252 bytes, client: 10.10.62.39, server: yii2.loc, request: "POST /tasks/update?id=131 HTTP/1.1", host: "10.10.51.139", referrer: "http://10.10.51.139/tasks/update?id=131"
+2024/08/21 10:02:48 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2024/08/21 10:02:48 [notice] 23#23: gracefully shutting down
+2024/08/21 10:02:48 [notice] 25#25: gracefully shutting down
+2024/08/21 10:02:48 [notice] 26#26: gracefully shutting down
+2024/08/21 10:02:48 [notice] 22#22: gracefully shutting down
+2024/08/21 10:02:48 [notice] 21#21: gracefully shutting down
+2024/08/21 10:02:48 [notice] 21#21: exiting
+2024/08/21 10:02:48 [notice] 19#19: gracefully shutting down
+2024/08/21 10:02:48 [notice] 26#26: exiting
+2024/08/21 10:02:48 [notice] 25#25: exiting
+2024/08/21 10:02:48 [notice] 22#22: exiting
+2024/08/21 10:02:48 [notice] 23#23: exiting
+2024/08/21 10:02:48 [notice] 19#19: exiting
+2024/08/21 10:02:48 [notice] 21#21: exit
+2024/08/21 10:02:48 [notice] 25#25: exit
+2024/08/21 10:02:48 [notice] 23#23: exit
+2024/08/21 10:02:48 [notice] 26#26: exit
+2024/08/21 10:02:48 [notice] 22#22: exit
+2024/08/21 10:02:48 [notice] 19#19: exit
+2024/08/21 10:02:48 [notice] 24#24: gracefully shutting down
+2024/08/21 10:02:48 [notice] 24#24: exiting
+2024/08/21 10:02:48 [notice] 24#24: exit
+2024/08/21 10:02:48 [notice] 20#20: gracefully shutting down
+2024/08/21 10:02:48 [notice] 20#20: exiting
+2024/08/21 10:02:48 [notice] 20#20: exit
+2024/08/21 10:02:48 [notice] 1#1: signal 17 (SIGCHLD) received from 23
+2024/08/21 10:02:48 [notice] 1#1: worker process 23 exited with code 0
+2024/08/21 10:02:48 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 10:02:48 [notice] 1#1: signal 17 (SIGCHLD) received from 24
+2024/08/21 10:02:48 [notice] 1#1: worker process 20 exited with code 0
+2024/08/21 10:02:48 [notice] 1#1: worker process 21 exited with code 0
+2024/08/21 10:02:48 [notice] 1#1: worker process 22 exited with code 0
+2024/08/21 10:02:48 [notice] 1#1: worker process 24 exited with code 0
+2024/08/21 10:02:48 [notice] 1#1: worker process 25 exited with code 0
+2024/08/21 10:02:48 [notice] 1#1: worker process 26 exited with code 0
+2024/08/21 10:02:48 [notice] 1#1: signal 29 (SIGIO) received
+2024/08/21 10:02:48 [notice] 1#1: signal 17 (SIGCHLD) received from 22
+2024/08/21 10:02:48 [notice] 1#1: signal 17 (SIGCHLD) received from 19
+2024/08/21 10:02:48 [notice] 1#1: worker process 19 exited with code 0
+2024/08/21 10:02:48 [notice] 1#1: exit
+2024/08/21 10:13:26 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/first.conf:50
+2024/08/21 10:21:52 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/first.conf:50
+2024/08/21 10:23:42 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/first.conf:50
+2024/08/21 10:31:12 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/first.conf:50
+2024/08/21 11:16:25 [emerg] 1#1: "http" directive is not allowed here in /etc/nginx/conf.d/first.conf:50
+2024/08/21 11:19:03 [notice] 1#1: using the "epoll" event method
+2024/08/21 11:19:03 [notice] 1#1: nginx/1.26.2
+2024/08/21 11:19:03 [notice] 1#1: built by gcc 13.2.1 20240309 (Alpine 13.2.1_git20240309) 
+2024/08/21 11:19:03 [notice] 1#1: OS: Linux 5.15.0-107-generic
+2024/08/21 11:19:03 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2024/08/21 11:19:03 [notice] 1#1: start worker processes
+2024/08/21 11:19:03 [notice] 1#1: start worker process 20
+2024/08/21 11:19:03 [notice] 1#1: start worker process 21
+2024/08/21 11:19:03 [notice] 1#1: start worker process 22
+2024/08/21 11:19:03 [notice] 1#1: start worker process 23
+2024/08/21 11:19:03 [notice] 1#1: start worker process 24
+2024/08/21 11:19:03 [notice] 1#1: start worker process 25
+2024/08/21 11:19:03 [notice] 1#1: start worker process 26
+2024/08/21 11:19:03 [notice] 1#1: start worker process 27

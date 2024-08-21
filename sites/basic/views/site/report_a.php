@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div>
           <h3>Выборка за период : <?= $data_str; ?></h3>
         </div>
-  <? //  "<pre>";  print_r($array2); echo "</pre>"; ?>
+  <? //echo  "<pre>";  print_r($array); echo "</pre>"; ?>
 
     <div>
      <input  type="button" class="exel_download   link-success"  onclick="exportToExcel('Fot_table3')"  value="Скачать....в EXEL">

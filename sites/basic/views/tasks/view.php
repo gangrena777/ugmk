@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
        foreach ($journals as  $journal){
 
 
-                $box_docs .= '<p>'.Html::a($journal->journal_name, Url::to('@web/web/'.$journal->journal_path)).'</p>'; 
+                $box_docs .= '<p>'.Html::a($journal->journal_name, Url::to('@web/'.$journal->journal_path)).'</p>'; 
         }
 }
       

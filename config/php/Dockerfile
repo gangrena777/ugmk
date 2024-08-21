@@ -1,7 +1,5 @@
-
 FROM php:8.1-fpm
 
-# Установка зависимостей
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
@@ -10,12 +8,11 @@ RUN apt-get update && apt-get install -y \
     bash \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
-    libmcrypt-dev \
     libpng-dev \
     libzip-dev \
     ssmtp \
     mailutils \
-    libonig-dev   # Добавляем установку libonig-dev
+    libonig-dev  # Установка oniguruma
 
 # Установка расширений PHP
 RUN docker-php-ext-install -j$(nproc) \
@@ -40,14 +37,8 @@ RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 # Установка Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Установка рабочей директории для PHP
 WORKDIR /var/www
 
-# Задание пользователя и группы для контейнера
 USER www-data:www-data
 
-# Запуск контейнера
 CMD ["php-fpm"]
-
-
-

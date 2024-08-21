@@ -329,7 +329,8 @@ class SiteController extends Controller
                           $arr['Исполнитель'] = $line2[7];
                       
                          $arr['Дата трудозатрат'] =  $line2[5];
-                         $arr['Комментарий'] = isset($line2[9])  ?  $line2[9] : "CCCCCCCCCC";
+                         $comment = isset($line2[9])  ?   mb_substr(trim($line2[9]),0, 3) : "CCCCCCCCCC";
+                         $arr['Комментарий'] = mb_strtolower($comment);
                          $arr['Код сервиса'] = isset($line2[21]) ? $line2[21]  : "KKKKKKKKK";
                          $arr['№ заявки'] = $line2[1];
                          $arr['Наименование заявки'] = $line2[13];
@@ -354,97 +355,99 @@ class SiteController extends Controller
                     $NewArr =[];
                     foreach ($array as $key => $val) {
 
-                    	if(isset($status)  && !empty($status)){
+                      	if(isset($status)  && !empty($status)){
 
-                    			if( in_array($val['Статус'] , $status)){
-                    	
-                    				    //  if($val['Статус'] == '28' || $val['Статус'] == '29' ||  $val['Статус'] == '27' || $val['Статус'] == '26' ){
-                    	                    	  
-                    	
-				                        if($val['Индефикатор сервиса'] > 0 ){
-				                              if(array_key_exists($val['Индефикатор сервиса'], $services )){
-				                            
-				                                  $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
-				                                  $val['dogovor_name'] = $services[$val['Индефикатор сервиса']]['NAME'];
-	
-	
-				                                  $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
-				                                  $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
-				                                  $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
-				                                  $val['Д.Code'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE'];
-				                                  $val['Д.Contragent'] = $services[$val['Индефикатор сервиса']]['dogovor']['CONTRAGENT'];
-				                                  $val['Д.Plan'] = $services[$val['Индефикатор сервиса']]['dogovor']['PLAN'];
-	
-				                                  $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
-				                                      ///////
-				                                     $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
-				                                      // if(isset($services[$start_path[0]])) {
-				                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
-	
-	
-				                                       //}else{
-				                                       //  $val['Участок__'] = 'ZZZZ';
-				                                       //}
-				                                 
-				                              }
-	
-				                        }else{
-	
-				                                $val['Attribut_dogovor'] = 0;
-				                                $val['Код НГ'] = 0;
-				                                $val['Название НГ'] = '_';
-				                                $val['Назначение ТМЦ'] = '_';
-				                                $val['Участок'] = '_';
-				                                $val['Участок__'] = '_';
-				                        }
-	
-				                       
-				                        $NewArr[] = $val;
-                    				                    
-                    				                    
-                    	        }
+                      			if( in_array($val['Статус'] , $status)){
+                      	
+                      				    //  if($val['Статус'] == '28' || $val['Статус'] == '29' ||  $val['Статус'] == '27' || $val['Статус'] == '26' ){
+                      	                    	  
+                      	
+  				                        if($val['Индефикатор сервиса'] > 0 ){
+  				                              if(array_key_exists($val['Индефикатор сервиса'], $services )){
+  				                            
+  				                                  $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
+  				                                  $val['dogovor_name'] = $services[$val['Индефикатор сервиса']]['NAME'];
+  	
+  	
+  				                                  $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
+  				                                  $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
+  				                                  $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
+  				                                  $val['Д.Code'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE'];
+  				                                  $val['Д.Contragent'] = $services[$val['Индефикатор сервиса']]['dogovor']['CONTRAGENT'];
+  				                                  $val['Д.Plan'] = $services[$val['Индефикатор сервиса']]['dogovor']['PLAN'];
+  	
+  				                                  $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
+  				                                      ///////
+  				                                     $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
+  				                                      // if(isset($services[$start_path[0]])) {
+  				                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
+  	
+  	
+  				                                       //}else{
+  				                                       //  $val['Участок__'] = 'ZZZZ';
+  				                                       //}
+  				                                 
+  				                              }
+  	
+  				                        }else{
+  	
+  				                                $val['Attribut_dogovor'] = 0;
+  				                                $val['Код НГ'] = 0;
+  				                                $val['Название НГ'] = '_';
+  				                                $val['Назначение ТМЦ'] = '_';
+  				                                $val['Участок'] = '_';
+  				                                $val['Участок__'] = '_';
+  				                        }
+  	
+  				                       
+  				                        $NewArr[] = $val;
+                      				                    
+                      				                    
+                      	    }
                         }else{
-			                if($val['Индефикатор сервиса'] > 0 ){
-			                              if(array_key_exists($val['Индефикатор сервиса'], $services )){
-			                            
-			                                  $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
-			                                  $val['dogovor_name'] = $services[$val['Индефикатор сервиса']]['NAME'];
+
+      			                if($val['Индефикатор сервиса'] > 0 ){
+      			                              if(array_key_exists($val['Индефикатор сервиса'], $services )){
+      			                            
+      			                                  $val['Attribut_dogovor'] = $services[$val['Индефикатор сервиса']]['Attribut_dogovor'];
+      			                                  $val['dogovor_name'] = $services[$val['Индефикатор сервиса']]['NAME'];
 
 
-			                                  $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
-			                                  $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
-			                                  $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
-			                                  $val['Д.Code'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE'];
-			                                  $val['Д.Contragent'] = $services[$val['Индефикатор сервиса']]['dogovor']['CONTRAGENT'];
-			                                  $val['Д.Plan'] = $services[$val['Индефикатор сервиса']]['dogovor']['PLAN'];
+      			                                  $val['Код НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE_NG'];
+      			                                  $val['Название НГ'] = $services[$val['Индефикатор сервиса']]['dogovor']['NAME_NG'];
+      			                                  $val['Назначение ТМЦ'] = $services[$val['Индефикатор сервиса']]['dogovor']['USE_TMC'];
+      			                                  $val['Д.Code'] = $services[$val['Индефикатор сервиса']]['dogovor']['CODE'];
+      			                                  $val['Д.Contragent'] = $services[$val['Индефикатор сервиса']]['dogovor']['CONTRAGENT'];
+      			                                  $val['Д.Plan'] = $services[$val['Индефикатор сервиса']]['dogovor']['PLAN'];
 
-			                                  $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
-			                                      ///////
-			                                     $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
-			                                      // if(isset($services[$start_path[0]])) {
-			                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
+      			                                  $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
+      			                                      ///////
+      			                                     $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
+      			                                      // if(isset($services[$start_path[0]])) {
+      			                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
 
 
-			                                       //}else{
-			                                       //  $val['Участок__'] = 'ZZZZ';
-			                                       //}
-			                                 
-			                              }
+      			                                       //}else{
+      			                                       //  $val['Участок__'] = 'ZZZZ';
+      			                                       //}
+      			                                 
+      			                              }
 
-			                }else{
+      			                }else{
 
-			                                $val['Attribut_dogovor'] = 0;
-			                                $val['Код НГ'] = 0;
-			                                $val['Название НГ'] = '_';
-			                                $val['Назначение ТМЦ'] = '_';
-			                                $val['Участок'] = '_';
-			                                $val['Участок__'] = '_';
-			                }
+      			                                $val['Attribut_dogovor'] = 0;
+      			                                $val['Код НГ'] = 0;
+      			                                $val['Название НГ'] = '_';
+      			                                $val['Назначение ТМЦ'] = '_';
+      			                                $val['Участок'] = '_';
+      			                                $val['Участок__'] = '_';
+      			                }
 
-			                $NewArr[] = $val;
-			                      
-			            }   
-			        }         
+  			                    $NewArr[] = $val;
+  			                      
+  			                }   
+			              } 
+
                     return $NewArr;
     }
 
@@ -656,9 +659,9 @@ class SiteController extends Controller
 
 
    
-    protected  function mergeArrays($array1, $array2) {
+  protected  function mergeArrays($array1, $array2) {
           
-          $merged = $array2; // Начинаем с массива $array2
+        $merged = $array2; // Начинаем с массива $array2
 
 		    foreach ($array1 as $outerKey => $innerArray1) {
 		        if (!isset($merged[$outerKey])) {
@@ -1103,38 +1106,38 @@ class SiteController extends Controller
 						    	    //$DATA_PLAN[$key][$kk]['CONTRAGENT'] =  $contr;
 						        }
 						    }
-						    ////////////////  PLAN  //////////////////////////
+						    //////////////// end  PLAN  //////////////////////////
 
 						    $NewArr = $this->get_taskexpenses777($from, $to, [27,28,29]);
 
-                            $NewArrr = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code');
+                $NewArrr = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code');
 
 
-                            $DATA_FAKT = array();
+                $DATA_FAKT = array();
 
-                            foreach ($NewArrr as $key => $Region) {
+                foreach ($NewArrr as $key => $Region) {
 
-                            	foreach ($Region as $kk => $Contr) {
-                            		$Total = 0;
-                            		$TASKS =[];
-                            		foreach ($Contr as $k => $task) {
+                	foreach ($Region as $kk => $Contr) {
+                		$Total = 0;
+                		$TASKS =[];
+                		foreach ($Contr as $k => $task) {
 
-                            			$Total += $task['ЧЧ'];
-                            			$DATA_FAKT[$key][$kk]['TASKS'][] = $task;
+                			$Total += $task['ЧЧ'];
+                			$DATA_FAKT[$key][$kk]['TASKS'][] = $task;
 
-                            			
-                            		}
-                            		$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = $Total;
-  								}
-							}
+                			
+                		}
+                		$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = $Total;
+			            }
+	              }
 
 
-							$mergedArray = $this->mergeArrays($DATA_PLAN, $DATA_FAKT);
+							  $mergedArray = $this->mergeArrays($DATA_PLAN, $DATA_FAKT);
 
 						    return $this->render('report_a', [ 
 
 						    	                                 'data_str' => $data_str,
-						    	                                 //'array' => $plan_tasks,
+						    	                                 //'array' => $NewArr,
 						    	                                 //'array' => $DATA_PLAN,
 						    	                                 
 						    	                                 'array2' => $mergedArray

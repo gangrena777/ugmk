@@ -1,5 +1,5 @@
 ﻿# Файл docker-compose должен начинаться с указания версии.
-version: '3'
+version: '2'
 
 # Сети
 networks:
