@@ -24,10 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-<? //phpinfo();?>
+<? phpinfo();?>
 <?
 
-
+/*
 
 //$dsn = 'sqlsrv:dbname=Intraservice;host=46.160.161.204:1433';
 //$conn = new PDO("sqlsrv:Server=localhost;Database=testdb", "UserName", "Password"); 
@@ -71,7 +71,7 @@ while( $row =  $statement->fetch(PDO::FETCH_NUM)){
   }
   echo "\n";
 }
-
+*/
 ?>
 
 
