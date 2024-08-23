@@ -1110,42 +1110,71 @@ class SiteController extends Controller
 
 						    $NewArr = $this->get_taskexpenses777($from, $to, [27,28,29]);
 
-                $NewArrr = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code');
+                $NewArrr = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code', 'Комментарий');
 
 
                 $DATA_FAKT = array();
 
-                foreach ($NewArrr as $key => $Region) {
+      //           foreach ($NewArrr as $key => $Region) {
 
-                	foreach ($Region as $kk => $Contr) {
-                		$Total = 0;
-                		$TASKS =[];
-                		foreach ($Contr as $k => $task) {
+      //           	foreach ($Region as $kk => $Contr) {
+      //           		$Total = 0;
+      //           		$TASKS =[];
+      //           		foreach ($Contr as $k => $task) {
 
-                			$Total += $task['ЧЧ'];
-                			$DATA_FAKT[$key][$kk]['TASKS'][] = $task;
+      //           			$Total += $task['ЧЧ'];
+      //           			$DATA_FAKT[$key][$kk]['TASKS'][] = $task;
 
                 			
-                		}
-                		$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = $Total;
-			            }
-	              }
+      //           		}
+      //           		$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = $Total;
+			   //          }
+	     //          }
+
+               //////////////////////////////////////////////////////////////////////////////////
+			                foreach ($NewArrr as $key => $Region) {
+
+			                	foreach ($Region as $kk => $Contr) {
+			                		$TOTAL = 0;
+			                		$TASKS =[];
+			                		foreach ($Contr as $k => $comment) {
+                                        $COM_TOTAL = 0;
+			                			foreach ($comment as $kz => $task) {
+
+			                			    $COM_TOTAL += $task['ЧЧ'];
+			                			   // $DATA_FAKT[$key][$kk][$k]['TASKS'][] = $task;
+			                			    $Contragent = $task['Д.Contragent'];
+			                			    $DPlan      = $task['Д.Plan'];
+
+										}
+                                     $DATA_FAKT[$key][$kk][$k]['FAKT_ЧЧ'] = $COM_TOTAL;
+                                     $TOTAL += $COM_TOTAL;
+                                         
+			                			
+			                		}
+                                    
+			                		
+			                		$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = $TOTAL;
+			                		$DATA_FAKT[$key][$kk]['Contragent'] = $Contragent;
+			                		$DATA_FAKT[$key][$kk]['DPlan'] = $DPlan;
+				                }
+				           }
 
 
-							  $mergedArray = $this->mergeArrays($DATA_PLAN, $DATA_FAKT);
+				   $mergedArray = $this->mergeArrays($DATA_PLAN, $DATA_FAKT);
 
-						    return $this->render('report_a', [ 
+				   return $this->render('report_arr', [ 
 
 						    	                                 'data_str' => $data_str,
-						    	                                 //'array' => $NewArr,
-						    	                                 //'array' => $DATA_PLAN,
+						    	                                // 'array' => $NewArrr,
+						    	                                 'array' => $mergedArray,
 						    	                                 
 						    	                                 'array2' => $mergedArray
 						    	                               ]);
 
         }else{
 
-			    return $this->render('report_a', [  'error' => $ERROR ]);
+			    return $this->render('report_arr', [  'error' => $ERROR ]);
         }
    
     }
