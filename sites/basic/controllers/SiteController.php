@@ -189,6 +189,7 @@ class SiteController extends Controller
   
     public function actionAbout()
     {
+        
         return $this->render('about');
     }
 
@@ -235,8 +236,6 @@ class SiteController extends Controller
     }
 
     protected function getAllDogovor(){
-
-       
     }
 
    
@@ -258,7 +257,7 @@ class SiteController extends Controller
           return $result;
     }
 
-      /////////////////////////////
+    /////////////////////////////
 
     protected function ArrayGroupBy(array $array, $key)
     {
@@ -451,9 +450,6 @@ class SiteController extends Controller
                     return $NewArr;
     }
 
-     
-
-
     public function actionReport()
     {
           $req = Yii::$app->request;
@@ -491,41 +487,16 @@ class SiteController extends Controller
 
 	                }
 	                //////////////////////////////  end IF TASK   ///////////////////////////////
-                    ////////////////////////////// if analiz rent    ////////////////////////////
 
-	                // elseif( $req->get('report') && $req->get('report') == 2){
-
-                 //        $NewArrr = $this->get_taskexpenses777($from, $to, [27,28,29]);
-
-	                // 	    $NewArr5 = $this->ArrayGroupBy($NewArrr,'Участок__', 'Д.Code');
-	                    
-
-	                      
-
-	                 
-	          
-
-	                // 	    return $this->render('report_a',[
-	                //             // 'array' => $services,
-	                //           // 'array' =>    $DATAZZ,
-	                //             //'array' => $array,
-	                //             'array' => $NewArr5,
-	                //             // 'services' => $services,
-	                //           'data_str' => $data_str
-	                //         ]);
-
-	                // }
-	                ////////////////////////////// end  analiz rent    //////////////////////////
-                    ////////////////////////////////////////IF  FOT /////////////////////////////
 	                else{
 
 	                	    $NewArr = $this->get_taskexpenses777($from, $to, [27,28,29]);
 
                                // if($NewArr){
 				                 //////  TOTAL  ////////////////////////////////////////
-				            $NewArr2 = $this->Group_by('Исполнитель', $NewArr);
+				                $NewArr2 = $this->Group_by('Исполнитель', $NewArr);
 				                
-				            $Total = array(); ////------- Всего времени пользователем
+				                $Total = array(); ////------- Всего времени пользователем
 
 	                        foreach ($NewArr2 as $key => $value) {
 					                $itemsSum = array_column($value, 'ЧЧ');
@@ -657,9 +628,7 @@ class SiteController extends Controller
             }
     }
 
-
-   
-  protected  function mergeArrays($array1, $array2) {
+    protected  function mergeArrays($array1, $array2) {
           
         $merged = $array2; // Начинаем с массива $array2
 
@@ -679,15 +648,7 @@ class SiteController extends Controller
 		    }
 
 		    return $merged;
-	}
-
-
-
-
-           
-
-    //////////////////////////////
-
+	  }
 
     protected function createTask(Client $client, $task) {
         try {
@@ -748,7 +709,7 @@ class SiteController extends Controller
                     $doneTasks['taskDate_create'] = $taskData['Task']['Created'];
                     $doneTasks['taskServicePath'] = $taskData['Task']['ServicePath'];
                     $doneTasks['taskRegion'] = $task['RegionId'];
-                    $doneTasks['taskAgreementID'] = $task['AgreementID'];
+                    $doneTasks['taskAgreementID'] = $task['AgreementID'] ?  $task['AgreementID'] : "__";
                      $doneTasks['Deadline'] = $task['Deadline'];
 
                     ///log  task create
@@ -790,9 +751,9 @@ class SiteController extends Controller
                 // if ($attempt < $maxAttempts) {
                 //          sleep($delay); // Задержка перед повторной попыткой
                 // }
-      //  }
+        //}
 
-       // return ['failedTasks' => $failedTasks];
+        // return ['failedTasks' => $failedTasks];
     }
 
     public function  actionPlanetask(){
@@ -950,11 +911,11 @@ class SiteController extends Controller
                                   $val['Участок'] = $services[$val['serviceId']]['dogovor']['REGION_NAME'];
                                       ///////
                                   $start_path = explode("|", $services[$val['serviceId']]['Path']);
-                                      // if(isset($services[$start_path[0]])) {
+                                      if(isset($services[$start_path[0]])) {
                                   $val['Участок__'] = $services[$start_path[0]]['NAME'];
-                                        //}else{
-                                        //  $val['Участок__'] = 'ZZZZ';
-                                        //}
+                                      }else{
+                                         $val['Участок__'] = 'this is test';
+                                      }
                                  
                               }
 
@@ -1115,40 +1076,24 @@ class SiteController extends Controller
 
                 $DATA_FAKT = array();
 
-      //           foreach ($NewArrr as $key => $Region) {
 
-      //           	foreach ($Region as $kk => $Contr) {
-      //           		$Total = 0;
-      //           		$TASKS =[];
-      //           		foreach ($Contr as $k => $task) {
-
-      //           			$Total += $task['ЧЧ'];
-      //           			$DATA_FAKT[$key][$kk]['TASKS'][] = $task;
-
-                			
-      //           		}
-      //           		$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = $Total;
-			   //          }
-	     //          }
-
-               //////////////////////////////////////////////////////////////////////////////////
-			                foreach ($NewArrr as $key => $Region) {
+			          foreach ($NewArrr as $key => $Region) {
 
 			                	foreach ($Region as $kk => $Contr) {
 			                		$TOTAL = 0;
 			                		$TASKS =[];
 			                		foreach ($Contr as $k => $comment) {
-                                        $COM_TOTAL = 0;
-			                			foreach ($comment as $kz => $task) {
+                                  $COM_TOTAL = 0;
+			                			      foreach ($comment as $kz => $task) {
 
 			                			    $COM_TOTAL += $task['ЧЧ'];
-			                			   // $DATA_FAKT[$key][$kk][$k]['TASKS'][] = $task;
+			                			     // $DATA_FAKT[$key][$kk][$k]['TASKS'][] = $task;
 			                			    $Contragent = $task['Д.Contragent'];
 			                			    $DPlan      = $task['Д.Plan'];
 
-										}
-                                     $DATA_FAKT[$key][$kk][$k]['FAKT_ЧЧ'] = $COM_TOTAL;
-                                     $TOTAL += $COM_TOTAL;
+								                  }
+                                  $DATA_FAKT[$key][$kk][$k]['FAKT_ЧЧ'] = $COM_TOTAL;
+                                  $TOTAL += $COM_TOTAL;
                                          
 			                			
 			                		}
@@ -1158,12 +1103,12 @@ class SiteController extends Controller
 			                		$DATA_FAKT[$key][$kk]['Contragent'] = $Contragent;
 			                		$DATA_FAKT[$key][$kk]['DPlan'] = $DPlan;
 				                }
-				           }
+				        }
 
 
-				   $mergedArray = $this->mergeArrays($DATA_PLAN, $DATA_FAKT);
+				        $mergedArray = $this->mergeArrays($DATA_PLAN, $DATA_FAKT);
 
-				   return $this->render('report_arr', [ 
+				        return $this->render('report_arr', [ 
 
 						    	                                 'data_str' => $data_str,
 						    	                                // 'array' => $NewArrr,

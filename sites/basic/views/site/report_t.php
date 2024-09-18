@@ -110,6 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
                       <th  scope="col">ID сервиса</th>
                       <th  scope="col">Назнание участка</th>
                       <th  scope="col">Трудозатраты в часах</th>
+                       <th  scope="col">Трудозатраты (number)</th>
                       <th  scope="col">Комментарий</th>
                        <th  scope="col">dogovor_code</th>
                        <th  scope="col">Attribut_dogovor(Номер договора)</th>
@@ -121,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
               <? foreach($array as $key =>$value)  :?>
                   <tr  scope="row">
                         <td><?= $key +1; ?></td>
-                          <td><?= $value['Дата трудозатрат']; ?></td> 
+                        <td><?= $value['Дата трудозатрат']; ?></td> 
                             <? 
                               $s='';
                               if($value['Статус'] == '28'){ 
@@ -154,6 +155,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                         
                                             <td><?=$value['Участок__'] ?></td>
                                             	 <td><?=$value['Трудозатраты(часы)'] ?></td>
+                                               <?
+                                                   list($hours, $minutes) = explode(":", $value['Трудозатраты(часы)']);
+
+        
+                                                   $decimalTime = $hours + ($minutes / 60);
+                                                   //$num = str_replace('.', ',',strval(round($decimalTime,2)));
+
+                                                   $num = str_replace('.', ',' , strval((round($decimalTime,2))));
+
+
+
+                                               ?>
+                                               <td><?=$num; ?></td>
                                                 <td><?=$value['Комментарий'] ?></td>
                                                  <td><?=$value['Д.Code'] ?></td>
                                                   <td><?=$value['Attribut_dogovor'] ?></td>

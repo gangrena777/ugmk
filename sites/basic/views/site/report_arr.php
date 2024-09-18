@@ -126,10 +126,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <li style=" list-style-type: none;">ВСЕГО ПО ПЛАНУ ТО  - <?= $total_plan; ?></li>
                 <li style=" list-style-type: none;">ВСЕГО ПО ФАКТУ  - <?= $total_fakt; ?></li>
-                <li>всего Раб  - <?= $total_work; ?></li>
+                <li>всего Раб  - <?= $total_work + $total_no; ?></li>
                 <li>всего Адм  - <?= $total_adm; ?></li>
                 <li>всего Лог  - <?= $total_log; ?></li>
-                <li>всего ?  - <?= $total_no; ?></li>
+              <!--   <li>всего ?  - <?//= $total_no; ?></li> -->
 
           </ul>  
        
@@ -160,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
                       <th  scope="col">Факт раб</th>
                       <th  scope="col">Факт лог</th>
                       <th  scope="col">Факт адм</th>
-                      <th  scope="col">Факт ?</th>
+                  <!--     <th  scope="col">Факт ?</th> -->
 
                   </tr> 
     
@@ -180,10 +180,14 @@ $this->params['breadcrumbs'][] = $this->title;
                           
           	      	  	   <td><? if(isset($contract['PLAN_ЧЧ'])) echo $contract['PLAN_ЧЧ'];  else  echo "0"; ?></td>
           	      	  	   <td><? if(isset($contract['FAKT_ЧЧ'])) echo $contract['FAKT_ЧЧ'];  else  echo "0"; ?></td>
-                           <td><? if(isset($contract['раб']['FAKT_ЧЧ'])) echo $contract['раб']['FAKT_ЧЧ']; else echo "0";?></td>
+                           <? if(isset($contract['раб']['FAKT_ЧЧ'])) $work1 = $contract['раб']['FAKT_ЧЧ']; else $work1 = 0; ?>
+                           <? if(isset($contract['']['FAKT_ЧЧ'])) $work2 =  $contract['']['FAKT_ЧЧ']; else $work2 = 0; ?>
+
+                           <td><?= $work1 + $work2; ?></td>
+
                            <td><? if(isset($contract['лог']['FAKT_ЧЧ'])) echo $contract['лог']['FAKT_ЧЧ']; else echo "0";?></td>
                            <td><? if(isset($contract['адм']['FAKT_ЧЧ'])) echo $contract['адм']['FAKT_ЧЧ']; else echo "0";?></td>
-                           <td><? if(isset($contract['']['FAKT_ЧЧ'])) echo $contract['']['FAKT_ЧЧ']; else echo "0";?></td>
+                      <!--      <td><?// if(isset($contract['']['FAKT_ЧЧ'])) echo $contract['']['FAKT_ЧЧ']; else echo "0";?></td> -->
                         </tr>
 
       	     <? endforeach; ?>
