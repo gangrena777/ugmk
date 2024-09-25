@@ -1073,33 +1073,46 @@ class SiteController extends Controller
 
                 $NewArrr = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code', 'Комментарий');
 
+                $NewArrrX = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code', 'Комментарий','Тип');
+
 
                 $DATA_FAKT = array();
 
 
-			          foreach ($NewArrr as $key => $Region) {
+			          foreach ($NewArrrX as $key => $Region) {
 
 			                	foreach ($Region as $kk => $Contr) {
 			                		$TOTAL = 0;
 			                		$TASKS =[];
 			                		foreach ($Contr as $k => $comment) {
-                                  $COM_TOTAL = 0;
-			                			      foreach ($comment as $kz => $task) {
+                                        $COM_TOTAL = 0;
 
-			                			    $COM_TOTAL += $task['ЧЧ'];
-			                			     // $DATA_FAKT[$key][$kk][$k]['TASKS'][] = $task;
-			                			    $Contragent = $task['Д.Contragent'];
-			                			    $DPlan      = $task['Д.Plan'];
+                                            foreach($comment as $kx => $type){
+                                                $type_total = 0;
 
-								                  }
-                                  $DATA_FAKT[$key][$kk][$k]['FAKT_ЧЧ'] = $COM_TOTAL;
-                                  $TOTAL += $COM_TOTAL;
+                                            	 foreach ($type as $kz => $task) {
+
+			                			            $type_total += $task['ЧЧ'];
+			                			            //$DATA_FAKT[$key][$kk][$k]['TASKS'][] = $task;
+			                			            $Contragent = $task['Д.Contragent'];
+			                			            $DPlan      = $task['Д.Plan'];
+
+								                }
+								                $DATA_FAKT[$key][$kk][$k]['TYPE'][$kx] = $type_total;
+								                $COM_TOTAL +=$type_total;
+                                            }
+			                			       
+                                        $DATA_FAKT[$key][$kk][$k]['FAKT_ЧЧ'] = $COM_TOTAL;
+                                        $TOTAL += $COM_TOTAL;
                                          
 			                			
 			                		}
                                     
 			                		
 			                		$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = $TOTAL;
+
+			                		//$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = 
+
 			                		$DATA_FAKT[$key][$kk]['Contragent'] = $Contragent;
 			                		$DATA_FAKT[$key][$kk]['DPlan'] = $DPlan;
 				                }
@@ -1108,10 +1121,12 @@ class SiteController extends Controller
 
 				        $mergedArray = $this->mergeArrays($DATA_PLAN, $DATA_FAKT);
 
+				      
+
 				        return $this->render('report_arr', [ 
 
 						    	                                 'data_str' => $data_str,
-						    	                                // 'array' => $NewArrr,
+						    	                                 //'array' => $NewArrrX,
 						    	                                 'array' => $mergedArray,
 						    	                                 
 						    	                                 'array2' => $mergedArray

@@ -157,9 +157,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
                       <th  scope="col">План ТО</th>
                       <th  scope="col">Факт общий</th>
-                      <th  scope="col">Факт раб</th>
-                      <th  scope="col">Факт лог</th>
-                      <th  scope="col">Факт адм</th>
+                      <th  scope="col"  style="color:green">ФАКТ РАБ</th>
+                         <th  scope="col" style="color:green">Факт раб   ТО</th>
+                         <th  scope="col" style="color:green">Факт раб   Инц</th>
+                         <th  scope="col" style="color:green">Факт раб   Зап</th>
+
+
+                      <th  scope="col" style="color:orange">ФАКТ ЛОГ</th>
+                          <th  scope="col" style="color:orange">Факт лог   ТО</th>
+                          <th  scope="col" style="color:orange">Факт лог   Инц</th>
+                          <th  scope="col" style="color:orange">Факт лог   Зап</th>
+                      <th  scope="col" style="color: blue">ФАКТ АДМ</th>
+                         <th  scope="col" style="color: blue">Факт адм   ТО</th>
+                         <th  scope="col" style="color: blue">Факт адм   Инц</th>
+                         <th  scope="col" style="color: blue">Факт адм   Зап</th>
                   <!--     <th  scope="col">Факт ?</th> -->
 
                   </tr> 
@@ -178,15 +189,126 @@ $this->params['breadcrumbs'][] = $this->title;
                            <td><? if(isset($contract['DPlan'])) echo  $contract['DPlan']; else echo "_"; ?></td>
 
                           
-          	      	  	   <td><? if(isset($contract['PLAN_ЧЧ'])) echo $contract['PLAN_ЧЧ'];  else  echo "0"; ?></td>
-          	      	  	   <td><? if(isset($contract['FAKT_ЧЧ'])) echo $contract['FAKT_ЧЧ'];  else  echo "0"; ?></td>
+          	      	  	   <td><? if(isset($contract['PLAN_ЧЧ'])) echo str_replace('.', ',' , strval((round($contract['PLAN_ЧЧ'],2))));  else  echo "0"; ?></td>
+          	      	  	   <td><? if(isset($contract['FAKT_ЧЧ'])) echo str_replace('.', ',' , strval((round($contract['FAKT_ЧЧ'],2))));  else  echo "0"; ?></td>
                            <? if(isset($contract['раб']['FAKT_ЧЧ'])) $work1 = $contract['раб']['FAKT_ЧЧ']; else $work1 = 0; ?>
                            <? if(isset($contract['']['FAKT_ЧЧ'])) $work2 =  $contract['']['FAKT_ЧЧ']; else $work2 = 0; ?>
+                           <?  $work = $work1 + $work2; ?>
+                           <!--  раб -->
+                           <td style="color:green;  font-weight: 900;"><?= str_replace('.', ',' , strval((round($work,2)))); ?></td>
+                            <? if(isset($contract['раб'])) :?>
+                                  <? $total = 0;?>
+                                  <? foreach ($contract['раб']['TYPE'] as $k => $val):?>
+                                      <? if(str_contains($k, 'Плановое') || str_contains($k, 'Журнал')) $total += $val;  ?> 
+                                  <? endforeach; ?>
+                                  <td  style="color:green"><?= str_replace('.', ',' , strval((round($total,2)))); ?> </td>
+                            <? else: ?>
+                               <td  style="color:green">0</td>   
+                            <? endif; ?>      
 
-                           <td><?= $work1 + $work2; ?></td>
 
-                           <td><? if(isset($contract['лог']['FAKT_ЧЧ'])) echo $contract['лог']['FAKT_ЧЧ']; else echo "0";?></td>
-                           <td><? if(isset($contract['адм']['FAKT_ЧЧ'])) echo $contract['адм']['FAKT_ЧЧ']; else echo "0";?></td>
+                            <? if(isset($contract['раб'])) :?>
+                                <? $total = 0;?>
+                                <? foreach ($contract['раб']['TYPE'] as $k => $val):?>
+                                    <?  if(str_contains($k, 'Инцидент')) $total += $val;?>
+                                <? endforeach; ?>
+                                <td  style="color:green"><?= str_replace('.', ',' , strval((round($total,2)))); ?> </td>
+                            <? else: ?>
+                               <td  style="color:green">0</td>      
+                            <? endif; ?>
+                            
+
+                            <? if(isset($contract['раб'])) :?>
+                               <? $total = 0;?>
+                               <? foreach ($contract['раб']['TYPE'] as $k => $val):?>
+                                   <?  if(str_contains($k, 'Запрос'))  $total += $val; ?>
+                               <? endforeach; ?> 
+
+                                <td  style="color:green"><?= str_replace('.', ',' , strval((round($total,2)))); ?> </td>
+                            <? else: ?>
+                               <td  style="color:green">0</td>  
+                            <? endif; ?>    
+
+                            
+                     
+                            <!-- /// раб -->
+
+                            <!--  лог -->
+                            <td  style="color:orange; font-weight: 900;">
+                              <? if(isset($contract['лог']['FAKT_ЧЧ'])) echo str_replace('.', ',' , strval((round($contract['лог']['FAKT_ЧЧ'],2)))); else echo "0";?>
+                            </td>
+                            <? if(isset($contract['лог'])) :?>
+                                  <? $total = 0;?>
+                                  <? foreach ($contract['лог']['TYPE'] as $k => $val):?>
+                                      <? if(str_contains($k, 'Плановое') || str_contains($k, 'Журнал')) $total += $val; ?>
+                                  <? endforeach; ?>
+                                  <td  style="color:orange;"><?= str_replace('.', ',' , strval((round($total,2)))); ?> </td>
+                            <? else: ?>
+                               <td  style="color:orange;">0</td>  
+                            <? endif; ?>      
+
+
+                            <? if(isset($contract['лог'])) :?>
+                                <? $total = 0;?>
+                                <? foreach ($contract['лог']['TYPE'] as $k => $val):?>
+                                    <?  if(str_contains($k, 'Инцидент')) $total += $val;?>
+                                <? endforeach; ?>
+                                <td  style="color:orange;"><?= str_replace('.', ',' , strval((round($total,2)))); ?> </td>
+                            <? else: ?>
+                               <td  style="color:orange;">0</td>  
+                            <? endif; ?>
+                            
+
+                            <? if(isset($contract['лог'])) :?>
+                               <? $total = 0;?>
+                               <? foreach ($contract['лог']['TYPE'] as $k => $val):?>
+                                   <?  if(str_contains($k, 'Запрос'))  $total += $val; ?>
+                               <? endforeach; ?>  
+                                <td  style="color:orange;"><?= str_replace('.', ',' , strval((round($total,2)))); ?> </td>
+                            <? else: ?>
+                               <td  style="color:orange;">0</td>  
+                            <? endif; ?>  
+                       
+                           <!-- /// лог -->
+
+                           <!--  адм -->
+                           <td  style="color: blue; font-weight: 900;">
+                               <? if(isset($contract['адм']['FAKT_ЧЧ'])) echo str_replace('.', ',' , strval((round($contract['адм']['FAKT_ЧЧ'],2)))); else echo "0";?>
+                             
+                           </td>
+                            <? if(isset($contract['адм'])) :?>
+                                  <? $total = 0;?>
+                                  <? foreach ($contract['адм']['TYPE'] as $k => $val):?>
+                                      <? if(str_contains($k, 'Плановое')) $total += $val; ?>
+                                  <? endforeach; ?>
+                                  <td  style="color: blue"><?= str_replace('.', ',' , strval((round($total,2)))); ?> </td>
+                            <? else: ?>
+                               <td  style="color: blue">0</td>  
+                            <? endif; ?>      
+
+
+                            <? if(isset($contract['адм'])) :?>
+                                <? $total = 0;?>
+                                <? foreach ($contract['адм']['TYPE'] as $k => $val):?>
+                                    <?  if(str_contains($k, 'Инцидент')) $total += $val;?>
+                                <? endforeach; ?>
+                                <td  style="color: blue"><?= str_replace('.', ',' , strval((round($total,2)))); ?> </td>
+                            <? else: ?>
+                               <td  style="color: blue">0</td>  
+                            <? endif; ?>
+                            
+
+                            <? if(isset($contract['адм'])) :?>
+                               <? $total = 0;?>
+                               <? foreach ($contract['адм']['TYPE'] as $k => $val):?>
+                                   <?  if(str_contains($k, 'Запрос'))  $total += $val; ?>
+                               <? endforeach; ?>  
+                                <td  style="color: blue"><?= str_replace('.', ',' , strval((round($total,2)))); ?> </td>
+                            <? else: ?>
+                               <td  style="color: blue">0</td>  
+                            <? endif; ?>  
+                           
+                          <!-- /// адм -->
                       <!--      <td><?// if(isset($contract['']['FAKT_ЧЧ'])) echo $contract['']['FAKT_ЧЧ']; else echo "0";?></td> -->
                         </tr>
 
@@ -203,7 +325,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <? if(isset($array)) :?>
 
-	   <?// echo "<pre>";  print_r($array); echo "</pre>"; ?>
+	   <? //echo "<pre>";  print_r($array); echo "</pre>"; ?>
 
 <? endif;?>
 

@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div>
           <h3>Выборка за период : <?= $data_str; ?></h3>
         </div>
-      <?// echo "<pre>";  print_r($regs_array); echo "</pre>"; ?>
+      <? // echo "<pre>";  print_r($array); echo "</pre>"; ?>
 
        <div  style ="display: flex; flex-wrap: wrap;">
           
@@ -100,6 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
           <table  class="table" id ="Fot_table2">
                   <tr>
                       <th  scope="col">№</th>
+                      <th scope="col">Исполнитель</th>
                       <th  scope="col">Дата трудозатрат</th>
                       <th  scope="col">Статус</th>
                       <th  scope="col">Номер заявки</th>
@@ -122,6 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
               <? foreach($array as $key =>$value)  :?>
                   <tr  scope="row">
                         <td><?= $key +1; ?></td>
+                          <td><?= $value['Исполнитель']; ?></td>
                         <td><?= $value['Дата трудозатрат']; ?></td> 
                             <? 
                               $s='';
