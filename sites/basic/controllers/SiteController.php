@@ -1049,31 +1049,35 @@ class SiteController extends Controller
 
 
                                 
-						    	foreach ($region as $kk => $contract) {
+						    	  foreach ($region as $kk => $contract) {
 
-                                    $SUM = 0;
-						    		foreach ($contract as $k => $task) {
+                        $SUM = 0;
+						    		    
+                        foreach ($contract as $k => $task) {
 
-                                        $tt = (isset($task['Field1307'])) ? (floatval($task['Field1307'])) : (floatval($task['Field1302']));
+                           $tt = (isset($task['Field1307'])) ? (floatval($task['Field1307'])) : (floatval($task['Field1302']));
 
-						    	     	$SUM += $tt;
+						    	     	   $SUM += $tt;
 
-						    	     	$contr = $task['dogovor_contragent'];
+						    	     	   $contr = $task['dogovor_contragent'];
 
 						    		
-						    		}
+						    		    }
 
-						    	    $DATA_PLAN[$key][$kk]['PLAN_ЧЧ']    = $SUM;
-						    	    //$DATA_PLAN[$key][$kk]['CONTRAGENT'] =  $contr;
+						    	     $DATA_PLAN[$key][$kk]['PLAN_ЧЧ']    = $SUM;
+						    	      //$DATA_PLAN[$key][$kk]['CONTRAGENT'] =  $contr;
 						        }
 						    }
 						    //////////////// end  PLAN  //////////////////////////
 
 						    $NewArr = $this->get_taskexpenses777($from, $to, [27,28,29]);
 
-                $NewArrr = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code', 'Комментарий');
+                //$NewArrr = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code', 'Комментарий');
 
                 $NewArrrX = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code', 'Комментарий','Тип');
+
+
+                $NewArrrPerson = $this->ArrayGroupBy($NewArr,'Участок__', 'Д.Code', 'Исполнитель','Комментарий','Тип');   ///разбить  по людям
 
 
                 $DATA_FAKT = array();
@@ -1082,31 +1086,29 @@ class SiteController extends Controller
 			          foreach ($NewArrrX as $key => $Region) {
 
 			                	foreach ($Region as $kk => $Contr) {
-			                		$TOTAL = 0;
-			                		$TASKS =[];
-			                		foreach ($Contr as $k => $comment) {
+			                		  $TOTAL = 0;
+			                		  $TASKS =[];
+			                		  foreach ($Contr as $k => $comment) {
                                         $COM_TOTAL = 0;
 
                                             foreach($comment as $kx => $type){
                                                 $type_total = 0;
 
-                                            	 foreach ($type as $kz => $task) {
+                                            	  foreach ($type as $kz => $task) {
 
-			                			            $type_total += $task['ЧЧ'];
-			                			            //$DATA_FAKT[$key][$kk][$k]['TASKS'][] = $task;
-			                			            $Contragent = $task['Д.Contragent'];
-			                			            $DPlan      = $task['Д.Plan'];
+			                			                        $type_total += $task['ЧЧ'];
+			                			                        $DATA_FAKT[$key][$kk][$k]['TASKS'][] = $task;
+			                			                        $Contragent = $task['Д.Contragent'];
+			                			                        $DPlan      = $task['Д.Plan'];
 
-								                }
-								                $DATA_FAKT[$key][$kk][$k]['TYPE'][$kx] = $type_total;
-								                $COM_TOTAL +=$type_total;
+								                                }
+								                              $DATA_FAKT[$key][$kk][$k]['TYPE'][$kx] = $type_total;
+								                              $COM_TOTAL +=$type_total;
                                             }
 			                			       
-                                        $DATA_FAKT[$key][$kk][$k]['FAKT_ЧЧ'] = $COM_TOTAL;
-                                        $TOTAL += $COM_TOTAL;
-                                         
-			                			
-			                		}
+                                           $DATA_FAKT[$key][$kk][$k]['FAKT_ЧЧ'] = $COM_TOTAL;
+                                           $TOTAL += $COM_TOTAL;
+                            }
                                     
 			                		
 			                		$DATA_FAKT[$key][$kk]['FAKT_ЧЧ'] = $TOTAL;
@@ -1121,7 +1123,62 @@ class SiteController extends Controller
 
 				        $mergedArray = $this->mergeArrays($DATA_PLAN, $DATA_FAKT);
 
-				      
+                ////////-----PERSON--------////////////////////
+
+                $DATA_FAKT_PERSON = [];
+                
+                foreach ($NewArrrPerson as $rey => $region) {  //region
+
+                     foreach ($region as $cey => $contract) {  //contract
+
+                         foreach ($contract as $pey => $person) { //person
+                           
+                           $person_total = 0;
+
+                            foreach ($person as $key => $comment) {  //comment
+                               
+                               $comment_total = 0;
+
+                                foreach ($comment as $tey => $type) {  // type
+
+                                    $total_type = 0; 
+
+                                    foreach ($type as $k => $task) {  //task
+                                     
+                                        $total_type += $task['ЧЧ'];
+                                        $Contragent = $task['Д.Contragent'];
+                                        $DPlan      = $task['Д.Plan'];
+                                    }
+
+                                    $DATA_FAKT_PERSON[$rey][$cey][$pey][$key]['TYPES'][$tey] = $total_type;
+                                    $comment_total += $total_type;
+
+                                }
+                               
+                               $DATA_FAKT_PERSON[$rey][$cey][$pey][$key]['COM_ЧЧ'] = $comment_total;
+                               $person_total += $comment_total;
+ 
+                            }
+                           $DATA_FAKT_PERSON[$rey][$cey][$pey]['PERSON_ЧЧ'] =  $person_total;
+
+                         }
+                         
+                      $DATA_FAKT_PERSON[$rey][$cey]['Contragent'] = $Contragent ? $Contragent : "_";
+                      $DATA_FAKT_PERSON[$rey][$cey]['DPlan'] = $DPlan ? $DPlan : "_";   
+
+                        
+                       
+                     }
+                  
+                }
+
+                $mergedArrayPerson = $this->mergeArrays($DATA_PLAN, $DATA_FAKT_PERSON);
+
+
+
+
+                ////////-----PERSON--------////////////////////
+
 
 				        return $this->render('report_arr', [ 
 
@@ -1129,7 +1186,11 @@ class SiteController extends Controller
 						    	                                 //'array' => $NewArrrX,
 						    	                                 'array' => $mergedArray,
 						    	                                 
-						    	                                 'array2' => $mergedArray
+						    	                                 'array2' => $mergedArray,
+                                                   //'arrayP' =>$NewArrrPerson
+
+                                                   //'arrayP' =>$DATA_FAKT_PERSON
+                                                   'arrayP' => $mergedArrayPerson
 						    	                               ]);
 
         }else{
