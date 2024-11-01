@@ -34,6 +34,7 @@ $config = [
 
             'parsers' => [
                         'application/json' => 'yii\web\JsonParser',
+                        'application/xml' => 'yii\web\XmlParser',
             ]
         ],
         'cache' => [
@@ -116,19 +117,10 @@ $config = [
                                         'GET {id}' => 'view',
                                         'GET {count}' => 'index',
                                 ],
-                                    
-                                // ['class' => 'yii\rest\UrlRule', 'controller' => 'api\bot', 'pluralize'=>false ],
 
-                                // ['class' => 'yii\rest\UrlRule', 'controller' => 'api\objects', 'pluralize'=>false,   
-                                //        'extraPatterns' => [
-                                //         'POST' => 'create', // 'xx' refers to 'actionXx'
-                                //         'PUT {id}' => 'update',
-                                //         'PATCH {id}' => 'update',
-                                //         'DELETE {id}' => 'delete',
-                                //         'GET {id}' => 'view',
-                                //         'GET {count}' => 'index',
-                                // ],
-                          ],
+                               
+                
+                              ],
 
                    ]
 

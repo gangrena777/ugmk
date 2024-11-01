@@ -59,6 +59,7 @@ AppAsset::register($this);
 
              ['label' => 'Загрузить заявки', 'url' => ['/site/maketask']],
              ['label' => 'Заведенные заявки за период', 'url' => ['/site/taketask']],
+              ['label' => 'Проверить заявки', 'url' => ['/site/checkto']],
 
            
             Yii::$app->user->isGuest ? (

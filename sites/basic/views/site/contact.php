@@ -21,10 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-contact">
     <h1><?= Html::encode($this->title) ?></h1>
-
-
-
-<? phpinfo();?>
+    <? header("Content-type: UTF-8"); ?>
+<? if($ppr) :?>
+<? echo "<pre>";?>
+<? print_r($ppr); ?>
+<? echo "</pre>"; ?>
+<? endif;  ?>
+<?// phpinfo();?>
 <?
 
 /*

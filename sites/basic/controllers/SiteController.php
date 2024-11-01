@@ -145,7 +145,11 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-             return $this->render('contact');
+            $res =  file_get_contents("https://docs.google.com/spreadsheets/d/1RbAvIUFJZqdCPfME_5wI-w2fiHXBFFiafe3GxDXIjOY/export");
+            $csv = explode("\r\n", $res);
+            $array = array_map('str_getcsv', $csv);
+
+             return $this->render('contact',[ 'ppr' => $array]);
               //     // получаем все строки из таблицы "country" и сортируем их по "name"
               //     $countries = Country::find()->orderBy('name')->all();
 
@@ -310,8 +314,6 @@ class SiteController extends Controller
     	         
 
                     $data_str = $date_from." --  ".$date_to;
-                  
-
 
                     $report = file_get_contents('http://46.160.151.67/intraservice_procs2.php?procedure=get_taskexpenses777&params=date_between&from='.$date_from.'&to='.$date_to);
 
@@ -356,7 +358,7 @@ class SiteController extends Controller
 
                       	if(isset($status)  && !empty($status)){
 
-                      			if( in_array($val['Статус'] , $status)){
+                      		if( in_array($val['Статус'] , $status)){
                       	
                       				    //  if($val['Статус'] == '28' || $val['Статус'] == '29' ||  $val['Статус'] == '27' || $val['Статус'] == '26' ){
                       	                    	  
@@ -378,13 +380,13 @@ class SiteController extends Controller
   				                                  $val['Участок'] = $services[$val['Индефикатор сервиса']]['dogovor']['REGION_NAME'];
   				                                      ///////
   				                                     $start_path = explode("|", $services[$val['Индефикатор сервиса']]['Path']);
-  				                                      // if(isset($services[$start_path[0]])) {
+  				                                       if(isset($services[$start_path[0]])) {
   				                                  $val['Участок__'] = $services[$start_path[0]]['NAME'];
   	
   	
-  				                                       //}else{
-  				                                       //  $val['Участок__'] = 'ZZZZ';
-  				                                       //}
+  				                                       }else{
+  				                                        $val['Участок__'] = 'ZZZZ';
+  				                                       }
   				                                 
   				                              }
   	
@@ -445,9 +447,10 @@ class SiteController extends Controller
   			                    $NewArr[] = $val;
   			                      
   			                }   
-			              } 
+			        } 
 
-                    return $NewArr;
+                   return $NewArr;
+			        
     }
 
     public function actionReport()
@@ -492,67 +495,67 @@ class SiteController extends Controller
 
 	                	    $NewArr = $this->get_taskexpenses777($from, $to, [27,28,29]);
 
-                               // if($NewArr){
-				                 //////  TOTAL  ////////////////////////////////////////
-				                $NewArr2 = $this->Group_by('Исполнитель', $NewArr);
+                            if($NewArr){
+
+				                        ////  TOTAL  ////////////////////////////////////////
+				                        $NewArr2 = $this->Group_by('Исполнитель', $NewArr);
 				                
-				                $Total = array(); ////------- Всего времени пользователем
+				                         $Total = array(); ////------- Всего времени пользователем
 
-	                        foreach ($NewArr2 as $key => $value) {
-					                $itemsSum = array_column($value, 'ЧЧ');
-	                                $Total[$key] = array_sum($itemsSum); /// Исполнитель => всего времени
+				                        foreach ($NewArr2 as $key => $value) {
+								                $itemsSum = array_column($value, 'ЧЧ');
+				                                $Total[$key] = array_sum($itemsSum); /// Исполнитель => всего времени
+				                        }
+
+				                        $NewArr3 = $this->ArrayGroupBy( $NewArr, 'Исполнитель','Название НГ');
+
+				                        foreach ($NewArr3 as $key => $users) {
+
+				                          
+				                  
+				                            foreach ($users as $ky => $objs) {
+
+				                                $summ = 0;
+
+					                            foreach ($objs as $k => $val) {
+
+					                                $summ += $val['ЧЧ'];
+
+					                            }
+
+					                              $NewArr3[$key][$ky]['OBJ_SUM'] = $summ;
+					                              $NewArr3[$key][$ky]['Код НГ'] = $objs[0]['Код НГ'];
+					                              $NewArr3[$key][$ky]['Название НГ'] = $objs[0]['Название НГ'];
+					                              $NewArr3[$key][$ky]['Назначение ТМЦ'] = $objs[0]['Назначение ТМЦ'];
+					                              $NewArr3[$key][$ky]['Участок'] = $objs[0]['Участок'];
+					                              $NewArr3[$key][$ky]['Участок__'] = $objs[0]['Участок__'];
+					                              
+					                              $NewArr3[$key][$ky]['TOTAL'] = $Total[$key];
+
+				                            }
+				                          
+				                              
+				                        }
+
+				                                  // Yii::$app->mailer->compose()
+				                                  //  // ->setFrom(Yii::$app->params['senderEmail'])
+				                                  // ->setFrom('gaa1@ugmk-telecom.ru')
+				                                  //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
+				                                  //   ->setTo('gaa1@ugmk-telecom.ru')
+				                                  //   ->setSubject('Заполнена форма обратной связи')
+				                                  //   ->setTextBody('TEST')
+				                                  //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
+				                                  //   ->send();
+
+				                        return $this->render('report',[
+				                           
+				                             'array' => $NewArr3,
+				                           
+				                             'data_str' => $data_str
+				                        ]);
 	                        }
-
-	                        $NewArr3 = $this->ArrayGroupBy( $NewArr, 'Исполнитель','Название НГ');
-
-	                        foreach ($NewArr3 as $key => $users) {
-
-	                          
-	                  
-	                          foreach ($users as $ky => $objs) {
-
-	                            $summ = 0;
-
-	                            foreach ($objs as $k => $val) {
-
-	                                $summ += $val['ЧЧ'];
-
-	                            }
-
-	                              $NewArr3[$key][$ky]['OBJ_SUM'] = $summ;
-	                              $NewArr3[$key][$ky]['Код НГ'] = $objs[0]['Код НГ'];
-	                              $NewArr3[$key][$ky]['Название НГ'] = $objs[0]['Название НГ'];
-	                              $NewArr3[$key][$ky]['Назначение ТМЦ'] = $objs[0]['Назначение ТМЦ'];
-	                              $NewArr3[$key][$ky]['Участок'] = $objs[0]['Участок'];
-	                              $NewArr3[$key][$ky]['Участок__'] = $objs[0]['Участок__'];
-	                              
-	                              $NewArr3[$key][$ky]['TOTAL'] = $Total[$key];
-
-	                          }
-	                          
-	                              
-	                        }
-
-	                                  // Yii::$app->mailer->compose()
-	                                  //  // ->setFrom(Yii::$app->params['senderEmail'])
-	                                  // ->setFrom('gaa1@ugmk-telecom.ru')
-	                                  //  // ->setTo(Yii::$app->params['gaa1@ugmk-telecom.ru'])
-	                                  //   ->setTo('gaa1@ugmk-telecom.ru')
-	                                  //   ->setSubject('Заполнена форма обратной связи')
-	                                  //   ->setTextBody('TEST')
-	                                  //   ->setHtmlBody('<p>TTTTTTTTTTTTTTTTTTTTTTTTTTTTT</p>')
-	                                  //   ->send();
-
-	                        return $this->render('report',[
-	                            // 'array' => $services,
-	                         'array' => $NewArr3,
-	                            //'array' => $array,
-	                            //'array' => $NewArr,
-	                            // 'services' => $services,
-	                          'data_str' => $data_str
-	                        ]);
-	                }
-                            // }else 
+                          
+                    }
           }
           else   return $this->render('report'); 
     }
@@ -1198,6 +1201,127 @@ class SiteController extends Controller
 			    return $this->render('report_arr', [  'error' => $ERROR ]);
         }
    
+    }
+
+
+    public function actionCheckto(){ 
+
+    	  $regions = $this->findRegions();
+
+    	    $req = Yii::$app->request;
+            if(  $req->get('date_from')  && $req->get('date_to') ){
+
+
+                $from = str_replace('-', '', $req->get('date_from'));
+                $to = str_replace('-', '', $req->get('date_to'));
+
+                $data_str = $req->get('date_from')." --  ".$req->get('date_to');
+
+                $current_reg_id = 0;
+                $current_reg = '';
+
+                if( $req->get('region') && $req->get('region') !== ''){
+
+                	$current_reg_id = $req->get('region');
+                	$current_reg = $regions[$current_reg_id];
+                }
+                //// вставляем  id фильтра из интры
+                if( $current_reg_id !== 0){
+
+			            switch ($current_reg_id) {
+
+								    case 1:
+								        $filter = 1886;
+								        break;
+								    case 2:
+								        $filter = 1882;
+								        break;
+								    case 3:
+								        $filter = 1887;
+								        break;
+								    case 4:
+								        $filter = 1885;
+								        break;
+								    case 5:
+								        $filter = 1881;
+								        break;
+								    case 6:
+								        $filter = 1883;
+								        break;
+								    case 7:
+								        $filter = 1888;
+								        break;
+								    case 8:
+								        $filter = 1880;
+								        break;
+								    case 9:
+								        $filter = 1879;
+								        break;
+								    
+								  
+						}
+
+                	    $url = 'https://intraservice.ugmk-telecom.ru/api/task?CreatedMoreThan='.$req->get('date_from').'&CreatedLessThan='.$req->get('date_to').'&filterid='.$filter.'&pagesize=2000&fields=Id,Name,ServiceId,StatusId,Created,Closed,Data';
+
+                }else{
+
+                	$url = 'https://intraservice.ugmk-telecom.ru/api/task?CreatedMoreThan='.$req->get('date_from').'&CreatedLessThan='.$req->get('date_to').'&filterid=1889&fields=Id,Name,ServiceId,StatusId,Created,Closed,Data&pagesize=2000';
+                }
+
+                $auth = base64_encode("gaa1:gaa10711");
+
+
+                $headers = array(
+                          "Authorization: Basic $auth",
+                 );
+                $context = stream_context_create([
+                 "http" => [
+                       "header" => implode("\r\n", $headers),
+                       
+                 ]
+                ]);
+
+                 $res = file_get_contents($url, false, $context );
+
+                 $result = json_decode($res, true);
+
+                 // foreach ($result['Tasks'] as $key => $value) {
+
+                 // 	$url2 =  "https://intraservice.ugmk-telecom.ru/api/task/".$value['Id']."?fields=Field1302";
+                 // 	$resd = file_get_contents($url2, false, $context );
+                 // 	$resultd = json_decode($resd, true);
+                 // 	$result['Tasks'][$key]['DATA'] = $resultd;
+
+                 	
+                 // }
+
+                foreach ($result['Tasks'] as $key => $value){
+                        $data = array();
+                        $arr = explode("<field", $value['Data']);
+                        $new_array = array_filter($arr, function($element) { return $element !== ""; });
+
+                        foreach ($new_array as  $val){
+
+                           $data[] = explode(">", trim($val));
+                        }
+                        $result['Tasks'][$key]['data2'] = $data;
+
+                }
+             
+  
+        
+    
+
+
+               
+            
+
+
+          	    
+	            return $this->render('check_to',['regions' => $regions,'data_str' => $data_str, 'current_reg' =>  $current_reg ,'array' => $result['Tasks']]);
+
+            }else  return $this->render('check_to',['regions' => $regions]);
+
     }
 
 

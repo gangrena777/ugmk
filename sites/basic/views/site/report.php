@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <? endif; ?>
 <?  if(isset($array)) :?>
-<? //echo "<pre>";  print_r($array); echo "</pre>"; ?>
+<?// echo "<pre>";  print_r($array); echo "</pre>"; ?>
 
   <div>
     <h3>Выборка за период : <?= $data_str; ?></h3>

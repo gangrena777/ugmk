@@ -155,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                    <td><?= $value['Код сервиса']  ?></td> 
                                       <td><?=$value['Индефикатор сервиса'] ?></td>
                                         
-                                            <td><?=$value['Участок__'] ?></td>
+                                            <td><? if(isset($value['Участок__']) )  echo  $value['Участок__']; else echo  "_____"; ?></td>
                                             	 <td><?=$value['Трудозатраты(часы)'] ?></td>
                                                <?
                                                    list($hours, $minutes) = explode(":", $value['Трудозатраты(часы)']);
@@ -171,9 +171,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                ?>
                                                <td><?=$num; ?></td>
                                                 <td><?=$value['Комментарий'] ?></td>
-                                                 <td><?=$value['Д.Code'] ?></td>
-                                                  <td><?=$value['Attribut_dogovor'] ?></td>
-                                                      <td><?=$value['dogovor_name'] ?></td>
+                                                 <td><? if(isset($value['Д.Code'])) echo $value['Д.Code']; else echo "____"; ?></td>
+                                                  <td><? if(isset($value['Attribut_dogovor'])) echo $value['Attribut_dogovor']; else "____"; ?></td>
+                                                      <td><? if(isset($value['dogovor_name'])) echo $value['dogovor_name']; else "____"; ?></td>
 
                   </tr>
 
