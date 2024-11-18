@@ -12,6 +12,11 @@ use yii\filters\VerbFilter;
 
 use app\models\Dogovor;
 
+use Shuchkin\SimpleXLSX;
+use yii\web\UploadedFile;
+
+
+
 /**
  * ServiceController implements the CRUD actions for Services model.
  */
@@ -25,11 +30,11 @@ class ServiceController extends Controller
         return [
               'access' => [
                     'class' => AccessControl::className(),
-                    'only' => ['index', 'view','create', 'update','delete'],
+                    'only' => ['index', 'view','create', 'update','delete','createfile'],
                     'rules' => [
                         [
                           'allow' => true,
-                          'actions' => ['index', 'view','create', 'update','delete'],
+                          'actions' => ['index', 'view','create', 'update','delete','createfile'],
                           'roles' => ['admin'],
 
                         ],
@@ -151,6 +156,94 @@ class ServiceController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    protected function getFiles($data){
+   
+            foreach ($data as $file) {
+                // Проверяем, что файл с расширением .xlsx
+                if ($file->extension === 'xlsx') {
+                    // Проверяем, что класс SimpleXLSX существует
+                    if (class_exists('Shuchkin\SimpleXLSX')) {
+                        // Пытаемся загрузить файл
+                        try {
+                            $xlsx = SimpleXLSX::parse($file->tempName);
+                            if ($xlsx) {
+                                $rows = $xlsx->rows(); // Получаем данные из файла
+                                // Пропускаем первую строку с заголовками
+                                $header_values = array_shift($rows);
+                                // Создаем ассоциативный массив данных
+                                foreach ($rows as $row) {
+
+                                   // $dataz[] = array_combine($header_values, $row);
+                                  yield   array_combine($header_values, $row);
+                                }
+                            } else {
+                                Yii::$app->session->setFlash('error', 'Ошибка парсинга файла: ' . SimpleXLSX::parseError());
+                            }
+                        } catch (\Exception $e) {
+                            Yii::$app->session->setFlash('error', 'Ошибка при чтении файла ' . $file->name . ': ' . $e->getMessage());
+                        }
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Класс SimpleXLSX не найден');
+                    }
+                }else{
+                    Yii::$app->session->setFlash('error', 'this is no xslx');
+                }
+            }
+              
+    }
+
+    public function actionCreatefile()
+    {
+          $dataz = [];
+          $error = [];
+        if (Yii::$app->request->isPost) {
+
+            
+            $uploaded_files = UploadedFile::getInstancesByName('files');
+
+            
+            $data = $this->getFiles($uploaded_files);
+
+          
+
+            foreach ($data as $key => $value) {
+                $model = new Services();
+                $model->SERV_ID = $value['Id'];
+                $model->CODE = $value['Code'];
+                $model->NAME = $value['Name'];
+                $model->DESCRIPTION = $value['Description'];
+                $model->ParentId = $value['ParentId'];
+                $model->isArchiv = $value['IsArchive'];
+                $model->isPublic = $value['IsPublic'];
+                $model->Path = $value['Path'];
+                $model->GUID = $value['Guid'];
+                $model->Attribut_dogovor = $value['Атрибут договора'];
+                if($model->save(false)){
+                    $dataz[] = $value;
+                }else{
+                     $error[] = $value;
+                }
+                
+              
+            }
+
+
+
+            return $this->render('createfile', [
+                 'dataz' => $dataz
+            ]);
+
+        }else{
+              return $this->render('createfile', [
+                'error' =>$error
+              ]);
+        }
+
+
+    }
+
+  
 
 
 }

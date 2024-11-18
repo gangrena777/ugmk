@@ -226,7 +226,7 @@ class ApiController extends Controller
       			                }   
     			              } 
 
-                        return $NewArr;
+                        return json_encode($NewArr);
 
          }else return "ERROR";
 
