@@ -1285,39 +1285,24 @@ class SiteController extends Controller
 
                  $result = json_decode($res, true);
 
-                 // foreach ($result['Tasks'] as $key => $value) {
-
-                 // 	$url2 =  "https://intraservice.ugmk-telecom.ru/api/task/".$value['Id']."?fields=Field1302";
-                 // 	$resd = file_get_contents($url2, false, $context );
-                 // 	$resultd = json_decode($resd, true);
-                 // 	$result['Tasks'][$key]['DATA'] = $resultd;
-
-                 	
-                 // }
 
                 foreach ($result['Tasks'] as $key => $value){
                         $data = array();
-                        $arr = explode("<field", $value['Data']);
-                        $new_array = array_filter($arr, function($element) { return $element !== ""; });
+                        if($value['Data']){
 
-                        foreach ($new_array as  $val){
 
-                           $data[] = explode(">", trim($val));
+		                    $arr = explode("<field", $value['Data']);
+		                    $new_array = array_filter($arr, function($element) { return $element !== ""; });
+
+		                    foreach ($new_array as  $val){
+
+		                       $data[] = explode(">", trim($val));
+		                    }
                         }
                         $result['Tasks'][$key]['data2'] = $data;
 
                 }
-             
-  
-        
-    
 
-
-               
-            
-
-
-          	    
 	            return $this->render('check_to',['regions' => $regions,'data_str' => $data_str, 'current_reg' =>  $current_reg ,'array' => $result['Tasks']]);
 
             }else  return $this->render('check_to',['regions' => $regions]);
