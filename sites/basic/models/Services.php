@@ -37,7 +37,7 @@ class Services extends \yii\db\ActiveRecord
     {
         return [
             [['SERV_ID'], 'string', 'max' => 7],
-            [['CODE'], 'string', 'max' => 15],
+            [['CODE'], 'string', 'max' => 40],
             [['NAME'], 'string', 'max' => 143],
             [['DESCRIPTION'], 'string', 'max' => 4400],
             [['isArchiv', 'isPublic'], 'string', 'max' => 10],

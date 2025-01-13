@@ -68,7 +68,7 @@ services:
           - ./data/mysql:/var/lib/mysql
         # Задаем пароль для root пользователя
         environment:
-          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: terces
         networks:
          - internal
 
@@ -86,7 +86,7 @@ services:
         environment:
           PMA_HOST: mysql
           MYSQL_USERNAME: root
-          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: terces
         networks:
          - internal
 

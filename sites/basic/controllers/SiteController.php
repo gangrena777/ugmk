@@ -48,7 +48,7 @@ class SiteController extends Controller
         return [
               'access' => [
                     'class' => AccessControl::className(),
-                    'only' => ['login', 'logout', 'signup','about', 'report','maketask','planetask'],
+                    'only' => ['login', 'logout', 'signup','about', 'report','planetask','planerenttask','maketask','taketask','checkto'],
                     'rules' => [
                         [
                             'allow' => true,
@@ -60,9 +60,10 @@ class SiteController extends Controller
                           'actions' => ['logout'],
                            'roles' => ['@'],
                         ],
-                          [
+                    
+                        [
                           'allow' => true,
-                          'actions' => ['about', 'report', 'maketask','planetask'],
+                          'actions' => ['about', 'report', 'maketask','planetask','planerenttask','taketask','checkto'],
                            'roles' => ['admin'],
                         ],
                     ],
@@ -1257,15 +1258,18 @@ class SiteController extends Controller
 								    case 9:
 								        $filter = 1879;
 								        break;
+                    case 10:
+                        $filter = 1905;
+                        break;
 								    
 								  
-						}
+						      }
 
-                	    $url = 'https://intraservice.ugmk-telecom.ru/api/task?CreatedMoreThan='.$req->get('date_from').'&CreatedLessThan='.$req->get('date_to').'&filterid='.$filter.'&pagesize=2000&fields=Id,Name,ServiceId,StatusId,Created,Closed,Data';
+                	    $url = 'https://intraservice.ugmk-telecom.ru/api/task?CreatedMoreThan='.$req->get('date_from').'&CreatedLessThan='.$req->get('date_to').'&filterid='.$filter.'&pagesize=2000&fields=Id,Name,ServiceId,StatusId,Created,Closed,Data,TypeId,Type';
 
                 }else{
 
-                	$url = 'https://intraservice.ugmk-telecom.ru/api/task?CreatedMoreThan='.$req->get('date_from').'&CreatedLessThan='.$req->get('date_to').'&filterid=1889&fields=Id,Name,ServiceId,StatusId,Created,Closed,Data&pagesize=2000';
+                	$url = 'https://intraservice.ugmk-telecom.ru/api/task?CreatedMoreThan='.$req->get('date_from').'&CreatedLessThan='.$req->get('date_to').'&filterid=1889&fields=Id,Name,ServiceId,StatusId,Created,Closed,Data,TypeId,Type&pagesize=2000';
                 }
 
                 $auth = base64_encode("gaa1:gaa10711");

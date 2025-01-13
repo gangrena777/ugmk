@@ -13,43 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
 
-
-
-<?//= Html::beginForm([''], 'get', ['enctype' => 'multipart/form-data', 'id' =>'fot_report_form2']) ?>
-<?//= //Html::radioList('report', 2, [ 0 =>'ФОТ', 1=>'Отчет за период']) ?>
-<?//= Html::label('Период  с :', 'date_from', ['class' => 'label date_from', 'required'=>'required']) ?>
-<?//= Html::input('date', 'date_from') ?>
-
-<?//= Html::label('Период  по :', 'date_to', ['class' => 'label date_to', 'required'=>true]) ?>
-<?//= Html::input('date', 'date_to') ?>
-
-<?//= Html::submitButton('Submit', ['class' => 'submit_report']) ?>
-<?//= Html::endForm() ?>
-
-
-
- <?//php $form = ActiveForm::begin([
-         //   'options' => ['enctype' => 'multipart/form-data', 'id' => 'upload-form'],
-           
-    //    ]); ?>
-
-
-        <?//= Html::label('Участок :', 'list', ['class' => 'label date_from']) ?>
-        <?///= Html::dropDownList('list', null, $regions) ?>
-
-
-        <?//= Html::label('Период  с :', 'date_from', ['class' => 'label date_from', 'required'=>'required']) ?>
-        <?//= Html::input('date', 'date_from') ?>
-
-        <?//= Html::label('Период  по :', 'date_to', ['class' => 'label date_to', 'required'=>true]) ?>
-        <?//= Html::input('date', 'date_to') ?>
-
-
-        
-        <?//= Html::submitButton('Upload and Process', ['class' => 'btn btn-primary']) ?>
-
-<?//php ActiveForm::end(); ?>
-
 <?= Html::beginForm([''], 'get', ['enctype' => 'multipart/form-data', 'id' =>'fot_report_form']) ?>
 
 <?= Html::label('Участок :', 'region', ['class' => 'label date_from']) ?>
@@ -92,12 +55,92 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <? if(isset($array)) :?>
 
-	 <? foreach ($array as $key => $value) :?>
+   <div>
+     <input  type="button" class="exel_download   link-success"  onclick="exportToExcel('Fot_table5')"  value="Скачать....в EXEL">
+  </div>
+<div  id="table-conatainer">  
+<table  class="table" id ="Fot_table5">
+  <tr>
+    <th  scope="col">№</th>
+    <th  scope="col">ID заявки</th>
+    <th  scope="col">Статус</th>
+    <th  scope="col">Наименование</th>
+    <th  scope="col">Тип заявки</th>
+    <th  scope="col">Запись выполненныз работ из журнала</th>
+    <th  scope="col">Акт выполненных работ</th>
 
-    <pre>
-      <? print_r($value); ?>
-    </pre>
+    
+    
+    <th  scope="col">Создана</th>
+    <th  scope="col">Закрыта</th>
+  
+  </tr> 
 
+   <? foreach ($array as $key => $value) :?>
+   <? $i = 1;?>
+    <? if(in_array($value['StatusId'], [28,29])  && in_array($value['TypeId'], [5,1011])) : ?>
+        <tr>
+     
+          <td><?=$i;?> </td>
+          <td><a href="https://intraservice.ugmk-telecom.ru/Task/view/<?=$value['Id'];?>"><?=$value['Id'];?></a></td>
+          <td>
+            <? $s='';
+                if($value['StatusId'] == 28){ 
+                    $s ='Закрыта'; 
+                }
+                elseif ($value['StatusId'] == 29) {
+                    $s = 'Выполнена';
+                }
+                else $s = $value['StatusId'];
+                
+            ?>
+            <?=$s;?>
+          </td>
+          <td><?=$value['Name'];?></td>
+          <td><?=$value['Type'];?></td>
+          <? if($value['TypeId'] == 5) :?>
+            <? $jour = '_'; ?> 
+
+            <? foreach ($value['data2'] as $k => $val) :?>
+                <?if( $val[0] == 'id="1380"') :?>
+                  <? if($val[1]  !=='') :?>
+                      <? $jour = $val[1]; ?>
+                  <? endif;?>
+      
+                <? endif; ?>
+            <?  endforeach;?>
+             <td class="journal"><?= $jour;?></td>
+             <td class="akt">_</td>
+            
+
+          <? else : ?>
+            <? $jourX = '_'; ?> 
+            <? $akt = '_'; ?>
+            <? foreach ($value['data2'] as $k => $val) :?>
+                <?if( $val[0] == 'id="1370"') :?>
+                  <? if($val[1]  !=='') :?>
+                     <? $jourX = $val[1]; ?>
+                  <? endif;?>    
+                <? endif; ?>
+                <?if( $val[0] == 'id="1381"') :?>
+                  <? if($val[1] !== '') :?>
+                   <? $akt =  $val[1]; ?></td>
+                  <? endif;?>
+                <? endif; ?>
+            <?  endforeach;?>
+            <td class="journal"><?= $jourX;?></td>
+             <td class="akt"><?= $akt;?></td>
+
+          <? endif; ?> 
+
+          <td><?=$value['Created'];?></td> 
+          <td><?=$value['Closed'];?></td> 
+          
+         
+
+
+        </tr>
+    <? endif; ?>
    <? endforeach; ?>
 <? endif;?>
 
