@@ -47,6 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
  <?// echo "<pre>"; print_r($regs); echo "</pre>"; ?>
 
 <? if(isset($regs) && !empty($regs)) :?>
+<?
+  $itog_item =0;
+  $itog_hours=0;
+?>
 
   <table class="table" >
      <tr>
@@ -59,11 +63,20 @@ $this->params['breadcrumbs'][] = $this->title;
       <tr>
         <td><?= $key;?></td>
         <td><?=$value['COUNT']; ?></td>
+        <? $itog_item += $value['COUNT'];?>
         <td><?= $value['SUMM']; ?></td>
+        <? $itog_hours += $value['SUMM'];?>
+      
         
       </tr>
 
+
   <? endforeach;?>
+  <tr>
+    <th></th>
+    <th scope="col">Общее кол-во заявок - <?= $itog_item; ?></th>
+    <th scope="col">Общее кол-во асов - <?= $itog_hours; ?></th>
+  </tr>
   </table>
 <? endif; ?>
 
